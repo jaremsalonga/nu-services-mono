@@ -6,7 +6,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 const app = express();
 
-// const path = require('path');
+const path = require('path');
 
 // var options = {
 //     index: 'index.html'
