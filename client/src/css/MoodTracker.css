@@ -1,0 +1,99 @@
+.moodtracker{
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    width: 100vw;
+    background-color: #dddddd;
+}
+.moodtracker-container{
+    background-color: white;
+    height: 80vh;
+    width: 82%;
+    margin-left: 15vh;
+    margin-top: 5vh;
+    border-radius: 15px;
+}
+
+.moodtracker-header{
+    background-color: #000336;
+    height: 7vh;
+    border-radius: 10px;
+}
+
+.moodtracker-header h1{
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+}
+
+.moodtracker-title{
+    color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    margin-top: 4vh;
+    font-size: 25px;
+}
+
+.moodtracker-content #moodtracker-slider{
+    margin-left: 25vh;
+    margin-top: 1vh;
+    width: 72%;
+}
+
+.moodtracker-icon-row{
+    display: flex;
+    font-size: 40px;
+    margin-left: 25vh;
+    margin-top: 7vh;
+}
+
+.moodtracker-icon-row #tired,
+.moodtracker-icon-row #scared,
+.moodtracker-icon-row #sad,
+.moodtracker-icon-row #happy{
+    margin-left: 20vh;
+}
+
+.moodtracker-feeling{
+    align-content: center;
+    text-align: center;
+}
+
+.moodtracker-feeling #moodtracker-concern{
+    align-content: center;
+    text-align: center;
+    height: 10vh;
+    width: 50%;
+    border-radius: 5px;
+    border: 2px solid #000336;
+}
+
+.moodtrackerbtn button{
+    background-color: #000336;
+    width: 10%;
+    height: 35px;
+    border: #000336;
+    color: white;
+    border-radius: 5px;
+}
+
+.moodtrackerbtn{
+    margin-top: 5vh;
+    text-align: center;
+}
+
+h1#mymood-label{
+    margin-top: 5vh;
+    color: black;
+}
+
+.moodtracker-icon-row span{
+    font-size: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-transform: uppercase;
+}
+
+span#angry-label{
+    margin-top: -10vh;
+}

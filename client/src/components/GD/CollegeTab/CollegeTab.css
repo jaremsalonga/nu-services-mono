@@ -1,0 +1,40 @@
+.colleges{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+}
+
+.college-column1, .college-column2{
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.collegeItem{
+    /* flex: 1; */
+    margin: 19px 20px;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 11px -1px #000000; 
+    box-shadow: 0px 0px 11px -1px #000000;
+    width: 100%;
+}
+
+.collegeTitle{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.collegeContainer{
+    margin: 0px 0px;
+    display: flex;
+    align-items: center;
+}
+
+.collegeTotal{
+    font-size: 18px;
+    color: gray;
+}

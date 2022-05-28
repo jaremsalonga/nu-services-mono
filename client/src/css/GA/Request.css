@@ -1,0 +1,23 @@
+.pending-request-wrapper{
+    background-color: white;
+    display: flex;
+    height: auto;
+}
+
+.pending-body{
+    height: auto;
+    width: 100%;
+    padding: 30px;
+}
+
+.pending-name{
+    width: 100%;
+}
+
+.pending-name h1{
+    font-size: 35px;
+    text-transform: uppercase;
+    color: black;
+    margin-top: 5vh;
+
+}

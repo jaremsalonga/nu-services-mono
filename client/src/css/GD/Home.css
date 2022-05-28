@@ -1,0 +1,24 @@
+.homeWrapper{
+    background-color: white; 
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+.home-content{
+    width: 100%;
+    margin-top: 7vh;
+}
+
+.featured-tab{
+    margin-top: 50px;
+}
+
+.chart-section{
+    padding: 5px;
+    width: 100%;
+}
+
+.second-dashboard-section{
+    display: flex;
+    margin: 20px;
+}

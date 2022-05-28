@@ -1,0 +1,4 @@
+{
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/b71dbb18-e73a-4253-99c9-87f2ad548130/resourceGroups/nu-guidance-service-system/providers/Microsoft.Web/sites/NU-Guidance-System"
+}

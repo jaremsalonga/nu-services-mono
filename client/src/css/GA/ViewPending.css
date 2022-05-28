@@ -1,0 +1,106 @@
+.pending-wrapper{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #dddddd;
+}
+
+.pending-container{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #dddddd;
+    flex-direction: column;
+    width: 100%;
+}
+
+.pending-header{
+    margin-top: 5vh;
+    width: 100%;
+    text-align: left;
+}
+
+.pending-back-btn{
+    margin-left: 40vh;
+}
+
+svg#back-pendingicon{
+    cursor: pointer;
+    color: #000336;
+}
+
+
+.pending-contents{
+    margin-top: 3vh;
+    background-color: #D4AF37;
+    height: auto;
+    width: 80%;
+    margin-left: 30vh;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.student-pending-name{
+    margin-top: -23vh;
+    margin-left: 30vh;
+}
+
+.student-pending-name h1{
+    text-transform: uppercase;
+    color: black;
+    letter-spacing: 3px;
+}
+
+.student-answ{
+    margin-left: 30vh;
+    margin-top: 3vh;
+}
+
+.student-answ p{
+    font-size: 25px;
+    font-weight: 500;
+    color: black;
+}
+
+.schedule-datetime{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.set-date{
+    font-size: 18px;
+    color: black;
+    width: 20%;
+}
+
+.set-date input[type="text"]{
+    height: 5vh;
+    width: 130%;
+}
+
+.set-time{
+    font-size: 18px;
+    color: black;
+    width: 20%;
+    margin-left: 10vh;
+}
+
+.react-time-picker__wrapper{
+    height: 5vh;
+    width: 33vh;
+   
+}
+
+#view-acceptbtn{
+    margin-left: 40vh;
+    height: 5vh;
+    width: 10%;
+    background-color: #000336;
+    cursor: pointer;
+    color: white;
+    border: none;
+}

@@ -1,0 +1,42 @@
+.topbarheader{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #30408D;
+    height: 50px;
+    box-shadow: gray;
+}
+
+.topbar_navigation{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.topbar_item a{
+    color: white;
+    text-decoration: none;
+}
+
+.topbar_item a:hover,
+.topbar_item a:active{
+    cursor: pointer;
+    color: #D4AF37;
+}
+
+.topbar_item ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.topbar_item li{
+    padding: 0 0.5rem;
+    size: 2em;
+}
+
+.space{
+    flex: 1;
+}

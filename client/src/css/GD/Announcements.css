@@ -1,0 +1,23 @@
+.announcementwrapper{
+    background-color: white; 
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.announcementContent{
+    width: 100%;
+    margin-top: 7vh;
+    padding: 15px;
+}
+
+.announcementName{
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.announcement-section{
+    padding: 10px;
+    display: flex;
+}

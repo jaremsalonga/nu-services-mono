@@ -1,0 +1,189 @@
+.graduating-form-page{
+    display: flex;
+    height: auto;
+}
+
+.graduating-form-wrapper{
+    display: flex;
+    height: auto;
+    width: 100%;
+    margin-top: 10vh;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.graduating-form-contents{
+    display: block;
+    height: auto;
+    width: 100%;
+    align-items: center;
+    border-radius: 10px;
+    color: black;
+    width: 100%;
+    margin-left: 5vh; 
+}
+
+.graduating-forms-header{
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.graduating-forms-header h2{
+    font-weight: bolder;
+    font-size: 25px;
+    color: black;
+    bottom: -10px;
+    margin-right: 140vh;
+}
+
+.graduating-divs{
+    font-size: 17px;
+    margin-left: -20vh;
+    margin-top: 3vh;
+}
+
+h3.values-table-label {
+    margin-top: 5vh;
+    font-size: 17px;
+    margin-left: 10vh;
+    color: #000336;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.grad-label{
+    text-align: left;
+    margin-left: 23vh;
+    font-size: 16px;
+}
+
+
+.graduating-divs input[type="text"]{
+    height: 40px;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 10px;
+    margin-top: 2vh;
+    margin-left: -15vh;
+}
+
+.graduating-divs select{
+    height: 40px;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    margin-top: 2vh;
+    padding: 10px;
+    margin-left: -15vh;
+}
+
+input#plan_after_grad{
+    height: 70px;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    margin-top: 2vh;
+    padding: 10px;
+    margin-left: -15vh;
+}
+
+
+.text-danger{
+    color: red;
+    margin-left: 40vw;
+    font-weight: bold;
+}
+
+span.text-danger-icon {
+    font-size: 30px;
+    margin-left: 5px;
+}
+
+.grad-title{
+    text-align: left;
+}
+
+.grad-title h1{
+    margin-top: 5vh;
+    margin-left: 23vh;
+    font-size: 35px;
+    text-transform: uppercase;
+}
+
+.graduating-submit-btns{
+    width: 50%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40vw;
+    margin-top: 2vh;
+    height: 60px;
+}
+
+.graduating-back{
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+}
+
+button#graduating-cancelBtn{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    font-size: 16px;
+    color: #aaa;
+    font-weight: bold;
+}
+
+button#graduating-cancelBtn:hover{
+    cursor: pointer;
+    border: 2px solid red;
+    color: red;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.graduating-submit{
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 5vh;
+}
+
+button#graduating-submitBtn{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #30408D;
+    font-size: 16px;
+    color: #30408D;
+    font-weight: bold;
+}
+
+button#graduating-submitBtn:hover{
+    cursor: pointer;
+    border: 2px solid #30408D;
+    background-color: #30408D;
+    color: white;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+
+.grad-error{
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}

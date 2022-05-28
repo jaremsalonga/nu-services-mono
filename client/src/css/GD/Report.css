@@ -1,0 +1,14 @@
+.report-wrapper{
+    background-color: white; 
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.report-content{
+    width: 100%;
+    margin-top: 7vh;
+}
+.college-tab{
+    margin-top: 50px;
+}

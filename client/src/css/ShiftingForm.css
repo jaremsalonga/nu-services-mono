@@ -1,0 +1,147 @@
+.shifting-form-page{
+    display: flex;
+    height: auto;
+}
+
+.shifting-form-wrapper{
+    display: flex;
+    height: auto;
+    width: 100%;
+    margin-top: 2vh;
+    border-radius: 10px;
+}
+
+.shifting-form-contents{
+    display: block;
+    height: 180vh;
+    width: 100%;
+    align-items: center;
+    border-radius: 10px;
+    color: black;
+    width: 85%;
+    margin-left: 5vh; 
+}
+
+.shifting-forms-header{
+    margin-top: 4vh;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.shifting-forms-header h2{
+    font-weight: bolder;
+    font-size: 25px;
+    color: black;
+    bottom: -10px;
+    margin-right: 115vh;
+}
+
+.shifting-divs{
+    font-size: 17px;
+    margin-left: -20vh;
+    margin-top: 3vh;
+}
+
+.shift-label{
+    text-align: left;
+    margin-left: 23vh;
+    font-size: 16px;
+}
+
+.shifting-divs input[type="text"]{
+    height: 40px;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 10px;
+    margin-top: 2vh;
+    margin-left: -8vh;
+}
+
+.shifting-divs select{
+    height: 40px;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    margin-top: 2vh;
+    padding: 10px;
+    margin-left: -8vh;
+}
+
+.shifting-submit-btns{
+    width: 50%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40vw;
+    margin-top: 3vh;
+}
+
+.shifting-back{
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+}
+
+button#shifting-cancelBtn{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    font-size: 16px;
+    color: #aaa;
+    font-weight: bold;
+}
+
+button#shifting-cancelBtn:hover{
+    cursor: pointer;
+    border: 2px solid red;
+    color: red;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.shifting-submit{
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 5vh;
+}
+
+button#shifting-submitBtn{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #30408D;
+    font-size: 16px;
+    color: #30408D;
+    font-weight: bold;
+    margin-left: 2vh;
+    
+}
+
+button#shifting-submitBtn:hover{
+    cursor: pointer;
+    border: 2px solid #30408D;
+    background-color: #30408D;
+    color: white;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.shifting-error{
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}

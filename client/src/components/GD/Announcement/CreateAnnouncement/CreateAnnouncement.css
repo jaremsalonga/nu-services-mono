@@ -1,0 +1,41 @@
+.announcement-create {
+    -webkit-box-shadow: 0px 0px 11px -1px #000000;
+    box-shadow: 0px 0px 11px -1px #000000;
+    padding: 15px;
+    width: 100%;
+    height: auto;
+}
+
+
+.announcement-create-holder h1 {
+    text-align: center;
+}
+
+.announcement-create-form {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.announcement-create-label{
+    font-size: 20px;
+}
+
+.announcement-create-err{
+    color: red;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+input#announcement-create-title{
+    width: 70%;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+textarea#announcement-create-desc{
+    width: 70%;
+    border-radius: 5px;
+    height: 30vh;
+    padding: 15px;
+}

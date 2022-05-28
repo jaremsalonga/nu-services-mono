@@ -1,0 +1,82 @@
+.consent-wrapper{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #dddddd;
+    flex-direction: column;
+}
+
+.consent-notice{
+    width: 80%;
+    background-color: white;
+    height: 80vh;
+    margin-left: 15vh;
+    position: fixed;
+    border-radius: 10px;
+    margin-top: 5vh;
+    
+}
+
+.consent-header{
+    background-color: #000336;
+    border-radius: 10px;
+    height: 13vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.consent-header h1{
+    color: white;
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.consent-holder{
+    background-color: white;
+    height: auto;
+    padding: 50px;
+    text-align: left;
+    border-radius: 20px;
+}
+
+.consent-content p{
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+}
+
+.consent-agree input[type='checkbox'] {
+    transform: scale(2);
+    margin-left: 2vh;
+}
+
+.consent-agree{
+    margin-top: 3vh;
+}
+
+.consent-agree span{
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+}
+
+.consent-next{
+    width: 100%;
+    height: 5vh;
+}
+
+.consent-next button{
+    cursor: pointer;
+    margin-left: 60vw;
+    width: 13%;
+    height: 100%;
+    border-radius: 5px;
+
+    
+}

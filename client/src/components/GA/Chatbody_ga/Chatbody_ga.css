@@ -1,0 +1,8 @@
+.ga_chatbody{
+    flex-grow: 1;
+    background-color: #f8f8ff;
+    padding: 0 10px;
+    display: flex;
+    height: 100vh;
+    margin-left: -2vh;   
+}

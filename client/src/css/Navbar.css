@@ -1,0 +1,222 @@
+.nav-menu {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #ebe7fb;
+    width: 15%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset -10px 0 5px -8px #888;
+    box-sizing: border-box;
+    transition: width .3s ease-in;
+}
+
+.nav-menu.active {
+    transition: width .3s ease-in;
+}
+
+.nav-menu.inactive{
+  width: 60px;
+}
+
+.nav-menu .top-section{
+    position: relative;
+    background-color: #ebe7fb;
+    box-shadow: inset -10px 0 5px -8px #888;
+    padding: 20px 13px;
+    height: 70px;
+}
+
+.nav-menu .top-section .logo{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.nav-menu .top-section .logo img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.nav-menu.inactive .top-section .toggle-menu-btn{
+    right: -30px;
+}
+
+.nav-menu .top-section .toggle-menu-btn{
+    color: #666;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.nav-menu-divider{
+    width: 80%;
+    height: 1px;
+    border-radius: 1px;
+    background-color: gainsboro;
+    margin-left: 12px;
+}
+
+.nav-menu.inactive .nav-menu-divider{
+    width: 35px;
+}
+
+.nav-menu-items{
+    text-decoration: none;
+    padding: 10px 0;
+    margin: 10px;
+}
+
+.nav-menu .main-menu .menu-item{
+    text-decoration: none;
+    font-size: 27px;
+    font-weight: 400;
+    display: block;
+    cursor: pointer;
+}
+
+
+ul{
+    list-style-type: none;
+}
+
+.nav-menu .main-menu{
+    margin: 5px 0;
+}
+
+.nav-menu .main-menu .nav-menu-items .sidenavrow #icon{
+    display: inline-block;
+    width: 30px;
+    height: 40px;
+    font-size: 30px;
+    line-height: 40px;
+    text-align: center;
+    color: #000336;
+    padding: 5px;
+}
+
+
+.sidenavrow #title{
+    position: absolute;
+    display: inline-block;
+    line-height: 43px;
+    opacity: 1;
+    font-size: 17px;
+    transition: opacity .3s ease-in;
+    color: #000336;
+    margin-left: 1.5vh;
+}
+
+.sidenavrow:hover{
+    background-color: #F3F0FC;
+    border-radius: 10px;
+}
+
+.nav-menu.inactive .main-menu .nav-menu-items .sidenavrow #title {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.nav-menu.inactive .main-menu .nav-menu-items .sub-menus{
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.nav-menu-items{
+    height: 55vh;
+}
+
+.second-menu{
+    height: 40px;
+    margin-top: 5vh;
+}
+
+.second-menu li{
+    height: auto;
+    cursor: pointer;
+    margin-left: 1.5vh;
+    display: inline-block;
+}
+
+.second-menu span{
+    position: absolute;
+    display: inline-block;
+    line-height: 43px;
+    opacity: 1;
+    font-size: 17px;
+    transition: opacity .3s ease-in;
+    color: #000336;
+    margin-left: 1.5vh;
+}
+
+.nav-menu.inactive .second-menu span{
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    transition: .3 ease-in;
+}
+
+.nav-footer{
+    margin-top: 11vh;
+    height: auto;
+    background-color: #000336;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.nav-footer .user-avatar{
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.nav-footer .user-avatar img{
+    max-width: 100%;
+}
+
+.nav-footer .user-info{
+    display: inline-block;
+    margin:  5px 6px;
+    color: white;
+    position: absolute;
+    opacity: 1;
+    transition: opacity .3 ease-in;
+}
+
+.nav.inactive .nav-footer .user-info {
+    opacity: 1;
+    width: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    transition: .3s ease-in;
+}
+
+.nav-footer .user-info h5{
+    font-size: 8px;
+}
+
+.user-info p{
+    font-size: 6px;
+}
+
+.nav-menu.inactive .nav-footer h5,
+.nav-menu.inactive .nav-footer p{
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    transition: .3 ease-in;
+}

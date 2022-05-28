@@ -1,0 +1,136 @@
+.register-wrapper{
+    height: auto;
+    background-color: #fff;
+}
+
+.register-header{
+    background-color: #30408D;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.register-header h1{
+    margin-left: 4vh;
+    color: gold;
+}
+
+.register-container{
+    height: auto;
+}
+
+.register-container-title{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.register-container-title h1{
+    margin-left: 7vh;
+    display: block;
+    width: 95%;
+    padding: 0;
+    margin-bottom: -40px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.registration-form{
+    width: 100%;
+    display: flex;
+    height: auto;
+    padding: 0 50px;
+}
+
+.registration-form-contents{
+    width: 100%;
+    padding: 5px;
+    height: auto;
+}
+
+.register-label{
+    margin-top: 4vh;
+}
+
+.register-label span{
+    color: red;
+}
+
+.registration-field input[type="text"]{
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.registration-field input[type="file"]{
+    border: 2px red;
+}
+
+.registration-field select{
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.registration-field input[type="password"]{
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.registration-button{
+    margin-top: 5vh;
+    /* background-color: brown; */
+    height: 70px;
+    display: flex;
+    /* justify-content: flex-end; */
+    padding: 10px;
+}
+
+.registration-button #reg-cancel-btn{
+    background-color: red;
+    border: none;
+    height: 40px;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.registration-button #signup-btn{
+    background-color: #30408D;
+    border-radius: 5px;
+    border: #30408D;
+    height: 40px;
+    width: auto;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.register-error{
+    color: red;
+    font-weight: 300px;
+    font-size: 12px
+}
+
+.reg-terms{
+    margin-top: 3vh;
+    margin-left: 5px;
+}
+
+.reg-terms p{
+    font-size: 12px;
+}
+
+.reg-space{
+    height: 30px;
+}

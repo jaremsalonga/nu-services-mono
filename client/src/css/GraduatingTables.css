@@ -1,0 +1,885 @@
+.graduating-values{
+    height: 40vh;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 35vh;
+}
+
+.graduating-values-container{
+    background-color: white;
+    border-radius: 5px;
+    width: 60%;
+    height: auto;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.graduating-header{
+    background: #000336;
+    border-radius: 5px;
+
+}
+
+.graduating-header ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: white;
+    margin-left: 16vh;
+    width: 10%;
+    align-items: center;
+}
+
+.graduating-header li{
+    padding: 12px 1.5rem;
+    size: 2em;
+    font-size: 18px;
+}
+
+.qq1{
+    display: flex;
+    padding: 12px 1.5rem;
+    font-size: 20px;
+    background-color: #f4f4f4;
+}
+
+label.qq-integ{
+    margin-top: 3vh;
+}
+
+
+.radiobtn-values{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15vh;
+}
+
+.radiobtn-values ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+
+.qq2{
+    display: flex;
+    padding: 12px 1.5rem;
+    font-size: 20px;
+    background-color: #eaeaea;
+}
+
+/* compassion */
+.radiobtn-values-comp {
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10.5vh;
+}
+
+.radiobtn-values-comp ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-comp li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-comp input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*innovation*/
+.radiobtn-values-inovv {
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12.3vh;
+}
+
+.radiobtn-values-inovv ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-inovv li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-inovv input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/* resilence*/
+.radiobtn-values-res {
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 13vh;
+}
+
+.radiobtn-values-res ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-res li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-res input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*patriotism*/
+.radiobtn-values-pat {
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 13vh;
+}
+
+.radiobtn-values-pat ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-pat li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-pat input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*skills*/
+.graduating-skill-name{
+    height: 40px;
+    margin-top: 19vw;
+}
+
+.graduating-skill-name h3{
+
+    font-size: 27px;
+    color: #000336;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.graduating-skills-container{
+    background-color: white;
+    border-radius: 5px;
+    width: 60%;
+    height: 100%;
+    margin-top: 2vh;
+    margin-left: 33vh;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+label.qq-integ, label.qq-area ,
+label.qq-trends, label.qq-global{
+    font-size: 18px;
+}
+
+/*theorical*/
+.radiobtn-theorical{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10vh;
+}
+
+.radiobtn-theorical ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-theorical li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-theorical input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*special*/
+.radiobtn-values-special {
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8vh;
+}
+
+.radiobtn-values-special ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-special li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-special input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*issues*/
+.radiobtn-values-issues {
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 13vh;
+}
+
+.radiobtn-values-issues ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-issues li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-issues input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*Global*/
+.radiobtn-global{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 7vh;
+}
+
+.radiobtn-global ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-global li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-global input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*other areas*/
+.graduating-other-name{
+    height: 40px;
+    margin-top: 5vw;
+}
+
+.graduating-other-name h3{
+    font-size: 27px;
+    color: #000336;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+label.qq-course, label.qq-tuition,
+label.qq-facility, label.qq-faculty,
+label.qq-support{
+    font-size: 18px;
+} 
+
+/*course*/
+.radiobtn-values-course{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 7vh;
+}
+
+.radiobtn-values-course ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-course li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-course input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*tuition*/
+.radiobtn-values-tuition{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 7vh;
+}
+
+.radiobtn-values-tuition ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-tuition li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-tuition input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*facility*/
+.radiobtn-values-facility{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 7vh;
+}
+
+.radiobtn-values-facility ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-facility li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-facility input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*faculty*/
+.radiobtn-values-faculty{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 6vh;
+}
+
+.radiobtn-values-faculty ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-faculty li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-faculty input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*support*/
+.radiobtn-values-support{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 7vh;
+}
+
+.radiobtn-values-support ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-support li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-support input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*services*/
+.graduating-services-name{
+    height: 40px;
+    margin-top: 5vw;
+}
+
+.graduating-services-name h3{
+    font-size: 27px;
+    color: #000336;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.qq-accounting, .qq-admission, .qq-exchange, 
+.qq-canteen, .qq-dean, .qq-discipline, 
+.qq-guidance, .qq-itro, .qq-laboratory, 
+.qq-library, .qq-student, .qq-registrar, 
+.qq-security, .qq-maintenance{
+    font-size: 18px;
+    margin-top: 3vh;
+}
+
+/*accounting*/
+.radiobtn-accounting{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 11vh;
+}
+
+.radiobtn-accounting ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-accounting li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-accounting input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*admission*/
+.radiobtn-values-admission{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12vh;
+}
+
+.radiobtn-values-admission ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-admission li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-admission input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*exchange*/
+.radiobtn-values-exchange{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3vh;
+}
+
+.radiobtn-values-exchange ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-values-exchange li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-values-exchange input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*canteen*/
+.radiobtn-canteen{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 14vh;
+}
+
+.radiobtn-canteen ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-canteen li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-canteen input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*dean*/
+.radiobtn-dean{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 9vh;
+}
+
+.radiobtn-dean ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-dean li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-dean input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*discipline*/
+.radiobtn-discipline{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 6vh;
+}
+
+.radiobtn-discipline ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-discipline li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-discipline input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*guidance*/
+.radiobtn-guidance{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 13vh;
+}
+
+.radiobtn-guidance ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-guidance li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-guidance input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*itro*/
+.radiobtn-itro{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 18vh;
+}
+
+.radiobtn-itro ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-itro li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-itro input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*laboratory*/
+.radiobtn-laboratory{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12vh;
+}
+
+.radiobtn-laboratory ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-laboratory li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-laboratory input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*library*/
+.radiobtn-library{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 16vh;
+}
+
+.radiobtn-library ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-library li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-library input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*student*/
+.radiobtn-student{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8vh;
+}
+
+.radiobtn-student ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-student li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-student input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*registrar*/
+.radiobtn-registrar{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 14vh;
+}
+
+.radiobtn-registrar ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-registrar li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-registrar input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*security*/
+.radiobtn-security{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15vh;
+}
+
+.radiobtn-security ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-security li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-security input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}
+
+/*maintenance*/
+.radiobtn-maintenance{
+    display: flex;
+    margin-left: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: -2vh;
+}
+
+.radiobtn-maintenance ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.radiobtn-maintenance li{
+    padding: 12px 2.5rem;
+    size: 2em;
+}
+
+.radiobtn-maintenance input[type="radio"]{
+    width: 20px;
+    height: 3rem;
+}

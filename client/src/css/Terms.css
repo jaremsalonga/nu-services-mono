@@ -1,0 +1,90 @@
+.terms-wrapper{
+    height: auto;
+    background-color: #ddd;
+}
+
+.terms-header{
+    background-color: #30408D;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center
+}
+
+.terms-header h1{
+    margin-left: 4vh;
+    color: gold;
+}
+
+.term-container{
+    margin-top: 3vh;
+    height: 80vh;
+    background-color: white;
+    width: 75%;
+    margin-left: 20vh;
+    border-radius: 10px;
+}
+
+.term-container-title{
+    background-color: #000336;
+    height: 80px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.term-container-title h1{
+    color: white;
+}
+
+.term-content{
+    padding: 20px;
+}
+
+.term-reminder h2{
+    font-size: 15px !important;
+    font-family: verdana !important;
+    text-align: center;
+}
+
+.term-about{
+    margin-top: 2vh;
+    font-size: 15px;
+}
+
+.term-use{
+    margin-top: 3vh;
+    font-size: 15px !important;
+    font-family: verdana !important;
+}
+
+.terms-header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+  
+.terms-header li {
+    float: left;
+}
+
+li#login-tab{
+    margin-left: 50vh;
+}
+  
+.terms-headerli a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+  
+.terms-header li a:hover {
+    background-color: #ccc;
+}
+
+#term-space{
+    height: 6.5vh;
+}

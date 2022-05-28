@@ -1,0 +1,169 @@
+.counselingconsent-wrapper{
+    display: flex;
+    height: auto;
+    background-color: white;
+}
+
+.counselingconsent-page{
+    display: block;
+    height: auto;
+    width: 100%;
+    border-radius: 10px;
+    color: black;
+    width: 85%;
+}
+
+.counselingconsent-header{
+    margin-top: 10vh;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.counselingconsent-header h1{
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    font-size: 25px;
+    margin-left: 5vh;
+    margin-top: 10vh;
+    color: black;
+    bottom: -10px;
+}
+
+.counselingconsent-holder{
+    width: 85%;
+    height: auto;
+    margin-top: 2vh;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.counselingconsent-content {
+    text-align: left;
+    background-color: #5bc0de;
+    padding: 10px;
+}
+
+.counselingconsent-content p{
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 2vh;
+}
+
+.counselingconsent-content span{
+    font-size: 13px;
+    color: white;
+}
+
+.formconsent{
+    text-align: start;
+    padding: 15px;
+}
+
+.consent-label{
+    text-align: left;
+    font-size: 20px;
+}
+
+h2.consent-label {
+    margin-top: 5vh;
+}
+
+.consent-lastname input[type="text"],
+.consent-firstname input[type="text"],
+.consent-middlename input[type="text"], 
+.consent-studentno input[type="text"],
+.consent-yrprogram input[type="text"],
+.consent-consultfamily input[type="text"],
+.consent-contactnofamily input[type="text"],
+.consent-consulted input[type="text"],
+.consent-frontside input[type="text"],
+.consent-backside input[type="text"],
+.consent-collegename select{
+    height: 40px;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 10px;
+}
+
+.consent-backside input[type="file"],
+.consent-frontside input[type="file"]{
+    border: 1px solid #aaa;
+    padding: 15px;
+    width: 70%;
+    border-radius: 5px;
+    height: 50px;
+}
+
+.counseling-consent-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 70%;
+}
+
+.counseling-cancelbtn{
+    width: 10%;
+    border-radius: 5px;
+}
+
+.counseling-cancelbtn button{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    font-size: 16px;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.counseling-cancelbtn button:hover{
+    cursor: pointer;
+    border: 2px solid red;
+    color: red;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.counseling-submitbtn{
+    width: 10%;
+    border-radius: 5px;
+    margin-left: 5vh;
+}
+
+.counseling-submitbtn button{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #30408D;
+    font-size: 16px;
+    color: #30408D;
+    font-weight: bold;
+    margin-left: 2vh;
+}
+
+.counseling-submitbtn button:hover{
+    cursor: pointer;
+    border: 2px solid #30408D;
+    background-color: #30408D;
+    color: white;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.consent-error{
+    color: red;
+}

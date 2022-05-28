@@ -1,0 +1,195 @@
+.totallist-wrapper{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.totallist-contents{
+    padding: 3px;
+    width: auto;
+}
+
+.totallist-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.totallist-cards ul{
+    min-width: 696px;
+	list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+#totallist-items li{
+    display: inline;
+}
+
+
+.total-pending{
+    cursor: pointer;
+    width: 27vh;
+    border-radius: 10px;
+    height: 13vh;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    background: linear-gradient(to top right, #3399ff 0%, #33ccff 100%);
+    color: white;
+
+}
+
+
+.total-pending span{
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.total-pending h3{
+    font-size: 30px
+}
+
+span#pending-time{
+    font-size: 12px;
+    text-transform: lowercase;
+    margin-top: -4vh;
+}
+
+.total-enrollees{
+    margin-left: 5vh;
+    cursor: pointer;
+    width: 27vh;
+    border-radius: 10px;
+    height: 13vh;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    background: linear-gradient(to top right, #00cc66 0%, #00ffcc 100%);
+    color: white;
+}
+
+.total-enrollees span{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.total-enrollees h3{
+    font-size: 30px;
+}
+
+span#total-sii{
+    font-size: 12px;
+    text-transform: lowercase;
+}
+
+.total-grad{
+    margin-left: 5vh;
+    cursor: pointer;
+    width: 33vh;
+    border-radius: 10px;
+    height: 13vh;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    padding: 5px;
+    color: white;
+    background: linear-gradient(to top right, #ff9900 0%, #ffcc66 100%);
+}
+
+.total-grad span{
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.total-grad h3{
+    font-size: 30px;
+}
+
+span#total-gradform{
+    font-size: 12px;
+    text-transform: lowercase;
+    margin-top: -4vh;
+}
+
+
+.total-counselled{
+    margin-left: 5vh;
+    cursor: pointer;
+    width: 27vh;
+    border-radius: 10px;
+    height: 13vh;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    padding: 5px;
+    color: white;
+    background: linear-gradient(to top right, #ff0066 0%, #ff6666 100%);
+}
+
+
+.total-counselled span{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.total-counselled h3{
+    font-size: 30px;
+}
+
+span#time-counsel{
+    font-size: 12px;
+    text-transform: lowercase;
+    margin-top: -4vh;
+}
+
+
+.total-firsttimers{
+    margin-left: 5vh;
+    cursor: pointer;
+    width: 25vh;
+    border-radius: 10px;
+    height: 13vh;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    padding: 5px;
+    color: white;
+    background: linear-gradient(to top right, #3366ff 0%, #6699ff 100%);
+}
+
+.total-firsttimers span{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.total-firsttimers h3{
+    font-size: 30px;
+}
+
+span#total-firsttimers{
+    font-size: 12px;
+    text-transform: lowercase;
+    margin-top: -4vh;
+}
+

@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+}
+
+body{
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+li{
+  text-decoration: none;
+}
+
+ul{
+  text-decoration: none;
+}
