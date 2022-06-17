@@ -27,7 +27,7 @@ const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://nu-services-monolith.herokuapp.com'];
+const whitelist = ['http://localhost:3000/', 'http://localhost:8080/', 'https://nu-services-monolith.herokuapp.com'];
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)

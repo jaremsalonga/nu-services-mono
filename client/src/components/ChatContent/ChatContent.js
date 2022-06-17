@@ -5,8 +5,30 @@ import Avatar from "../../components/Chatlist/Avatar"
 import ChatItem from "./ChatItem";
 import { FiSend } from 'react-icons/fi'
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import "firebase/database"
+import { getFirestore, collection, addDoc, Timestamp, query, orderBy, onSnapshot} from "firebase/firestore"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyACsHOHGDXPVmIMuW0u5FQpn2dhbEJMkio",
+  authDomain: "nu-service-chat.firebaseapp.com",
+  projectId: "nu-service-chat",
+  storageBucket: "nu-service-chat.appspot.com",
+  messagingSenderId: "470881179277",
+  appId: "1:470881179277:web:e5c329b419bc153a1134c4",
+  measurementId: "G-N08ZKW85XL"
+};
+
+const app = initializeApp(firebaseConfig)
+const db = getFirestore(app)
+
+console.log(db);
+
 export default class ChatContent extends Component {
+    
     messagesEndRef = createRef(null);
+
     chatItms = [
         {
             key: 1,
@@ -47,10 +69,12 @@ export default class ChatContent extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             chat: this.chatItms,
-            msg: "",
+            msg : ''
         };
+
     }
 
     scrollToBottom = () => {
@@ -58,26 +82,42 @@ export default class ChatContent extends Component {
     };
 
     componentDidMount() {
-        window.addEventListener("keydown", (e) => {
-            if (e.keyCode == 13) {
-                if (this.state.msg != "") {
-                    this.chatItms.push({
-                        key: 1,
-                        type: "",
-                        msg: this.state.msg,
-                        image:
-                            "https://media-exp1.licdn.com/dms/image/C5103AQEKQKwTQTuM-g/profile-displayphoto-shrink_200_200/0/1571801309136?e=1628726400&v=beta&t=1aZdeahPf3Z2W4ODzHrb6hu_9-t1C_eW3_Jr7PESjAU",
-                    });
-                    this.setState({ chat: [...this.chatItms] });
-                    this.scrollToBottom();
-                    this.setState({ msg: "" });
-                }
-            }
+        
+
+        const q = query(collection(db, 'chat'), orderBy('created', 'desc'));
+
+        console.log('mounted', this.state.chat.length);
+
+        onSnapshot(q, (querySnapshot) => {
+
+            this.state.chat = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                data: doc.data()
+            }));
+        })
+
+        onSnapshot(q, (querySnapshot) => {
+            this.setState({
+                chat: [...this.state.chat, querySnapshot.docs.pop().data()],
+            })
         });
-        this.scrollToBottom();
     }
+
     onStateChange = (e) => {
         this.setState({ msg: e.target.value });
+    };
+
+    onClick = (e) => {
+
+        let r = (Math.random() + 1).toString(36).substring(7);
+
+        var chat = {
+            key : r,
+            msg: this.state.msg,
+            created: Timestamp.now()
+        }
+
+        addDoc(collection(db, 'chat'), chat);
     };
 
     render() {
@@ -126,7 +166,7 @@ export default class ChatContent extends Component {
                             onChange={this.onStateChange}
                             value={this.state.msg}
                         />
-                        <button className="btnSendMsg" id="sendMsgBtn">
+                        <button className="btnSendMsg" id="sendMsgBtn" onClick={this.onClick}>
                             <FiSend />
                         </button>
                     </div>
