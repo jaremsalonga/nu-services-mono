@@ -4,10 +4,14 @@ import { FaCheck } from 'react-icons/fa'
 import { useHistory, Link } from 'react-router-dom';
 import '../../css/TransferringForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
+import { UserContext } from '../../contexts/user/userContext'
 
 
 function TransferringForm() {
     const [submitTransferringForm, setTransferringForm] = useState(false)
+
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
 
     const ConfirmationBox = () => {
         if (!submitTransferringForm) {
@@ -78,7 +82,7 @@ function TransferringForm() {
     const [transferlist, setTransferList] = useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/services/interview/get').then((response) => {
+        Axios.get('/services/interview/get').then((response) => {
             setTransferList(response.data);
         },
             {
@@ -87,14 +91,15 @@ function TransferringForm() {
     }, [])
 
     const submitTransferForm = () => {
-        Axios.post("http://localhost:3001/interview/requestinterview/createTransferForm", {
+        Axios.post("/interview/requestinterview/createTransferForm", {
             transfer_reason: transfer_reason,
             transfer_to: transfer_to,
             loc_new_school: loc_new_school,
             new_course: new_course,
             comment_to_nu: comment_to_nu,
             permission_info: permission_info,
-            type_of_comm: type_of_comm
+            type_of_comm: type_of_comm,
+            user_id: id
 
         });
 
@@ -235,6 +240,11 @@ function TransferringForm() {
                             </select>
                         </div>
                         <span className="transfer-error">{type_of_comm_errors}</span>
+
+                        <div className="transferring-divs">
+                            <label><h3 className="transfer-label">*Select Date</h3></label>
+                            <input type="date" />
+                        </div>
 
                         {/* pop up */}
                         <div className="container">

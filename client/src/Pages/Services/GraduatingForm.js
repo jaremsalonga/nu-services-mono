@@ -5,11 +5,12 @@ import { useHistory, Link } from 'react-router-dom';
 import '../../css/GraduatingForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import GraduatingTables from './GraduatingTables';
-
+import { UserContext } from '../../contexts/user/userContext'
 
 function GraduatingForm() {
     const [submitGradForm, setSubmitGradForm] = useState(false)
-
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
     const ConfirmationBox = () => {
         if (!submitGradForm) {
             document.querySelector(".confirm-bg").style.display = "flex"
@@ -43,7 +44,7 @@ function GraduatingForm() {
             setTypeOfCommErrors("*This field cannot be empty!");
         } else if (type_of_comm === "Select type of communication") {
             setTypeOfCommErrors("*This field cannot be empty!");
-        } else{
+        } else {
             setLastAYErrors("");
             setLastTermErrors("")
             setPlanAfterGradErrors("");
@@ -74,7 +75,7 @@ function GraduatingForm() {
     const [gradList, setGradList] = useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/services/interview/get').then((response) => {
+        Axios.get('/services/interview/get').then((response) => {
             setGradList(response.data);
         },
             {
@@ -83,14 +84,14 @@ function GraduatingForm() {
     }, [])
 
     const submitGraduateForm = () => {
-        Axios.post("http://localhost:3001/interview/requestinterview/createGradForm", {
+        Axios.post("/interview/requestinterview/createGradForm", {
             last_ay: last_ay,
             last_term: last_term,
             plan_after_grad: plan_after_grad,
             comment_to_nu: comment_to_nu,
             permission_info: permission_info,
-            type_of_comm: type_of_comm
-
+            type_of_comm: type_of_comm,
+            user_id: id
         });
 
         <Link to="/main" />
@@ -201,6 +202,10 @@ function GraduatingForm() {
                             </select>
                         </div>
                         <span className="grad-error">{type_of_comm_errors}</span>
+                        <div className="graduating-divs">
+                            <label><h3 className="grad-label">*Select Date</h3></label>
+                            <input type="date" />
+                        </div>
 
                         {/* pop up */}
                         <div className="container">

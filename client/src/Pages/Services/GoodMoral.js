@@ -6,9 +6,14 @@ import { FaCheck } from 'react-icons/fa'
 import { useHistory, Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
-
+import { RiArrowGoBackFill } from 'react-icons/ri'
+import { UserContext } from '../../contexts/user/userContext'
 
 function GoodMoral() {
+
+    const [state] = React.useContext(UserContext);
+    const user_id = state.user.users_id;
+    console.log(user_id)
 
     const [sumbitTask, setSubmitTask] = useState(false)
 
@@ -22,14 +27,14 @@ function GoodMoral() {
             document.querySelector(".confirm-bg").style.display = "none"
             document.querySelector(".container").style.display = "none"
             setSubmitTask(false)
-            history.push('/services/goodmoral/request');
+            history.push('/services/goodmoral/');
         }
     }
 
     const isGoodmoralValid = () => {
         if (!purpose_req || purpose_req.trim() === "") {
             setPurposeReqErrors("*This field cannot be empty!");
-        } else if (purpose_req == "Select Reason") {
+        } else if (purpose_req === "Select Reason") {
             setPurposeReqErrors("This field cannot be empty");
         } else if (!number_copy || number_copy.trim() === "") {
             setNumberCopyErrors("*This field cannot be empty!");
@@ -46,6 +51,7 @@ function GoodMoral() {
 
     }
 
+
     let history = useHistory();
     const [purpose_req, setPurposeReq] = useState("");
     const [number_copy, setNumberCopy] = useState("");
@@ -57,25 +63,16 @@ function GoodMoral() {
 
     const [goodmoralList, setGoodmoralList] = useState([]);
 
-
-    useEffect(() => {
-        Axios.get('http://localhost:3001/services/goodmoral/get').then((response) => {
-            setGoodmoralList(response.data);
-        }, 
-        {
-            headers: sessionStorage.getItem("token")
-        })
-    })
-
     const submitGoodmoralRequest = () => {
-        Axios.post("http://localhost:3001/services/goodmoral/create", {
+        Axios.post("/services/goodmoral/create", {
             purpose_req: purpose_req,
             number_copy: number_copy,
             special_instruction: special_instruction,
-
+            user_id: user_id
         });
 
-        <Link to="/services/goodmoral/request" />
+        // <Link to="/services/goodmoral/request" />
+        <Link to="/services/goodmoral/" />
         setGoodmoralList([...goodmoralList, {
             purpose_req: purpose_req,
             number_copy: number_copy,
@@ -90,7 +87,8 @@ function GoodMoral() {
             <Navbar />
             <div className="goodmoral-form-contents">
                 <div className="goodmoral-forms-title">
-                    <h2>Request a Certificate of Good Moral</h2></div>
+                    <h2><Link to="/services/goodmoral"><RiArrowGoBackFill color='#aaa' /></Link>
+                        Request a Certificate of Good Moral</h2></div>
                 <div className="goodmoral-form-contents">
                     <div className="goodmoral-reminder">
                         <p>reminders: </p>
@@ -188,10 +186,11 @@ function GoodMoral() {
                             </div>
                         </div>
                     </form>
-                    <div>&nbsp;</div>
+                    <div className='goodmoral-spacer'></div>
                 </div>
             </div>
         </div>
     )
 }
+
 export default GoodMoral

@@ -1,0 +1,80 @@
+.viewinterview-wrapper {
+    background-color: white;
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.viewinterview-container {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* background-color: rebeccapurple; */
+    width: 100%;
+    height: auto;
+}
+
+.viewinterview-name {
+    margin-top: 13vh;
+    /* display: flex; */
+}
+
+.viewinterview-list-container {
+    margin-top: 7vh;
+    padding: 15px;
+    border-radius: 5px;
+    width: 80%;
+    -webkit-box-shadow: 0px 0px 11px -1px #000000;
+    box-shadow: 0px 0px 11px -1px #000000;
+    margin-left: 15vh;
+    height: auto;
+}
+
+.viewinterview-list-header {
+    /* background-color: rebeccapurple; */
+    display: flex;
+    height: auto;
+    padding: 10px;
+    /* justify-content: center; */
+}
+
+.viewinterview-header-name {
+    width: 80%;
+    display: flex;
+}
+
+h1.viewinterview-user-name {
+    text-transform: uppercase;
+}
+
+.viewinterview-header-btn {
+    width: 20%;
+    height: auto;
+    padding: 5px;
+}
+
+button.viewinterview-download-btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+    display: flex;
+    margin-left: 20vh;
+}
+
+.viewinterview-list-details-holder {
+    height: auto;
+    margin-top: 2vh;
+    margin-left: -10vw;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+h2#viewinterview-label {
+    text-align: left;
+    margin-left: 23vh;
+}
+
+.viewinterview-spacer{
+    height: 180px;
+    /* background-color: rebeccapurple; */
+}

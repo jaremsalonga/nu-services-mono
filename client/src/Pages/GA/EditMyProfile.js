@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios';
-import '../css/EditProfile.css';
 import { Link, useHistory, Redirect } from 'react-router-dom'
-import arri from '../images/arri.jpg'
-import PopUp from '../components/PopUp';
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
-import { UserContext } from '../contexts/user/userContext'
+import Header from '../../components/GA/Header_ga'
+import Navbar from '../../components/GA/Navbar_ga'
+import { UserContext } from '../../contexts/user/userContext';
 import { FaCheck } from 'react-icons/fa'
+import '../../css/GA/EditMyProfile.css'
+import archi from '../../images/archieval_s_salvador.jpg'
 
-function EditProfile() {
+
+function EditMyProfile() {
 
     let history = useHistory();
 
@@ -46,11 +46,11 @@ function EditProfile() {
             document.querySelector(".confirm-bg").style.display = "none"
             document.querySelector(".container").style.display = "none"
             // setSubmitTask(false)
-            history.push('/profile');
+            history.push('/myprofile');
         }
     }
 
-    const isEditProfileValid = () => {
+    const isEditMyProfileValid = () => {
         if (!fullname || fullname.trim() === "") {
             setFullnameErrors("*This field cannot be empty!");
         } else if (!fullname.match("[a-zA-Z]")) {
@@ -73,7 +73,7 @@ function EditProfile() {
             setPasswordErrors("*Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters")
         } else if (!cnpassword || cnpassword.trim() === "") {
             setCnPasswordErrors("*This field cannot be empty!");
-        } else if (!cnpassword == password) {
+        } else if (cnpassword != password) {
             setCnPasswordErrors("*Password not match!");
         } else {
             setFullnameErrors("");
@@ -84,17 +84,7 @@ function EditProfile() {
             setCnPasswordErrors("");
             ConfirmationBox();
         }
-
     }
-
-    // useEffect(() => {
-    //     Axios.get(`/profile/get/${users_id}`).then((response) => {
-    //         setProfileDetails(response.data);
-    //     },
-    //         {
-    //             headers: sessionStorage.getItem("token")
-    //         })
-    // })
 
     const updateProfile = () => {
         Axios.put(`/profile/editprofile/update`, {
@@ -105,29 +95,26 @@ function EditProfile() {
             password: password,
             users_id: users_id
         }).then((response) => {
-            <Redirect to="/profile" />
-            alert("update")
+            <Redirect to="/myprofile" />
         })
     };
-
-
     return (
-        <div className="editprofile-wrapper">
+        <div className="editmyprofile-wrapper">
             <Header />
             <Navbar />
             <div>
-                <div className='edit-profile-container'>
-                    <div className="editprofile-page-name">
-                        <h1>EDIT PROFILE</h1>
+                <div className='edit-myprofile-container'>
+                    <div className="editmyprofile-page-name">
+                        <h1>EDIT editmyprofile</h1>
                     </div>
-                    <div className='edit-profile-holder'>
+                    <div className='edit-myprofile-holder'>
                         <form>
-                            <div className="editprofile-img">
-                                <img src={arri} />
+                            <div className="editmyprofile-img">
+                                <img src={archi} />
                             </div>
-                            <div className='editprofile-div-holder'>
-                                <div className='edit-profile-divs'>
-                                    <label><h3 id='edit-profile-label'>Fullname</h3></label>
+                            <div className='editmyprofile-div-holder'>
+                                <div className='edit-myprofile-divs'>
+                                    <label><h3 id='edit-myprofile-label'>Fullname</h3></label>
                                     <input
                                         type="text"
                                         placeholder="Full Name"
@@ -139,9 +126,9 @@ function EditProfile() {
                                         }}
                                     />
                                 </div>
-                                <span className="editprofile-error">{fullnameerrors}</span>
-                                <div className='edit-profile-divs'>
-                                    <label><h3 id='edit-profile-label'>Gender</h3></label>
+                                <span className="editmyprofile-error">{fullnameerrors}</span>
+                                <div className='edit-myprofile-divs'>
+                                    <label><h3 id='edit-myprofile-label'>Gender</h3></label>
                                     <select
                                         name="gender"
                                         value={gender}
@@ -154,9 +141,9 @@ function EditProfile() {
                                         <option>Female</option>
                                     </select>
                                 </div>
-                                <span className="editprofile-error">{gendererrors}</span>
-                                <div className='edit-profile-divs'>
-                                    <label><h3 id='edit-profile-label'>Address</h3></label>
+                                <span className="editmyprofile-error">{gendererrors}</span>
+                                <div className='edit-myprofile-divs'>
+                                    <label><h3 id='edit-myprofile-label'>Address</h3></label>
                                     <input
                                         type="text"
                                         placeholder="Address"
@@ -168,9 +155,9 @@ function EditProfile() {
                                         }}
                                     />
                                 </div>
-                                <span className="editprofile-error">{addresserrors}</span>
-                                <div className='edit-profile-divs'>
-                                    <label><h3 id='edit-profile-label'>Contact No</h3></label>
+                                <span className="editmyprofile-error">{addresserrors}</span>
+                                <div className='edit-myprofile-divs'>
+                                    <label><h3 id='edit-myprofile-label'>Contact No</h3></label>
                                     <input
                                         type="text"
                                         placeholder="Contact No"
@@ -182,9 +169,9 @@ function EditProfile() {
                                         }}
                                     />
                                 </div>
-                                <span className="editprofile-error">{contact_noerrors}</span>
-                                <div className='edit-profile-divs'>
-                                    <label><h3 id='edit-profile-label'>Password</h3></label>
+                                <span className="editmyprofile-error">{contact_noerrors}</span>
+                                <div className='edit-myprofile-divs'>
+                                    <label><h3 id='edit-myprofile-label'>Password</h3></label>
                                     <input
                                         type="password"
                                         placeholder="Password"
@@ -196,9 +183,9 @@ function EditProfile() {
                                         }}
                                     />
                                 </div>
-                                <span className="editprofile-error">{passworderrors}</span>
-                                <div className='edit-profile-divs'>
-                                    <label><h3 id='edit-profile-label'>Confirm Password</h3></label>
+                                <span className="editmyprofile-error">{passworderrors}</span>
+                                <div className='edit-myprofile-divs'>
+                                    <label><h3 id='edit-myprofile-label'>Confirm Password</h3></label>
                                     <input
                                         type="password"
                                         placeholder="Password"
@@ -210,7 +197,7 @@ function EditProfile() {
                                         }}
                                     />
                                 </div>
-                                <span className="editprofile-error">{cnpassworderrors}</span>
+                                <span className="editmyprofile-error">{cnpassworderrors}</span>
 
                                 {/* pop up */}
                                 <div className="container">
@@ -232,30 +219,24 @@ function EditProfile() {
                                     className="confirm-bg">
                                     onClick={() => ConfirmationBox()}
                                 </div>
-                                <div className="editprofile-btns">
-                                    <div className="editprofile-back">
-                                        <Link to="/profile">
-                                            <button type="button" id="editprofile-cancelBtn">Cancel</button>
+                                <div className="editmyprofile-btns">
+                                    <div className="editmyprofile-back">
+                                        <Link to="/myprofile">
+                                            <button type="button" id="editmyprofile-cancelBtn">Cancel</button>
                                         </Link>
-                                    </div><div className="editprofile-submit">
+                                    </div><div className="editmyprofile-submit">
                                         <button
                                             type="button"
-                                            id="editprofile-submitBtn"
-                                            onClick={() => { isEditProfileValid() }}>Save</button>
+                                            id="editmyprofile-submitBtn"
+                                            onClick={() => { isEditMyProfileValid() }}>Save</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     )
 }
-
-export default EditProfile
+export default EditMyProfile

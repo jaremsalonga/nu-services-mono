@@ -4,9 +4,12 @@ import { FaCheck } from 'react-icons/fa'
 import { useHistory, Link } from 'react-router-dom';
 import '../../css/ShiftingForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
+import { UserContext } from '../../contexts/user/userContext'
 
 function ShiftingForm() {
     const [submitShiftForm, setSubmitShiftForm] = useState(false)
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
 
     const ConfirmationBox = () => {
         if (!submitShiftForm) {
@@ -43,8 +46,6 @@ function ShiftingForm() {
             setReasonExplainErrors("*This field cannot be empty!");
         } else if (!shifting_commitment || shifting_commitment.trim() === "") {
             setShiftingCommitmentErrors("*This field cannot be empty!");
-        } else if (!type_contact || type_contact.trim() === "") {
-            setTypeOfContactErrors("*This field cannot be empty!");
         } else if (!type_communication || type_communication.trim() === "") {
             setTypeOfCommunicationErrors("*This field cannot be empty!");
         } else if (type_communication === "Select Type of Communication") {
@@ -56,7 +57,6 @@ function ShiftingForm() {
             setShiftingReasonErrors("");
             setReasonExplainErrors("")
             setShiftingCommitmentErrors("");
-            setTypeOfContactErrors("");
             setTypeOfCommunicationErrors("");
             ConfirmationBox();
         }
@@ -71,7 +71,6 @@ function ShiftingForm() {
     const [shifting_reason, setShiftingReason] = useState("");
     const [reason_explain, setReasonExplain] = useState("");
     const [shifting_commitment, setShiftingCommitment] = useState("");
-    const [type_contact, setTypeOfContact] = useState("");
     const [type_communication, setTypeOfCommunication] = useState("");
 
     const [shift_course_count_errors, setShiftCourseCountErrors] = useState("");
@@ -80,29 +79,19 @@ function ShiftingForm() {
     const [shifting_reason_errors, setShiftingReasonErrors] = useState("");
     const [reason_explain_errors, setReasonExplainErrors] = useState("");
     const [shifting_commitment_errors, setShiftingCommitmentErrors] = useState("");
-    const [type_contact_errors, setTypeOfContactErrors] = useState("");
     const [type_communication_errors, setTypeOfCommunicationErrors] = useState("");
 
     const [shiftingList, setShiftingList] = useState([]);
 
-    useEffect(() => {
-        Axios.get('http://localhost:3001/services/studentenrollment/get').then((response) => {
-            setShiftingList(response.data);
-        },
-            {
-                headers: sessionStorage.getItem("token")
-            })
-    }, [])
-
     const submitShiftingForm = () => {
-        Axios.post("http://localhost:3001/interview/requestinterview/createShiftForm", {
+        Axios.post("/interview/requestinterview/createShiftForm", {
             shift_course_count: shift_course_count,
             shift_from: shift_from,
             shift_to: shift_to,
             shifting_reason: shifting_reason,
             reason_explain: reason_explain,
             shifting_commitment: shifting_commitment,
-            type_contact: type_contact,
+            user_id: id,
             type_communication: type_communication
 
         });
@@ -115,7 +104,6 @@ function ShiftingForm() {
             shifting_reason: shifting_reason,
             reason_explain: reason_explain,
             shifting_commitment: shifting_commitment,
-            type_contact: type_contact,
             type_communication: type_communication
 
         }]);
@@ -232,21 +220,6 @@ function ShiftingForm() {
                         </div>
                         <span className="shifting-error">{shifting_commitment_errors}</span>
                         <div className="shifting-divs">
-                            <label><h3 className="shift-label">*Where do you want to be contacted? (e.g. NUGS(yourNUemailaccount@students.national-u.edu.ph),
-                                <br /> Viber (09123456789), Telegram (09123456789 OR account name), etc.) </h3></label>
-                            <input
-                                type="text"
-                                placeholder="Where do you want to be contacted?"
-                                name="type_contact"
-                                value={type_contact}
-                                id="type_contact"
-                                onChange={(e) => {
-                                    setTypeOfContact(e.target.value)
-                                }}
-                            />
-                        </div>
-                        <span className="shifting-error">{type_contact_errors}</span>
-                        <div className="shifting-divs">
                             <label><h3 className="shift-label">*In what way do you want to communicate?</h3></label>
                             <select
                                 name="type_communication"
@@ -262,6 +235,10 @@ function ShiftingForm() {
                             </select>
                         </div>
                         <span className="shifting-error">{type_communication_errors}</span>
+                        <div className="shifting-divs">
+                            <label><h3 className="shift-label">*Select Date</h3></label>
+                            <input type="date" />
+                        </div>
 
                         {/* pop up */}
                         <div className="container">

@@ -6,10 +6,16 @@ import { useHistory, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import '../css/CounselingConsent.css';
+import { RiArrowGoBackFill } from 'react-icons/ri'
+import { UserContext } from '../contexts/user/userContext'
 
 
 function CounselingConsent() {
     const [submitchat, setSubmitChat] = useState(false)
+
+    const [state] = React.useContext(UserContext);
+    const user_id = state.user.users_id;
+    console.log(user_id)
 
     const ConfirmationBox = () => {
         if (!submitchat) {
@@ -54,25 +60,15 @@ function CounselingConsent() {
 
     const [consentlist, setConsentList] = useState([]);
 
-
-    useEffect(() => {
-        Axios.get('http://localhost:3001/counseling/consent/get').then((response) => {
-            setConsentList(response.data);
-        },
-            {
-                headers: sessionStorage.getItem("token")
-            })
-    })
-
     const submitSmartChat = () => {
-        Axios.post("http://localhost:3001/counseling/consent/createConsent", {
+        Axios.post("/counseling/consent/createConsent", {
             consult_family: consult_family,
             contact_fam: contact_fam,
-            other_allied: other_allied
-
+            other_allied: other_allied,
+            user_id: user_id
         });
 
-        <Link to="/main" />
+        <Link to="/counseling" />
         setConsentList([...consentlist, {
             consult_family: consult_family,
             contact_fam: contact_fam,
@@ -88,7 +84,9 @@ function CounselingConsent() {
                 <Navbar />
                 <div className="counselingconsent-page">
                     <div className="counselingconsent-header">
-                        <h1>INFORMED CONSENT</h1>
+                        <h1>
+                            <Link to="/counseling"><RiArrowGoBackFill color='#aaa' /></Link>
+                            INFORMED CONSENT</h1>
                     </div>
                     <div className="counselingconsent-holder">
                         <div className="counselingconsent-content">

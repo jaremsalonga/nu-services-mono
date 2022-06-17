@@ -6,10 +6,14 @@ import '../css/CounselingForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import Header from '../components/Header'
 import Navbar from '../components/Navbar'
+import { UserContext } from '../contexts/user/userContext'
 
 
 function CounselingForm() {
     const [submitchat, setSubmitChat] = useState(false)
+    const [state] = React.useContext(UserContext);
+    const user_id = state.user.users_id;
+    console.log(user_id)
 
     const ConfirmationBox = () => {
         if (!submitchat) {
@@ -26,9 +30,9 @@ function CounselingForm() {
     }
 
     const isSmartChatValid = () => {
-        if (!concern || concern.trim() === "") {
+        if (!concern_today || concern_today.trim() === "") {
             setConcernErrors("*This field cannot be empty!");
-        } else if (concern === "Select Reason") {
+        } else if (concern_today === "Select Reason") {
             setConcernErrors("*This field cannot be empty!");
         } else if (concern_feeling === "Select Reason") {
             setConcernFeelingErrors("*This field cannot be empty!")
@@ -51,7 +55,7 @@ function CounselingForm() {
     }
 
     let history = useHistory();
-    const [concern, setConcern] = useState("");
+    const [concern_today, setConcern] = useState("");
     const [concern_feeling, setConcernFeeling] = useState("");
     const [type_contact, setTypeOfContact] = useState("");
     const [type_comm, setTypeOfComm] = useState("");
@@ -64,28 +68,19 @@ function CounselingForm() {
 
     const [smartchatlist, setSmartChatList] = useState([]);
 
-
-    useEffect(() => {
-        Axios.get('http://localhost:3001/counseling/consent/get').then((response) => {
-            setSmartChatList(response.data);
-        },
-            {
-                headers: sessionStorage.getItem("token")
-            })
-    })
-
     const submitSmartChat = () => {
-        Axios.post("http://localhost:3001/counseling/CounselingForm/create", {
-            concern: concern,
+        Axios.post("/counseling/CounselingForm/create", {
+            concern_today: concern_today,
             concern_feeling: concern_feeling,
             type_contact: type_contact,
-            type_comm: type_comm
+            type_comm: type_comm,
+            user_id: user_id
 
         });
 
-        <Link to="/main" />
+        <Link to="/counseling" />
         setSmartChatList([...smartchatlist, {
-            concern: concern,
+            concern_today: concern_today,
             concern_feeling: concern_feeling,
             type_contact: type_contact,
             type_comm: type_comm
@@ -103,9 +98,9 @@ function CounselingForm() {
                     <div className="counseling-divs">
                         <label><h3 className="counseling-label">*What is your concern for today?</h3></label>
                         <select
-                            name="concern"
-                            value={concern}
-                            id="concern"
+                            name="concern_today"
+                            value={concern_today}
+                            id="concern_today"
                             onChange={(e) => {
                                 setConcern(e.target.value)
                             }}>
@@ -175,16 +170,19 @@ function CounselingForm() {
                     <span className="smartchat-error">{concern_feeling_errors}</span>
                     <div className="counseling-divs">
                         <label><h3 className="counseling-label">*Where do you want to be contacted?</h3></label>
-                        <input
-                            type="text"
-                            placeholder="Where do you want to be contacted?"
+                        <select
                             name="type_contact"
                             value={type_contact}
                             id="type_contact"
                             onChange={(e) => {
                                 setTypeOfContact(e.target.value)
-                            }}
-                        />
+                            }}>
+                            <option>Where do you want to be contacted?</option>
+                            <option>Facebook</option>
+                            <option>Viber</option>
+                            <option>NUGS</option>
+                            <option>MS Teams</option>
+                        </select>
                     </div>
                     <span className="smartchat-error">{type_contact_errors}</span>
                     <div className="counseling-divs">
@@ -227,7 +225,7 @@ function CounselingForm() {
                     </div>
                     <div className="counseling-submit-btns">
                         <div className="counseling-back">
-                            <Link to="/counseling/consent">
+                            <Link to="/counseling">
                                 <button type="button" id="counseling-cancelBtn">Cancel</button>
                             </Link>
                         </div><div className="counseling-submit">

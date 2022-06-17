@@ -106,14 +106,14 @@ function Register() {
     Axios.defaults.withCredentials = true;
 
     const register = () => {
-        Axios.post("http://localhost:3001/register", {
+        Axios.post("/register", {
             student_number: student_numberReg,
             fullname: fullnameReg,
             gender: genderReg,
             address: addressReg,
             contact_no: contactnoReg,
             email: emailReg,
-            college: collegeReg,
+            department_id: collegeReg,
             password: passwordReg
         }).then((response) => {
             <Redirect to="/" />
@@ -195,14 +195,14 @@ function Register() {
                                 <select id="regcogdept"
                                     onChange={(e) => { setCollegeReg(e.target.value) }}>
                                     <option>Select College</option>
-                                    <option>College of Allied health</option>
-                                    <option>College of Architecture</option>
-                                    <option>College of Business and Accountancy</option>
-                                    <option>College of Computing and Information Technology</option>
-                                    <option>College of Dentistry</option>
-                                    <option>College of Education, Arts, and Sciences</option>
-                                    <option>College of Engineering</option>
-                                    <option>College of Tourism and Hospitality Management</option>
+                                    <option value={3}>College of Allied health</option>
+                                    <option value={2}>College of Architecture</option>
+                                    <option value={4}>College of Business and Accountancy</option>
+                                    <option value={1}>College of Computing and Information Technology</option>
+                                    <option value={5}>College of Dentistry</option>
+                                    <option value={6}>College of Education, Arts, and Sciences</option>
+                                    <option value={7}>College of Engineering</option>
+                                    <option value={8}>College of Tourism and Hospitality Management</option>
                                 </select>
                             </div>
                             <span className="register-error">{collegeRegError}</span>

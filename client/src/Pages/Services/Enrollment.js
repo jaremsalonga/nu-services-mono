@@ -5,15 +5,19 @@ import Axios from 'axios';
 import '../../css/Enrollment.css'
 import Navbar from '../../components/Navbar'
 import Header from '../../components/Header'
+import { UserContext } from '../../contexts/user/userContext'
 
 function Enrollment() {
 
+    const [state] = React.useContext(UserContext);
+    const user_id = state.user.users_id;
+    console.log(user_id)
 
     const [siiList, setSiiList] = useState([]);
 
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/services/studentenrollment/get').then((response) => {
+        Axios.get(`/services/studentenrollment/get/${user_id}`).then((response) => {
             setSiiList(response.data)
         })
     }, [])
@@ -36,9 +40,9 @@ function Enrollment() {
                         <div className="enrollment-list">
                             <div className="enrollment-status">
                             
-                                {siiList.map((val) => {
+                                {siiList.map((val, index) => {
                                     return (
-                                        <div className="enrollment-list-contents">
+                                        <div className="enrollment-list-contents" key={index}>
                                             <Link to="#">
                                                 <div className="enrollment-list-container">
                                                     <div className="enrollment-list-status">

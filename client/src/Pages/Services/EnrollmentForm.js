@@ -7,16 +7,20 @@ import { useHistory, Link } from 'react-router-dom';
 import GraduatingTables from './GraduatingTables';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
+import { RiArrowGoBackFill } from 'react-icons/ri'
+import { UserContext } from '../../contexts/user/userContext'
 
 function EnrollmentForm() {
     const [submitSII, setSubmitSII] = useState(false);
+    const [state] = React.useContext(UserContext);
+    const user_id = state.user.users_id;
 
     const ConfirmationBox = () => {
         if (!submitSII) {
             document.querySelector(".confirm-bg").style.display = "flex"
             document.querySelector(".container").style.display = "flex"
             setSubmitSII(true)
-            submitGoodmoralRequest();
+            submitSIIReq();
         } else {
             document.querySelector(".confirm-bg").style.display = "none"
             document.querySelector(".container").style.display = "none"
@@ -28,7 +32,10 @@ function EnrollmentForm() {
     const isSIIValid = () => {
         if (!enrollment_year_entered || enrollment_year_entered.trim() === "") {
             setEnrollmentYearEnteredErrors("*This field cannot be empty!");
-        } else if (!gender_preference || gender_preference.trim() === "") {
+        } else if (elementary_graduated.match("^[0-9]*$")) {
+            setEnrollmentYearEnteredErrors("*Numbers only");
+        }
+        else if (!gender_preference || gender_preference.trim() === "") {
             setGenderPreferenceErrors("*This field cannot be empty!");
         } else if (!gender_preference == "Select Gender Preference") {
             setGenderPreferenceErrors("*Please Choose an answer")
@@ -74,8 +81,6 @@ function EnrollmentForm() {
             setElementaryErrors("*This field cannot be empty!");
         } else if (!elementary_graduated || elementary_graduated.trim() === "") {
             setElementaryGraduatedErrors("*This field cannot be empty!");
-        } else if (elementary_graduated.match("^[0-9]*$")) {
-            setEnrollmentYearEnteredErrors("*Numbers only");
         } else if (!enrollment_junior || enrollment_junior.trim() === "") {
             setJuniorErrors("*This field cannot be empty!");
         } else if (!junior_graduated || junior_graduated.trim() === "") {
@@ -124,9 +129,6 @@ function EnrollmentForm() {
             setGuardianAddressErrors("*This field cannot be empty!");
         }
 
-
-
-
         else {
             setEnrollmentYearEnteredErrors("");
             setGenderPreferenceErrors("")
@@ -166,7 +168,7 @@ function EnrollmentForm() {
             setCounselorTalkErrors("");
             setHelpErrors("");
             setGuardianNameErrors("");
-            setGuardianContactErrors(""); 
+            setGuardianContactErrors("");
             setGuardianAddressErrors("");
 
             ConfirmationBox();
@@ -174,14 +176,13 @@ function EnrollmentForm() {
     }
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/services/goodmoral/get').then((response) => {
+        Axios.get('/services/studentenrollment/get/:id').then((response) => {
             setSIIList(response.data)
         })
     }, [])
 
-
-    const submitGoodmoralRequest = () => {
-        Axios.post("http://localhost:3001/enrollment/enrollmentstudentform/create", {
+    const submitSIIReq = () => {
+        Axios.post("/enrollment/enrollmentstudentform/create", {
             enrollment_year_entered: enrollment_year_entered,
             gender_preference: gender_preference,
             nationality: nationality,
@@ -223,7 +224,8 @@ function EnrollmentForm() {
             enrollment_help: enrollment_help,
             guardian_name: guardian_name,
             guardian_contact: guardian_contact,
-            guardian_address: guardian_address
+            guardian_address: guardian_address,
+            user_id: user_id
         });
 
         <Link to="/main" />
@@ -269,8 +271,10 @@ function EnrollmentForm() {
             enrollment_help: enrollment_help,
             guardian_name: guardian_name,
             guardian_contact: guardian_contact,
-            guardian_address: guardian_address
+            guardian_address: guardian_address,
+            user_id: user_id
         }]);
+        // history.push('/services/studentenrollment');
     };
 
     let history = useHistory();
@@ -370,10 +374,13 @@ function EnrollmentForm() {
             <Navbar />
             <div className="enrollment-form-container">
                 <div className="enrollment-titles-name-pd">
-                    <h1>Student Individual Inventory Form</h1>
+                    <h1>
+                        <Link to="/services/studentenrollment"><RiArrowGoBackFill color='#aaa' /></Link>
+                        Student Individual Inventory Form
+                    </h1>
                 </div>
                 <div className="enrollment-form-holder">
-                    <form>
+                    <form onSubmit={(e) => { ConfirmationBox(); e.preventDefault(); }}>
                         {/* Personal Data */}
                         <div className="enrollment-forms-header">
                             <h3>Personal Data</h3>
@@ -386,6 +393,7 @@ function EnrollmentForm() {
                                 name="enrollment_year_entered"
                                 value={enrollment_year_entered}
                                 id="enrollment_year_entered"
+                                required
                                 onChange={(e) => {
                                     setEnrollmentYearEntered(e.target.value)
                                 }}
@@ -398,6 +406,7 @@ function EnrollmentForm() {
                                 name="gender_preference"
                                 value={gender_preference}
                                 id="gender_preference"
+                                required
                                 onChange={(e) => {
                                     setGenderPreference(e.target.value)
                                 }}>
@@ -417,6 +426,7 @@ function EnrollmentForm() {
                                 name="Nationality"
                                 value={nationality}
                                 id="nationality"
+                                required
                                 onChange={(e) => {
                                     setNationality(e.target.value)
                                 }}
@@ -431,6 +441,7 @@ function EnrollmentForm() {
                                 name="religion"
                                 value={religion}
                                 id="religion"
+                                required
                                 onChange={(e) => {
                                     setReligion(e.target.value)
                                 }}
@@ -445,6 +456,7 @@ function EnrollmentForm() {
                                 name="place_of_birth"
                                 value={place_of_birth}
                                 id="place_of_birth"
+                                required
                                 onChange={(e) => {
                                     setPlacofBirth(e.target.value)
                                 }}
@@ -459,6 +471,7 @@ function EnrollmentForm() {
                                 name="city_address"
                                 value={city_address}
                                 id="city_address"
+                                required
                                 onChange={(e) => {
                                     setCityAddress(e.target.value)
                                 }}
@@ -473,6 +486,7 @@ function EnrollmentForm() {
                                 name="provincial_address"
                                 value={provincial_address}
                                 id="provincial_address"
+                                required
                                 onChange={(e) => {
                                     setProvincialAddress(e.target.value)
                                 }}
@@ -485,6 +499,7 @@ function EnrollmentForm() {
                                 name="civil_status"
                                 value={civil_status}
                                 id="civil_status"
+                                required
                                 onChange={(e) => {
                                     setCivilStatus(e.target.value)
                                 }}>
@@ -503,6 +518,7 @@ function EnrollmentForm() {
                                 placeholder="Facebook Account"
                                 value={fb_account}
                                 id="fb_account"
+                                required
                                 onChange={(e) => {
                                     setFbAccount(e.target.value)
                                 }}
@@ -516,6 +532,7 @@ function EnrollmentForm() {
                                 placeholder="Father's Name"
                                 value={father_name}
                                 id="father_name"
+                                required
                                 onChange={(e) => {
                                     setFatherName(e.target.value)
                                 }}
@@ -529,6 +546,7 @@ function EnrollmentForm() {
                                 placeholder="Father's Occupation"
                                 value={father_occupation}
                                 id="father_occupation"
+                                required
                                 onChange={(e) => {
                                     setFatherOccupation(e.target.value)
                                 }}
@@ -542,6 +560,7 @@ function EnrollmentForm() {
                                 placeholder="Father's Education"
                                 value={father_education}
                                 id="father_education"
+                                required
                                 onChange={(e) => {
                                     setFatherEducation(e.target.value)
                                 }}
@@ -555,6 +574,7 @@ function EnrollmentForm() {
                                 placeholder="Mother's Name"
                                 value={mother_name}
                                 id="mother_name"
+                                required
                                 onChange={(e) => {
                                     setMotherName(e.target.value)
                                 }}
@@ -568,6 +588,7 @@ function EnrollmentForm() {
                                 placeholder="Mother's Occupation"
                                 value={mother_occupation}
                                 id="mother_occupation"
+                                required
                                 onChange={(e) => {
                                     setMotherOccupation(e.target.value)
                                 }}
@@ -581,6 +602,7 @@ function EnrollmentForm() {
                                 placeholder="Mother's Education"
                                 value={mother_education}
                                 id="mother_education"
+                                required
                                 onChange={(e) => {
                                     setMotherEducation(e.target.value)
                                 }}
@@ -593,6 +615,7 @@ function EnrollmentForm() {
                                 name="marital_status"
                                 value={marital_status}
                                 id="marital_status"
+                                required
                                 onChange={(e) => {
                                     setMaritalStatus(e.target.value)
                                 }}>
@@ -612,6 +635,7 @@ function EnrollmentForm() {
                                 name="annual_income"
                                 value={annual_income}
                                 id="annual_income"
+                                required
                                 onChange={(e) => {
                                     setAnnualIncome(e.target.value)
                                 }}>
@@ -632,6 +656,7 @@ function EnrollmentForm() {
                                 placeholder="Hobbies, Skills, and Interest"
                                 value={enrollment_hobbies}
                                 id="enrollment_hobbies"
+                                required
                                 onChange={(e) => {
                                     setEnrollmentHobbies(e.target.value)
                                 }}
@@ -648,6 +673,7 @@ function EnrollmentForm() {
                                 placeholder="Elementary School"
                                 value={enrollment_elementary}
                                 id="enrollment_elementary"
+                                required
                                 onChange={(e) => {
                                     setElementary(e.target.value)
                                 }}
@@ -661,6 +687,7 @@ function EnrollmentForm() {
                                 placeholder="Elementary Year Graduated"
                                 value={elementary_graduated}
                                 id="elementary_graduated"
+                                required
                                 onChange={(e) => {
                                     setElementaryGraduated(e.target.value)
                                 }}
@@ -674,6 +701,7 @@ function EnrollmentForm() {
                                 placeholder="Junior High School"
                                 value={enrollment_junior}
                                 id="enrollment_junior"
+                                required
                                 onChange={(e) => {
                                     setJunior(e.target.value)
                                 }}
@@ -687,6 +715,7 @@ function EnrollmentForm() {
                                 placeholder="Junior High Year Graduated"
                                 value={junior_graduated}
                                 id="junior_graduated"
+                                required
                                 onChange={(e) => {
                                     setJuniorGraduated(e.target.value)
                                 }}
@@ -700,6 +729,7 @@ function EnrollmentForm() {
                                 placeholder="Senior High School"
                                 value={enrollment_senior}
                                 id="enrollment_senior"
+                                required
                                 onChange={(e) => {
                                     setSenior(e.target.value)
                                 }}
@@ -713,6 +743,7 @@ function EnrollmentForm() {
                                 placeholder="Senior High Year Graduated"
                                 value={senior_graduated}
                                 id="senior_graduated"
+                                required
                                 onChange={(e) => {
                                     setSeniorGraduated(e.target.value)
                                 }}
@@ -720,25 +751,13 @@ function EnrollmentForm() {
                         </div>
                         <span className="enrollment-error">{senior_graduated_errors}</span>
                         <div className="enrollment-divs">
-                            <label><h3 id="enrollment-label">*Junior High Year Graduated</h3></label>
-                            <input
-                                type="text"
-                                placeholder="Junior High Year Graduated"
-                                value={junior_graduated}
-                                id="junior_graduated"
-                                onChange={(e) => {
-                                    setJuniorGraduated(e.target.value)
-                                }}
-                            />
-                        </div>
-                        <span className="enrollment-error">{junior_graduated_errors}</span>
-                        <div className="enrollment-divs">
                             <label><h3 id="enrollment-label">*Vocational (Type N/A if not applicable)</h3></label>
                             <input
                                 type="text"
                                 placeholder="Vocational"
                                 value={enrollment_vocational}
                                 id="enrollment_vocational"
+                                required
                                 onChange={(e) => {
                                     setVocational(e.target.value)
                                 }}
@@ -752,6 +771,7 @@ function EnrollmentForm() {
                                 placeholder="Vocational Graduated"
                                 value={vocational_graduated}
                                 id="vocational_graduated"
+                                required
                                 onChange={(e) => {
                                     setVocationalGraduated(e.target.value)
                                 }}
@@ -764,6 +784,7 @@ function EnrollmentForm() {
                                 placeholder="Tertiary"
                                 value={enrollment_tertiary}
                                 id="enrollment_tertiary"
+                                required
                                 onChange={(e) => {
                                     setTertiary(e.target.value)
                                 }}
@@ -777,6 +798,7 @@ function EnrollmentForm() {
                                 placeholder="Tertiary Graduated"
                                 value={tertiary_graduated}
                                 id="tertiary_graduated"
+                                required
                                 onChange={(e) => {
                                     setTertiaryGraduated(e.target.value)
                                 }}
@@ -789,6 +811,7 @@ function EnrollmentForm() {
                                 name="easy_subject"
                                 value={easy_subject}
                                 id="easy_subject"
+                                required
                                 onChange={(e) => {
                                     setEasySubject(e.target.value)
                                 }}>
@@ -811,6 +834,7 @@ function EnrollmentForm() {
                                 name="hard_subject"
                                 value={hard_subject}
                                 id="hard_subject"
+                                required
                                 onChange={(e) => {
                                     setHardSubject(e.target.value)
                                 }}>
@@ -833,6 +857,7 @@ function EnrollmentForm() {
                                 name="language_spoken"
                                 value={language_spoken}
                                 id="language_spoken"
+                                required
                                 onChange={(e) => {
                                     setLanguageSpoken(e.target.value)
                                 }}>
@@ -855,6 +880,7 @@ function EnrollmentForm() {
                                 name="enrollment_reason"
                                 value={enrollment_reason}
                                 id="enrollment_reason"
+                                required
                                 onChange={(e) => {
                                     setReason(e.target.value)
                                 }}>
@@ -880,6 +906,7 @@ function EnrollmentForm() {
                                 name="enrollment_learn"
                                 value={enrollment_learn}
                                 id="enrollment_learn"
+                                required
                                 onChange={(e) => {
                                     setLearn(e.target.value)
                                 }}>
@@ -898,6 +925,7 @@ function EnrollmentForm() {
                                 name="enrollment_talk"
                                 value={enrollment_talk}
                                 id="enrollment_talk"
+                                required
                                 onChange={(e) => {
                                     setTalk(e.target.value)
                                 }}>
@@ -919,6 +947,7 @@ function EnrollmentForm() {
                                 name="counselor_talk"
                                 value={counselor_talk}
                                 id="counselor_talk"
+                                required
                                 onChange={(e) => {
                                     setCounselorTalk(e.target.value)
                                 }}>
@@ -934,6 +963,7 @@ function EnrollmentForm() {
                                 name="enrollment_help"
                                 value={enrollment_help}
                                 id="enrollment_help"
+                                required
                                 onChange={(e) => {
                                     setHelp(e.target.value)
                                 }}>
@@ -956,6 +986,7 @@ function EnrollmentForm() {
                                 placeholder="Guardian's Name"
                                 value={guardian_name}
                                 id="guardian_name"
+                                required
                                 onChange={(e) => {
                                     setGuardianName(e.target.value)
                                 }}
@@ -969,6 +1000,7 @@ function EnrollmentForm() {
                                 placeholder="Guardian's Contact No."
                                 value={guardian_contact}
                                 id="guardian_contact"
+                                required
                                 onChange={(e) => {
                                     setGuardianContact(e.target.value)
                                 }}
@@ -982,6 +1014,7 @@ function EnrollmentForm() {
                                 placeholder="Guardian's Address"
                                 value={guardian_address}
                                 id="guardian_address"
+                                required
                                 onChange={(e) => {
                                     setGuardianAddress(e.target.value)
                                 }}
@@ -1017,9 +1050,10 @@ function EnrollmentForm() {
                                 </Link>
                             </div><div className="enrollment-submit">
                                 <button
-                                    type="button"
+                                    type="submit"
                                     id="enrollment-submitBtn"
-                                    onClick={() => { isSIIValid() }}>Submit</button>
+                                    onClick={() => { isSIIValid() }}
+                                >Submit</button>
                             </div>
                         </div>
                     </form>

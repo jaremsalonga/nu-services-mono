@@ -1,90 +1,102 @@
-.myprofile-wrapper{
-    background-color: #f0f0f0;
+.myprofile-wrapper {
+    background-color: white;
     display: flex;
-    height: 100vh;
-}
-
-.myprofile-content{
-    height: auto;
-    margin-top: 7vh;
-    width: 100%;
-    padding: 20px;
-}
-
-.myprofile-name{
     width: 100%;
     height: auto;
-    color: black;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.myprofile-container{
-    background-color: #D3D3D3;
-    height: 70vh;
-    width: 80%;
-    margin-top: 5vh;
-    margin-left: 25vh;
-    border-radius: 10px;
-}
-
-.student-myprofile-pic{
-    height: 35vh;
-    width: 25%;
-    margin-top: 5vh;
-    margin-left: 7vh;
-    border-radius: 5px;
-}
-
-.myprofile-student-name{
-    margin-top: -30vh;
-    width: 60%;
-    margin-left: 53vh;
-    text-align: left;
+.myprofile-container {
+    width: 100%;
     height: auto;
 }
 
-.myprofile-student-name h1{
-    font-size: 40px;
+.myprofile-page-name {
+    margin-top: 10vh;
+    display: flex;
+    justify-content: first baseline;
+    margin-left: 5vh;
+}
+
+.myprofile-page-name h1 {
     text-transform: uppercase;
-    color: black;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    font-size: 40px;
 }
 
-.myprofile-user-details{
-    height: 200px;
-    width: 65%;
-    margin-left: 26vw;
-    height: 45vh;
-    margin-top: 3vh;
-    padding: 10px;
+.myprofile-detail-holder {
+    background-color: #ebe7fb;
+    width: 90%;
+    /* background-color: red; */
+    height: 70vh;
+    margin-top: 2vh;
+    margin-left: 5vw;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.myprofile-detail-list {
+    display: flex;
+}
+
+.myprofile-img-holder {
+    /* background-color: red; */
+    width: auto;
+    padding: 15px;
+    height: auto;
+}
+
+.myprofile-img-holder img {
+    width: 300px;
+    height: 300px;
+    -moz-box-shadow: 0px 6px 5px #ccc;
+    -webkit-box-shadow: 0px 6px 5px #ccc;
+    box-shadow: 0px 6px 5px #ccc;
+    -moz-border-radius: 190px;
+    -webkit-border-radius: 50%;
+    border-radius: 190px;
+    margin-top: 20px;
 }
 
 .myprofile-edit-btn{
-    width: 10%;
-    margin-left: 7vw;
-    margin-top: -25vh;
-    height: 6vh;
-    border-radius: 5px;
+    /* background-color: rebeccapurple; */
+    display: flex;
+    justify-content: center;
 }
 
-.myprofile-edit-btn button{
+button.myprofile-editbtn{
+    height: 40px;
+    width: 100px;
+    margin-top: 10px;
+    background-color:#59618b;
+    color: #fff;
+    border: 1px ;
+    border-radius:10px;
+}
+
+button.myprofile-editbtn:hover{
     cursor: pointer;
-    height: 100%;
-    width: 100%;
-    border-radius: 5px;
-    background-color: #000336;
-    color: white;
+   background-color: #30408D;
+   height: 45px;
+   width: 105px;
+}
+
+h1.myprofile-username{
     text-transform: uppercase;
+    font-size: 35px;
 }
 
-.myprofile-user-details p{
-    font-weight: bold;
-    font-size: 25px;
-    text-align: left;
+.myprofile-label{
+    color: #ccc;
+    font-weight: 700;
+    font-size: 15px;
 }
 
-.student-myprofile-pic img{
-    width: 80%;
-    border-radius: 10px;
-    margin-top: 5vh;
+.myprofile-spacer {
+    height: 100px;
+}
 
+.myprofile-details{
+    padding: 40px;
+    width: 100%;
 }

@@ -1,6 +1,6 @@
 .goodmoralreq-wrapper{
     display: flex;
-    height: 100vh;
+    height: auto;
     background-color: white;
 }
 
@@ -127,4 +127,8 @@ hr{
     border-radius: 1px;
     color: whitesmoke;
     margin-left: 12px;
+}
+
+.goodmoral-spacer{
+    height: 30px;
 }

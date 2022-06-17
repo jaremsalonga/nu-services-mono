@@ -1,23 +1,81 @@
-.pending-request-wrapper{
+.pending-request-wrapper {
     background-color: white;
     display: flex;
     height: auto;
 }
 
-.pending-body{
+.pending-body {
     height: auto;
     width: 100%;
     padding: 30px;
 }
 
-.pending-name{
+.pending-name {
     width: 100%;
 }
 
-.pending-name h1{
+.pending-name h1 {
     font-size: 35px;
     text-transform: uppercase;
     color: black;
     margin-top: 5vh;
+}
 
+.pending-list {
+    /* background-color: red; */
+    height: auto;
+    padding: 5px;
+}
+
+.pending-list-content {
+    /* background-color: blue; */
+    height: auto;
+    padding: 5px;
+}
+
+.pending-cards {
+    cursor: pointer;
+    color: black;
+    height: 100px;
+    width: 90%;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 15px;
+    display: flex;
+    font-size: 19px;
+    border-radius: 3px;
+    border: 1px solid #aaa;
+    background-color: white;
+    box-shadow: 1px 1px 6px rgb(0 0 0 / 50%);
+}
+
+.pending-cards:hover {
+    height: 110px;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.pending-info {
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+
+h2.pending-card-title {
+    margin-left: 5vh;
+    margin-top: 10px;
+    width: 70%;
+}
+
+.pending-total {
+    width: 30%;
+}
+
+.pending-total h3{
+    margin-left: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rebeccapurple; */
+    height: 70px;
 }

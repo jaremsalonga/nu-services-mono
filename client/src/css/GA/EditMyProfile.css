@@ -1,42 +1,42 @@
-.editprofile-wrapper {
+.editmyprofile-wrapper {
     background-color: white;
     display: flex;
     width: 100%;
     height: auto;
 }
 
-.edit-profile-container {
+.edit-myprofile-container {
     width: 100%;
     height: auto;
     padding: 20px;
 }
 
-.editprofile-page-name {
+.editmyprofile-page-name {
     margin-top: 10vh;
     display: flex;
     justify-content: first baseline;
     margin-left: 5vh;
 }
 
-.editprofile-page-name h1 {
+.editmyprofile-page-name h1 {
     text-transform: uppercase;
     letter-spacing: 3px;
     font-weight: bolder;
     font-size: 40px;
 }
 
-.edit-profile-holder{
+.edit-myprofile-holder{
     background-color: #ebe7fb;
     width: 150vh;
     height: auto;
     margin-top: 2vh;
-    margin-left: 5vw;
+    margin-left: 2vw;
     border-radius: 10px;
     padding: 20px;
 }
 
 
-.editprofile-img img{
+.editmyprofile-img img{
     width: 250px;
     height: 250px;
     -moz-box-shadow: 0px 6px 5px #ccc;
@@ -47,19 +47,19 @@
     border-radius: 190px;
 }
 
-.editprofile-img {
+.editmyprofile-img {
     width: auto;
     height: auto;
     display: flex;
     justify-content: center;
 }
 
-.edit-profile-divs {
+.edit-myprofile-divs {
     margin-top: 3vh;
     width: 100%;
 }
 
-.edit-profile-divs input[type="text"] {
+.edit-myprofile-divs input[type="text"] {
     height: 40px;
     width: 100%;
     border-radius: 5px;
@@ -67,7 +67,7 @@
     padding: 10px;
 }
 
-.edit-profile-divs select {
+.edit-myprofile-divs select {
     height: 40px;
     width: 100%;
     border-radius: 5px;
@@ -75,7 +75,7 @@
     padding: 10px;
 }
 
-.edit-profile-divs input[type="password"] {
+.edit-myprofile-divs input[type="password"] {
     height: 40px;
     width: 100%;
     border-radius: 5px;
@@ -83,13 +83,13 @@
     padding: 10px;
 }
 
-.edit-profile-label{
+.edit-myprofile-label{
     color: #ccc;
     font-weight: 700;
     font-size: 16px;
 }
 
-.editprofile-btns{
+.editmyprofile-btns{
     display: flex;
     height: 70px;
     width: 100%;
@@ -98,7 +98,7 @@
     justify-content: flex-end;
 }
 
-button#editprofile-cancelBtn{
+button#editmyprofile-cancelBtn{
     cursor: pointer;
     height: 40px;
     width: 100px;
@@ -109,7 +109,7 @@ button#editprofile-cancelBtn{
     font-weight: bold;
 }
 
-button#editprofile-cancelBtn:hover{
+button#editmyprofile-cancelBtn:hover{
     cursor: pointer;
     border: 2px solid red;
     color: red;
@@ -117,7 +117,7 @@ button#editprofile-cancelBtn:hover{
     transition: .5s;
 }
 
-button#editprofile-submitBtn{
+button#editmyprofile-submitBtn{
     cursor: pointer;
     height: 40px;
     width: 100px;
@@ -129,7 +129,7 @@ button#editprofile-submitBtn{
     margin-left: 2vh;
 }
 
-button#editprofile-submitBtn:hover{
+button#editmyprofile-submitBtn:hover{
     cursor: pointer;
     border: 2px solid #30408D;
     background-color: #30408D;
@@ -138,7 +138,7 @@ button#editprofile-submitBtn:hover{
     transition: .5s;
 }
 
-.editprofile-error{
+.editmyprofile-error{
     color: red;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     display: flex;

@@ -13,7 +13,7 @@
 
 .shifting-form-contents{
     display: block;
-    height: 180vh;
+    height: auto;
     width: 100%;
     align-items: center;
     border-radius: 10px;

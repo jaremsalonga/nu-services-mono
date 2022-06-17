@@ -36,21 +36,21 @@ function Landingpage() {
         setLoginMsg(response.data.message);
       } else {
 
-          let expires = new Date();
+        let expires = new Date();
 
-          const {token, users_id, role} = response.data;
+        const { token, users_id, role } = response.data;
 
-          expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
+        expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
 
-          setCookie('token', token, { path: '/',  expires});
+        setCookie('token', token, { path: '/', expires });
 
-          //userAuthenticated(token);
+        //userAuthenticated(token);
 
-          setLoginStatus(true);
+        setLoginStatus(true);
 
-          let routeLocation = (role == 'student') ? '/main' : (role === 'guidance associate') ? '/mainhome' : (role == 'guidance director') ? '/dashboard' : '/admin';
+        let routeLocation = (role == 'student') ? '/main' : (role === 'guidance associate') ? '/mainhome' : (role == 'guidance director') ? '/dashboard' : '/admin';
 
-          history.push(routeLocation);
+        history.push(routeLocation);
       }
     });
   };
@@ -115,8 +115,8 @@ function Landingpage() {
               <div id="register-link">Doesn't have an Account? SignUp</div>
             </Link>
           </div>
-          
-        
+
+
 
         </div>
       </div>

@@ -4,12 +4,13 @@ import { FaCheck } from 'react-icons/fa'
 import { useHistory, Link } from 'react-router-dom';
 import '../../css/StopSchooling.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
-
+import { UserContext } from '../../contexts/user/userContext'
 
 
 function StopSchooling() {
     const [submitTransferringForm, setTransferringForm] = useState(false)
-
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
     const ConfirmationBox = () => {
         if (!submitTransferringForm) {
             document.querySelector(".confirm-bg").style.display = "flex"
@@ -68,7 +69,7 @@ function StopSchooling() {
     const [transferlist, setTransferList] = useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/services/interview/get').then((response) => {
+        Axios.get('/services/interview/get').then((response) => {
             setTransferList(response.data);
         },
             {
@@ -77,11 +78,12 @@ function StopSchooling() {
     }, [])
 
     const submitTransferForm = () => {
-        Axios.post("http://localhost:3001/interview/requestinterview/createLeaveOfAbsenceForm", {
+        Axios.post("/interview/requestinterview/createLeaveOfAbsenceForm", {
             absence_reason: absence_reason,
             enroll_again: enroll_again,
             comment_to_nu: comment_to_nu,
-            type_of_comm: type_of_comm
+            type_of_comm: type_of_comm,
+            user_id: id,
 
         });
 
@@ -170,6 +172,11 @@ function StopSchooling() {
                             </select>
                         </div>
                         <span className="stop-schooling-error">{type_of_comm_errors}</span>
+
+                        <div className="stop-schooling-divs">
+                            <label><h3 className="stop-school-label">*Select Date</h3></label>
+                            <input type="date" />
+                        </div>
 
                         {/* pop up */}
                         <div className="container">

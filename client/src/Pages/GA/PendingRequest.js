@@ -6,22 +6,12 @@ import shia from '../../images/shia.jpg'
 import { BiSearch } from 'react-icons/bi'
 import Header from '../../components/GA/Header_ga'
 import Navbar from '../../components/GA/Navbar_ga'
+import { UserContext } from '../../contexts/user/userContext'
+import { MdPendingActions } from 'react-icons/md'
+import { RiMentalHealthLine } from 'react-icons/ri'
+import { IoIosPeople } from 'react-icons/io'
 
 function PendingRequest() {
-
-    const [purpose_req, setPurposeReq] = useState("");
-    const [number_copy, setNumberCopy] = useState("");
-    const [special_instruction, setSpecialInstruct] = useState("");
-    const [status, setStatus] = useState("");
-
-    const [goodmoralList, setGoodmoralList] = useState([]);
-
-    useEffect(() => {
-        Axios.get('http://localhost:3001/services/goodmoral/get').then((response) => {
-            setGoodmoralList(response.data)
-        })
-    }, [])
-
 
     return (
         <div className="pending-request-wrapper">
@@ -29,31 +19,39 @@ function PendingRequest() {
             <Navbar />
             <div className="pending-body">
                 <div className="pending-name">
-                    <h1>Pending Request </h1>
+                    <h1>Pending Requests </h1>
                 </div>
                 <div className="pending-list">
-                <div className="pending-list-content">
-                    {goodmoralList.map((val) => {
-                        return(
-                            <div className="goodmoralreq-list-contents">
-                                            <Link to="#">
-                                                <div className="goodmoralreq-list-container">
-                                                    <div className="goodmoralreq-list-status">
-                                                        <h3>{val.status}</h3>
-                                                    </div>
-                                                    <div className="goodmoralreq-list-name">
-                                                        <h3>Request for Certificate of Good Moral for {val.purpose_req}</h3>
-                                                    </div>
+                    <div className="pending-list-content">
+                        <div className='pending-cards'>
+                            <div className='pending-info'>
+                                <div className='pending-card-title-icon'><IoIosPeople color="#30408D" size="4rem" /></div>
+                                <h2 className='pending-card-title'>Good Moral</h2>
+                                <div className='pending-total'>
+                                    <h3>10</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='pending-cards'>
+                            <div className='pending-info'>
+                                <div className='pending-card-title-icon'><MdPendingActions color='green' size="4rem" /></div>
+                                <h2 className='pending-card-title'>Interviews</h2>
+                                <div className='pending-total'>
+                                    <h3>10</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='pending-cards'>
+                            <div className='pending-info'>
+                                <div className='pending-card-title-icon'><RiMentalHealthLine color="red" size="4rem" /></div>
+                                <h2 className='pending-card-title'>Smart Chat</h2>
+                                <div className='pending-total'>
+                                    <h3>10</h3>
+                                </div>
+                            </div>
+                        </div>
 
-                                                </div>
-                                                <div className="goodmoralreq-list-divider">
-                                                    <hr />
-                                                </div>
-                                            </Link>
-                                        </div>
-                        )
-                    })}
-                </div>
+                    </div>
                 </div>
             </div>
         </div>

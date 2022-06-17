@@ -5,13 +5,21 @@ import { MdAdd, MdNavigateNext } from 'react-icons/md'
 import '../css/Counseling.css'
 import Header from '../components/Header'
 import Navbar from '../components/Navbar'
+import { UserContext } from '../contexts/user/userContext'
+
 
 function Counseling() {
 
-    const [smartchatlist, setSmartChatList] = useState([]);
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
+    console.log(state)
 
+    const [concern_today, setConcernToday] = useState("");
+    const [status, setStatus] = useState("");
+    const [smartchatlist, setSmartChatList] = useState([]);
+    
     useEffect(() => {
-        Axios.get('http://localhost:3001/counseling/CounselingForm/get').then((response) => {
+        Axios.get(`/counseling/get/${id}`).then((response) => {
             setSmartChatList(response.data)
         })
     }, [])
@@ -36,13 +44,13 @@ function Counseling() {
                                 {smartchatlist.map((val) => {
                                     return (
                                         <div className="counseling-list-consents">
-                                            <Link to="#">
+                                            <Link to="/counseling/view">
                                                 <div className="counseling-list-container">
                                                     <div className="counseling-list-status">
                                                         <h3>{val.status}</h3>
                                                     </div>
                                                     <div className="counseling-list-name">
-                                                        <h3>Smart Chat Concern with {val.concern}</h3>
+                                                        <h3>Smart Chat Concern with {val.concern_today}</h3>
                                                     </div>
                                                     <div className="counseling-list-divider">
                                                         <hr />

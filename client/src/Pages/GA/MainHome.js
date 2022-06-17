@@ -7,10 +7,23 @@ import { FaTrash } from 'react-icons/fa'
 import Header from '../../components/GA/Header_ga'
 import Navbar from '../../components/GA/Navbar_ga'
 import TotalList from './TotalList';
-
+import { UserContext } from '../../contexts/user/userContext'
 
 
 function MainHome() {
+
+  const [state] = React.useContext(UserContext)
+  const id = state.user.users_id
+
+  const [fullname, setFullname] = useState("");
+  const [usernameinfo, setUsernameInfo] = useState([]);
+
+  useEffect(() => {
+    Axios.get(`/profile/get/${id}`).then((response) => {
+      setUsernameInfo(response.data);
+
+    })
+  }, [])
 
   const [announcement_title, setAnnouncementTitle] = useState("");
   const [announcement_description, setAnnouncementDescription] = useState("");
@@ -18,7 +31,7 @@ function MainHome() {
 
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/announcement/get').then((response) => {
+    Axios.get('/announcement/get').then((response) => {
       setAnnouncementList(response.data)
     })
   }, [])
@@ -29,15 +42,18 @@ function MainHome() {
       <Header />
       <Navbar />
       <div className="mainhome-body">
-        <div className="main-home-user-name">
-          <h1>Welcome, Archie</h1>
+        {usernameinfo.map((val, index) => (
+          <div className="main-home-user-name" key={index}>
+            <h1>Welcome, {val.fullname}</h1>
+          </div>
+        ))}
+
+
+        <div className="mainhome-totals">
+          <div className="mainhome-cards">
+            <TotalList />
+          </div>
         </div>
- 
-          <div className="mainhome-totals">
-            <div className="mainhome-cards">
-              <TotalList />
-            </div>
-            </div>
 
         <div className="main-home-contents">
           <h1 id="announcement-main">Announcements</h1>

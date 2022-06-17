@@ -5,8 +5,13 @@ import { MdAdd, MdNavigateNext } from 'react-icons/md'
 import '../../css/GoodMoralReq.css'
 import Header from '../../components/Header'
 import Navbar from '../../components/Navbar'
+import { UserContext } from '../../contexts/user/userContext'
 
 function GoodMoralReq() {
+
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
+    console.log(state)
 
     const [purpose_req, setPurposeReq] = useState("");
     const [number_copy, setNumberCopy] = useState("");
@@ -16,13 +21,12 @@ function GoodMoralReq() {
     const [goodmoralList, setGoodmoralList] = useState([]);
 
     useEffect(() => {
-        Axios.get('/services/goodmoral/get/:id').then((response) => {
-            setGoodmoralList(response.data.goodmoral_id)
+        Axios.get(`/services/goodmoral/get/${id}`).then((response) => {
+            setGoodmoralList(response.data) 
         })
     }, [])
 
     return (
-
         <div className="goodmoralreq-wrapper">
             <Header />
             <Navbar />
@@ -39,11 +43,11 @@ function GoodMoralReq() {
                         </div>
                         <div className="goodmoralreq-list">
                             <div className="goodmoralreq-status">
-                                {goodmoralList.map((val) => {
+                                {goodmoralList.map((val, index) => {
                                     return (
 
-                                        <div className="goodmoralreq-list-contents">
-                                            <Link to="#">
+                                        <div className="goodmoralreq-list-contents" key={index}>
+                                            <Link to="/services/goodmoral/view">
                                                 <div className="goodmoralreq-list-container">
                                                     <div className="goodmoralreq-list-status">
                                                         <h3>{val.status}</h3>
@@ -64,6 +68,7 @@ function GoodMoralReq() {
                         </div>
                     </div>
                 </div>
+                <div className='goodmoral-spacer'></div>
             </div>
         </div>
     )
