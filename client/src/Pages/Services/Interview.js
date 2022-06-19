@@ -33,7 +33,6 @@ function Interview() {
             <div className="interview-container">
                 <div className="interview-name">
                     <h1>
-                        
                         Interviews
                     </h1>
                 </div>
@@ -49,7 +48,7 @@ function Interview() {
                                 {shiftingList.map((val, index) => {
                                     return (
                                         <div className="interview-list-contents" key={index}>
-                                            <Link to="/services/interview/view">
+                                            <Link to={`/services/interview/${val.route}${val.id}`}>
                                                 <div className="interview-list-container">
                                                     <div className="interview-list-status">
                                                         <h3>{val.status}</h3>

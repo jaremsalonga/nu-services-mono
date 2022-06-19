@@ -5,14 +5,23 @@ import { UserContext } from '../contexts/user/userContext'
 import { HiDocumentDownload } from 'react-icons/hi'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import '../css/Student-View/ViewSmartChat.css'
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
+import Header from '../components/Header'
+import Navbar from '../components/Navbar'
+import { useParams } from 'react-router-dom'
 
 function ViewSmartChat() {
 
+  let { id } = useParams();
+
   const [state] = React.useContext(UserContext)
-  const id = state.user.users_id
-  // console.log(state)
+  const user_id = state.user.users_id
+
+  const [concern_feeling, setConcernFeeling] = useState("");
+  const [concern_today, setConcernToday] = useState("");
+  const [type_contact, setTypeContact] = useState("");
+  const [type_comm, setTypeComm] = useState("");
+  const [status, setStatus] = useState("");
+  const [smartchatlist, setSmartChatList] = useState([]);
 
   //profile details
   const [fullname, setFullname] = useState("");
@@ -21,9 +30,16 @@ function ViewSmartChat() {
   const [profileInfo, setProfileInfo] = useState([]);
 
   useEffect(() => {
-    Axios.get(`/profile/get/${id}`).then((response) => {
+    let smartchat_id = window.location.pathname.split("/").pop();
+
+    Axios.get(`/counseling/view/${user_id}/${smartchat_id}`).then((response) => {
+      setSmartChatList(response.data);
+      console.log(response);
+    })
+    Axios.get(`/profile/get/${user_id}`).then((response) => {
       setProfileInfo(response.data);
     })
+    console.log(window.location.pathname.split("/").pop())
   }, [])
 
   return (
@@ -48,48 +64,44 @@ function ViewSmartChat() {
             </div>
           ))}
           <hr id='viewsmart-divider' />
-          <div className='viewsmart-list-details-holder'>
-            <div className='viewsmart-divs'>
-              <div className='viewsmart-divs'>
-                <label><h2 id='viewsmart-label'>Status: &nbsp; Pending</h2></label>
-                {/* <h2 id='viewgm-details'>Pending</h2> */}
-              </div>
-              <label><h2 id='viewsmart-label'>Consultations With Family Member & Allied Professionals: &nbsp;Local Employment</h2></label>
-              {/* <h2 id='viewgm-details'>Change of Interest</h2> */}
-            </div>
-            <div className='viewsmart-divs'>
-              <label><h2 id='viewsmart-label'>Contact Number of my family member: &nbsp;Yes</h2></label>
-              {/* <h2 id='viewgm-details'>1</h2> */}
-            </div>
-            <div className='viewsmart-divs'>
-              <label><h2 id='viewsmart-label'>Other allied professionals with whom I have consulted, particularly
-                (Counselor, Psychologist, Psychiatrist - Name): &nbsp; N/A</h2></label>
-              {/* <h2 id='viewgm-details'>N/A</h2> */}
-            </div>
-            <div className='viewsmart-divs'>
-              <label><h2 id='viewsmart-label'>What is your concern for today?: &nbsp; N/A</h2></label>
-              {/* <h2 id='viewgm-details'>N/A</h2> */}
-            </div>
-            <div className='viewsmart-divs'>
-              <label><h2 id='viewsmart-label'>How do you feel about your concern?: &nbsp; N/A</h2></label>
-              {/* <h2 id='viewgm-details'>N/A</h2> */}
-            </div>
-            <div className='viewsmart-divs'>
-              <label><h2 id='viewsmart-label'>Where do you want to be contacted?: &nbsp; N/A</h2></label>
-              {/* <h2 id='viewgm-details'>N/A</h2> */}
-            </div>
-            <div className='viewsmart-divs'>
-              <label><h2 id='viewsmart-label'>Type of Communication: &nbsp;Chat</h2></label>
-              {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
-            </div>
-            <div className='viewsmart-divs'>
-              <label><h2 id='viewsmart-label'>Date and Time of Interview: &nbsp; TBA</h2></label>
-              {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
-            </div>
+          <div className='viewgm-list-details-holder'>
+            {smartchatlist.map((val, index) => (
+              <>
+                <div className='viewsmart-divs'>
+                  <div className='viewsmart-divs'>
+                    <label><h2 id='viewsmart-label'>Status: &nbsp;{val.status}</h2></label>
+                    {/* <h2 id='viewsmart-details'>Pending</h2> */}
+                  </div>
+                  <label><h2 id='viewsmart-label'>What is your concern for today?: &nbsp;{val.concern_today}</h2></label>
+                  {/* <h2 id='viewsmart-details'>Change of Interest</h2> */}
+                </div>
+                <div className='viewsmart-divs'>
+                  <label><h2 id='viewsmart-label'>How do you feel about your concern?: &nbsp;{val.concern_feeling}</h2></label>
+                  {/* <h2 id='viewsmart-details'>1</h2> */}
+                </div>
+                <div className='viewsmart-divs'>
+                  <label><h2 id='viewsmart-label'>Where do you want to be contacted?: &nbsp;{val.type_contact}</h2></label>
+                  {/* <h2 id='viewsmart-details'>N/A</h2> */}
+                </div>
+                <div className='viewsmart-divs'>
+                  <label><h2 id='viewsmart-label'>In what way do you want to communicate?: &nbsp;{val.type_comm}</h2></label>
+                  {/* <h2 id='viewsmart-details'>N/A</h2> */}
+                </div>
+                <div className='viewsmart-divs'>
+                  <label><h2 id='viewsmart-label'>Approved By: &nbsp;{val.approved_by}</h2></label>
+                  {/* <h2 id='viewsmart-details'>Archie Salvador</h2> */}
+                </div>
+                <div className='viewtransfer-divs'>
+                  <label><h2 id='viewtransfer-label'>Date and Time of Interview: &nbsp; TBA</h2></label>
+                  {/* <h2 id='viewsmart-details'>Archie Salvador</h2> */}
+                </div>
+              </>
+            ))}
           </div>
         </div>
         <div className='viewsmart-spacer'></div>
       </div>
+
     </div>
   )
 }

@@ -1,11 +1,10 @@
-.viewsii-wrapper {
+.pendingviewgm-wrapper {
     background-color: white;
     display: flex;
-    width: 100%;
     height: auto;
 }
 
-.viewsii-container {
+.pendingviewgm-container {
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -14,23 +13,23 @@
     height: auto;
 }
 
-.viewsii-name {
+.pendingviewgm-name {
     margin-top: 13vh;
     /* display: flex; */
 }
 
-.viewsii-list-container {
+.pendingviewgm-list-container {
     margin-top: 7vh;
     padding: 15px;
     border-radius: 5px;
-    width: 85%;
+    width: 80%;
     -webkit-box-shadow: 0px 0px 11px -1px #000000;
     box-shadow: 0px 0px 11px -1px #000000;
     margin-left: 15vh;
     height: auto;
 }
 
-.viewsii-list-header {
+.pendingviewgm-list-header {
     /* background-color: rebeccapurple; */
     display: flex;
     height: auto;
@@ -38,22 +37,22 @@
     /* justify-content: center; */
 }
 
-.viewsii-header-name {
+.pendingviewgm-header-name {
     width: 80%;
     display: flex;
 }
 
-h1.viewsii-user-name {
+h1.pendingviewgm-user-name {
     text-transform: uppercase;
 }
 
-.viewsii-header-btn {
+.pendingviewgm-header-btn {
     width: 20%;
     height: auto;
     padding: 5px;
 }
 
-button.viewsii-download-btn {
+button.pendingviewgm-download-btn {
     cursor: pointer;
     border: none;
     background: none;
@@ -61,7 +60,7 @@ button.viewsii-download-btn {
     margin-left: 20vh;
 }
 
-.viewsii-list-details-holder {
+.pendingviewgm-list-details-holder {
     height: auto;
     margin-top: 2vh;
     margin-left: -10vw;
@@ -69,12 +68,12 @@ button.viewsii-download-btn {
     padding: 30px;
 }
 
-h2#viewsii-label {
+h2#pendingviewgm-label {
     text-align: left;
     margin-left: 23vh;
 }
 
-.viewsii-spacer{
+.pendingviewgm-spacer{
     height: 180px;
     /* background-color: rebeccapurple; */
 }

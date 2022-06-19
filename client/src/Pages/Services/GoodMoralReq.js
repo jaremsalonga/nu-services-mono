@@ -22,7 +22,7 @@ function GoodMoralReq() {
 
     useEffect(() => {
         Axios.get(`/services/goodmoral/get/${id}`).then((response) => {
-            setGoodmoralList(response.data) 
+            setGoodmoralList(response.data)
         })
     }, [])
 
@@ -47,7 +47,7 @@ function GoodMoralReq() {
                                     return (
 
                                         <div className="goodmoralreq-list-contents" key={index}>
-                                            <Link to="/services/goodmoral/view">
+                                            <Link to={`/services/goodmoral/view/${val.goodmoral_id}`}>
                                                 <div className="goodmoralreq-list-container">
                                                     <div className="goodmoralreq-list-status">
                                                         <h3>{val.status}</h3>

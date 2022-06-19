@@ -54,6 +54,10 @@ import ViewInterview from './Pages/Services/ViewInterview';
 import ViewSII from './Pages/Services/ViewSII';
 import ViewSmartChat from './Pages/ViewSmartChat';
 import EditMyProfile from './Pages/GA/EditMyProfile';
+import ViewAbsence from './components/Student/ViewInterview/Absence/ViewAbsence';
+import ViewGrad from './components/Student/ViewInterview/Grad/ViewGrad';
+import ViewTransfer from './components/Student/ViewInterview/Transfer/ViewTransfer';
+import ViewShifting from './components/Student/ViewInterview/Shifting/ViewShifting';
 
 
 
@@ -67,24 +71,30 @@ function App() {
         <PublicRoute path="/TermsAndCondition" component={TermsAndCondition} />
 
 
-        {/* Student */}
+        {/* ---------------------------------STUDENT ----------------------*/}
+
         <PrivateRoute path="/main" component={Main} role={['student']} />
         <PrivateRoute path="/services" exact component={Services} role={['student']} />
 
         {/* GoodMoral */}
         <PrivateRoute path="/services/goodmoral" exact component={GoodMoralReq} role={['student']} />
-        <PrivateRoute path="/services/goodmoral/view" exact component={ViewGoodMoral} role={['student']} />
+        <PrivateRoute path="/services/goodmoral/view/:goodmoral_id" exact component={ViewGoodMoral} role={['student']} />
         <PrivateRoute path="/services/goodmoral/request" exact component={GoodMoral} role={['student']} />
 
 
         {/* SII */}
         <PrivateRoute path="/services/studentenrollment" exact component={Enrollment} role={['student']} />
-        <PrivateRoute path="/services/studentenrollment/view" exact component={ViewSII} role={['student']} />
+        <PrivateRoute path="/services/studentenrollment/view/:sii_id" exact component={ViewSII} role={['student']} />
         <PrivateRoute exact path="/enrollment/enrollmentstudentform" component={EnrollmentForm} role={['student']} />
 
         {/* INTERVIEW */}
         <PrivateRoute path="/services/interview" exact component={Interview} role={['student']} />
-        <PrivateRoute path="/services/interview/view" exact component={ViewInterview} role={['student']} />
+
+        <PrivateRoute path="/services/interview/shift/view/:shift_id" exact component={ViewShifting} role={['student']} />
+        <PrivateRoute path="/services/interview/transfer/view/:transferreq_id" exact component={ViewTransfer} role={['student']} />
+        <PrivateRoute path="/services/interview/grad/view/:gradreq_id" exact component={ViewGrad} role={['student']} />
+        <PrivateRoute path="/services/interview/absence/view/:absencereq_id" exact component={ViewAbsence} role={['student']} />
+        
         <PrivateRoute exact path="/interview/requestinterview" component={InterviewForm} role={['student']} />
         <PrivateRoute exact path="/interview/shiftingform" component={ShiftingForm} role={['student']} />
         <PrivateRoute exact path="/interview/shiftingform" component={GraduatingForm} role={['student']} />
@@ -93,7 +103,7 @@ function App() {
 
         {/* COUNSELING/SMARTCHAT */}
         <PrivateRoute exact path="/counseling" component={Counseling} role={['student']} />
-        <PrivateRoute exact path="/counseling/view" component={ViewSmartChat} role={['student']} />
+        <PrivateRoute exact path="/counseling/view/:smartchat_id" component={ViewSmartChat} role={['student']} />
         <PrivateRoute exact path="/counseling/consent" component={CounselingConsent} role={['student']} />
         <PrivateRoute exact path="/counseling/counselingform" component={CounselingForm} role={['student']} />
 
@@ -104,9 +114,8 @@ function App() {
         <PrivateRoute exact path="/profile" component={Profile} role={['student']} />
         <PrivateRoute exact path="/aboutus" component={Aboutus} role={['student']} />
 
+        {/* ----------------------------------------Guidance Associate ----------------------*/}
 
-
-        {/* Guidance Associate */}
         <PrivateRoute exact path="/mainhome" component={MainHome} role={['guidance associate']} />
         <PrivateRoute exact path="/pendingrequests" component={PendingRequest} role={['guidance associate']} />
         <PrivateRoute exact path="/pendingrequests/viewrequestdetails" component={ViewPending} role={['guidance associate']} />
@@ -118,7 +127,10 @@ function App() {
         <PrivateRoute exact path="/myprofile" component={MyProfile} role={['guidance associate']} />
         <PrivateRoute exact path="/myprofile/edit" component={EditMyProfile} role={['guidance associate']} />
 
-        {/* Guidance Director */}
+
+        {/* ----------------------------------------Guidance Director ----------------------*/}
+
+
         <PrivateRoute exact path="/dashboard" component={Home} role={['guidance director']} />
         <PrivateRoute exact path="/reports" component={Reports} role={['guidance director']} />
         <PrivateRoute exact path="/pendingrequests/view" component={PendingReq} role={['guidance director']} />

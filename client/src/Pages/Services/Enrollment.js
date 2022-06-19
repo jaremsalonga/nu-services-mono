@@ -43,7 +43,7 @@ function Enrollment() {
                                 {siiList.map((val, index) => {
                                     return (
                                         <div className="enrollment-list-contents" key={index}>
-                                            <Link to="#">
+                                        <Link to={`/services/studentenrollment/view/${val.sii_id}`}>
                                                 <div className="enrollment-list-container">
                                                     <div className="enrollment-list-status">
                                                         <h3>{val.status}</h3>

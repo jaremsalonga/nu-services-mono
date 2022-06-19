@@ -17,7 +17,7 @@ function Counseling() {
     const [concern_today, setConcernToday] = useState("");
     const [status, setStatus] = useState("");
     const [smartchatlist, setSmartChatList] = useState([]);
-    
+
     useEffect(() => {
         Axios.get(`/counseling/get/${id}`).then((response) => {
             setSmartChatList(response.data)
@@ -44,7 +44,7 @@ function Counseling() {
                                 {smartchatlist.map((val) => {
                                     return (
                                         <div className="counseling-list-consents">
-                                            <Link to="/counseling/view">
+                                            <Link to={`/counseling/view/${val.smartchat_id}`}>
                                                 <div className="counseling-list-container">
                                                     <div className="counseling-list-status">
                                                         <h3>{val.status}</h3>

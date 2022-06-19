@@ -28,15 +28,13 @@
 }
 
 .pending-list-content {
-    /* background-color: blue; */
     height: auto;
     padding: 5px;
 }
 
 .pending-cards {
-    cursor: pointer;
     color: black;
-    height: 100px;
+    height: auto;
     width: 90%;
     border-radius: 5px;
     padding: 5px;
@@ -50,7 +48,6 @@
 }
 
 .pending-cards:hover {
-    height: 110px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -61,21 +58,40 @@
     padding: 15px;
 }
 
-h2.pending-card-title {
-    margin-left: 5vh;
-    margin-top: 10px;
-    width: 70%;
+.pending-card-title {
+    width: 100%;
+    padding: 5px;
+    margin-left: 5px;
 }
 
-.pending-total {
-    width: 30%;
+.pending-action-btn {
+    width: 20%;
+    margin-left: 40vh;
+    display: flex;
+    align-items: center;
+    padding: 3px;
 }
 
-.pending-total h3{
-    margin-left: 25vh;
+.pending-action-btn h3{
+    /* margin-left: 25vh; */
     display: flex;
     justify-content: center;
     align-items: center;
     /* background-color: rebeccapurple; */
     height: 70px;
+}
+
+.pending-card-title-icon{
+    margin-top: 15px;
+}
+
+
+button.pending-view{
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: #30408D;
+    color: white;
 }

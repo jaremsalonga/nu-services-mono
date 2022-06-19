@@ -164,10 +164,11 @@ app.get("/services/goodmoral/get/:id", (req, res) => {
 
 
 //view good moral
-app.get("/services/goodmoral/view/:id", (req, res) => {
+app.get("/services/goodmoral/view/:id/:goodmoral_id", (req, res) => {
     const user_id = req.params.id;
-    // const sqlSelect = "SELECT * FROM goodmoral_req WHERE goodmoral_id = ? AND user_id = ?";
-    db.query(sqlSelect, user_id, (err, result) => {
+    const goodmoral_id = req.params.goodmoral_id;
+    const sqlSelect = "SELECT * FROM goodmoral_req WHERE goodmoral_id = ? AND user_id = ?";
+    db.query(sqlSelect, [goodmoral_id, user_id], (err, result) => {
         res.send(result);
     });
 });
@@ -243,7 +244,6 @@ app.post('/enrollment/enrollmentstudentform/create', (req, res) => {
     };
 })
 
-
 //get sii
 app.get('/services/studentenrollment/get/:id', (req, res) => {
     const user_id = req.params.id;
@@ -253,17 +253,85 @@ app.get('/services/studentenrollment/get/:id', (req, res) => {
     });
 });
 
+//view SII
+app.get("/services/studentenrollment/view/:id/:sii_id", (req, res) => {
+    const user_id = req.params.id;
+    const sii_id = req.params.sii_id;
+    const sqlSelect = "SELECT * FROM sii_request WHERE sii_id = ? AND user_id = ?";
+    db.query(sqlSelect, [sii_id, user_id], (err, result) => {
+        res.send(result);
+    });
+});
+
+
+
 //interview get
 app.get('/services/interview/get/:id', (req, res) => {
     const user_id = req.params.id;
-    const sqlSelect = `SELECT type_interview, status FROM shift_req WHERE user_id = ? 
-    UNION ALL SELECT type_interview, status FROM transfer_req WHERE user_id = ? 
-    UNION ALL SELECT type_interview, status FROM grad_req WHERE user_id = ? 
-    UNION ALL SELECT type_interview, status FROM absence_req WHERE user_id = ? `
+    const sqlSelect = `SELECT type_interview, status, "shift/view/" AS route, shift_id AS id FROM shift_req WHERE user_id = ? 
+    UNION ALL SELECT type_interview, status, "transfer/view/" AS route, transferreq_id AS id FROM transfer_req WHERE user_id = ? 
+    UNION ALL SELECT type_interview, status, "grad/view/" AS route, gradreq_id AS id FROM grad_req WHERE user_id = ? 
+    UNION ALL SELECT type_interview, status, "absence/view/" AS route, absencereq_id AS id FROM absence_req WHERE user_id = ?`
     db.query(sqlSelect, [user_id, user_id, user_id, user_id], (err, result) => {
         res.send(result);
     });
 });
+
+
+//view shifting
+app.get("/services/interview/shift/view/:id", (req, res) => {
+    const shift_id = req.params.id;
+    const sqlSelect = `SELECT * FROM shift_req
+    INNER JOIN users ON 
+    shift_req.user_id = users.users_id
+    WHERE shift_id = ?`;
+    db.query(sqlSelect, [shift_id], (err, result) => {
+        let [first] = result;
+        console.log(first)
+        res.send(first);
+
+    });
+});
+
+app.get("/services/interview/transfer/view/:id", (req, res) => {
+    const transferreq_id = req.params.id;
+    const sqlSelect = `SELECT * FROM transfer_req
+    INNER JOIN users ON 
+    transfer_req.user_id = users.users_id
+    WHERE transferreq_id = ?`;
+    db.query(sqlSelect, [transferreq_id], (err, result) => {
+        let [first] = result;
+        console.log(first)
+        res.send(first);
+    });
+});
+
+app.get("/services/interview/grad/view/:id", (req, res) => {
+    const gradreq_id = req.params.id;
+    const sqlSelect = `SELECT * FROM grad_req
+    INNER JOIN users ON 
+    grad_req.user_id = users.users_id
+    WHERE gradreq_id = ?`;
+    db.query(sqlSelect, [gradreq_id], (err, result) => {
+        let [first] = result;
+        console.log(first)
+        res.send(first);
+    });
+});
+
+app.get("/services/interview/absence/view/:id", (req, res) => {
+    const absencereq_id = req.params.id;
+    const sqlSelect = `SELECT * FROM absence_req
+    INNER JOIN users ON 
+    absence_req.user_id = users.users_id
+    WHERE absencereq_id = ?`;
+    db.query(sqlSelect, [absencereq_id], (err, result) => {
+        let [first] = result;
+        console.log(first)
+        res.send(first);
+    });
+});
+
 
 //insert shifting
 app.post("/interview/requestinterview/createShiftForm", (req, res) => {
@@ -357,7 +425,7 @@ app.post("/interview/requestinterview/createLeaveOfAbsenceForm", (req, res) => {
 });
 
 
-// insert fist consent
+// insert first consent
 app.post("/counseling/consent/createConsent", (req, res) => {
     const consult_family = req.body.consult_family
     const contact_fam = req.body.contact_fam
@@ -396,6 +464,16 @@ app.get('/counseling/get/:id', (req, res) => {
     const user_id = req.params.id;
     const sqlSelect = "SELECT * FROM smartchat_req where user_id = ?"
     db.query(sqlSelect, user_id, (err, result) => {
+        res.send(result);
+    });
+});
+
+//view smart chat
+app.get("/counseling/view/:id/:smartchat_id", (req, res) => {
+    const user_id = req.params.id;
+    const smartchat_id = req.params.smartchat_id;
+    const sqlSelect = "SELECT * FROM smartchat_req WHERE smartchat_id = ? AND user_id = ?";
+    db.query(sqlSelect, [smartchat_id, user_id], (err, result) => {
         res.send(result);
     });
 });

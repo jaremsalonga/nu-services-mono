@@ -5,6 +5,8 @@ import { UserContext } from '../../../../contexts/user/userContext'
 import { HiDocumentDownload } from 'react-icons/hi'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import './ViewGrad.css'
+import Header from '../../../Header';
+import Navbar from '../../../Navbar';
 
 function ViewGrad() {
 
@@ -16,61 +18,74 @@ function ViewGrad() {
     const [fullname, setFullname] = useState("");
     const [gender, setGender] = useState("");
     const [email, setEmail] = useState("");
-    const [profileInfo, setProfileInfo] = useState([]);
+
+    const [profileInfo, setProfileInfo] = useState({});
+
+    const [last_ay, setLastAY] = useState("");
+    const [last_term, setLastTerm] = useState("");
+    const [plan_after_grad, setPlanAfterGrad] = useState("");
+    const [comment_to_nu, setCommentToNu] = useState("");
+    const [permission_info, setPermissionInfo] = useState("");
+    const [type_of_comm, setTypeOfComm] = useState("");
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
-        Axios.get(`/profile/get/${id}`).then((response) => {
+        let gradreq_id = window.location.pathname.split("/").pop();
+        Axios.get(`/services/interview/grad/view/${gradreq_id}`).then((response) => {
             setProfileInfo(response.data);
+            console.log(response.data);
         })
     }, [])
 
     return (
         <div className='viewgrad-wrapper'>
+            <Header />
+            <Navbar />
             <div className='viewgrad-container'>
                 <div className='viewgrad-name'>
-                    <h1>Request of Interview for Leave of Absence</h1>
+                    <h1>Request of Interview for Exit to Gradute</h1>
                 </div>
                 <div className='viewgrad-list-container'>
-                    {profileInfo.map((val, index) => (
-                        <div className='viewgrad-list-header'>
-                            <div className='viewgrad-header-name'>
-                                <h1 className='viewgrad-user-name'>
-                                    <Link to="/services/interview"><RiArrowGoBackFill color='#aaa' /></Link>
-                                    &nbsp;{val.fullname}</h1>
-                            </div>
-                            <div className='viewgrad-header-btn'>
-                                <button className='viewgrad-download-btn'><HiDocumentDownload size="2rem" color="#30408D" /></button>
-                            </div>
+                    <div className='viewgrad-list-header'>
+                        <div className='viewgrad-header-name'>
+                            <h1 className='viewgrad-user-name'>
+                                <Link to="/services/interview"><RiArrowGoBackFill color='#aaa' /></Link>
+                                &nbsp;{profileInfo.fullname}
+                            </h1>
                         </div>
-                    ))}
+                        <div className='viewgrad-header-btn'>
+                            <button className='viewgrad-download-btn'><HiDocumentDownload size="2rem" color="#30408D" /></button>
+                        </div>
+                    </div>
                     <hr id='viewgrad-divider' />
                     <div className='viewgrad-list-details-holder'>
                         <div className='viewgrad-divs'>
                             <div className='viewgrad-divs'>
-                                <label><h2 id='viewgrad-label'>Status: &nbsp; Pending</h2></label>
+                                <label><h2 id='viewgrad-label'>Status: &nbsp; {profileInfo.status}</h2></label>
                                 {/* <h2 id='viewgm-details'>Pending</h2> */}
                             </div>
-                            <label><h2 id='viewgrad-label'>Last Academic Year Attended: &nbsp;Local Employment</h2></label>
+                            <label><h2 id='viewgrad-label'>Last Academic Year Attended: &nbsp;{profileInfo.last_ay}</h2></label>
                             {/* <h2 id='viewgm-details'>Change of Interest</h2> */}
                         </div>
                         <div className='viewgrad-divs'>
-                            <label><h2 id='viewgrad-label'>Last Term Attended: &nbsp;Yes</h2></label>
+                            <label><h2 id='viewgrad-label'>Last Term Attended: &nbsp;{profileInfo.last_term}</h2></label>
                             {/* <h2 id='viewgm-details'>1</h2> */}
                         </div>
                         <div className='viewgrad-divs'>
-                            <label><h2 id='viewgrad-label'>What are your plans after you graduate?: &nbsp; N/A</h2></label>
+                            <label><h2 id='viewgrad-label'>What are your plans after you graduate?: &nbsp;{profileInfo.plan_after_grad}</h2></label>
                             {/* <h2 id='viewgm-details'>N/A</h2> */}
                         </div>
                         <div className='viewgrad-divs'>
-                            <label><h2 id='viewgrad-label'>Other comments and suggestion for NU's further improvement: &nbsp; N/A</h2></label>
+                            <label><h2 id='viewgrad-label'>Other comments and suggestion for NU's further improvement: &nbsp;{profileInfo.comment_to_nu}</h2></label>
                             {/* <h2 id='viewgm-details'>N/A</h2> */}
                         </div>
                         <div className='viewgrad-divs'>
-                            <label><h2 id='viewgrad-label'>Will you allow us to include your information to the list we will give to the requesting companies/agencies for employment purposes?: &nbsp; N/A</h2></label>
+                            <label><h2 id='viewgrad-label'>Will you allow us to include your information to the list 
+                            we will give to the requesting companies/agencies for employment purposes?: &nbsp;{profileInfo.permission_info}</h2></label>
                             {/* <h2 id='viewgm-details'>N/A</h2> */}
                         </div>
                         <div className='viewgrad-divs'>
-                            <label><h2 id='viewgrad-label'>Type of Communication: &nbsp;Chat</h2></label>
+                            <label><h2 id='viewgrad-label'>Type of Communication: &nbsp;{profileInfo.type_of_comm}</h2></label>
                             {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                         </div>
                         <div className='viewgrad-divs'>

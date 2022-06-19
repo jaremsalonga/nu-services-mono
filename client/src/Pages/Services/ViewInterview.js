@@ -7,7 +7,7 @@ import Header from '../../components/Header'
 import Navbar from '../../components/Navbar'
 import { HiDocumentDownload } from 'react-icons/hi'
 import { RiArrowGoBackFill } from 'react-icons/ri'
-import VIewShifting from '../../components/Student/ViewInterview/Shifting/VIewShifting';
+import ViewShifting from '../../components/Student/ViewInterview/Shifting/ViewShifting';
 import ViewAbsence from '../../components/Student/ViewInterview/Absence/ViewAbsence';
 import ViewGrad from '../../components/Student/ViewInterview/Grad/ViewGrad';
 import ViewTransfer from '../../components/Student/ViewInterview/Transfer/ViewTransfer';
@@ -34,10 +34,7 @@ function ViewInterview() {
             <Header />
             <Navbar />
             <div className='viewinterview-container'>
-                {/* <VIewShifting /> */}
-                {/* <ViewAbsence /> */}
-                {/* <ViewGrad /> */}
-                <ViewTransfer />
+                <ViewShifting />
             </div>
 
         </div>
