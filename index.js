@@ -112,7 +112,7 @@ app.post('/login', async (req, res) => {
                         const [first] = result;
 
                         let tokenConfig = {
-                            expiresIn: 300
+                            expiresIn: 5000
                         };
 
                         var email = first.email;
@@ -515,15 +515,56 @@ app.put('/profile/editprofile/update', (req, res) => {
 
 //-------------------------------------------------------------------------------------//
 //(Guidance assoc)Get good moral per department and status
-app.get("/services/goodmoral", verifyJWT, (req, res) => {
+// app.get("/services/goodmoral", verifyJWT, (req, res) => {
+
+//     const { user: { department_id }, status } = req.params;
+
+//     const sqlSelect = "SELECT * FROM goodmoral_req WHERE user_id IN (select users_id from users INNER JOIN departments ON department_id = id where department_id = ?) and status = ?";
+//     db.query(sqlSelect, [department_id, status], (err, result) => {
+//         res.send(result);
+//     });
+// });
+
+
+app.get('/pendingrequest', verifyJWT, (req, res) => {
 
     const { user: { department_id }, status } = req.params;
 
-    const sqlSelect = "SELECT * FROM goodmoral_req WHERE user_id IN (select users_id from users INNER JOIN departments ON department_id = id where department_id = ?) and status = ?";
-    db.query(sqlSelect, [department_id, status], (err, result) => {
+    const sqlSelect = `SELECT absencereq_id as id, fullname, type_interview, CONCAT('/viewrequestdetails/absence/' ,absencereq_id) AS route  FROM nugss.absence_req 
+    INNER JOIN users ON 
+    absence_req.user_id = users.users_id
+    where users.department_id = ? and absence_req.status = 'pending'
+    UNION ALL
+    SELECT goodmoral_id, users.fullname, 'Good Moral' as type_interview, CONCAT('/viewrequestdetails/goodmoral/' , goodmoral_id) AS route FROM nugss.goodmoral_req 
+    INNER JOIN users ON 
+    goodmoral_req.user_id = users.users_id
+    where users.department_id = ? and goodmoral_req.status = 'pending'
+    UNION ALL
+    SELECT shift_id, users.fullname, type_interview, CONCAT('/viewrequestdetails/shift/' , shift_id) AS route FROM nugss.shift_req 
+    INNER JOIN users ON 
+    shift_req.user_id = users.users_id
+    where users.department_id = ? and shift_req.status = 'pending'
+    UNION ALL
+    SELECT smartchat_id, users.fullname, 'Smart Chat' AS type_interview, CONCAT('/viewrequestdetails/smartchat/' , smartchat_id) AS route FROM nugss.smartchat_req 
+    INNER JOIN users ON 
+    smartchat_req.user_id = users.users_id
+    where users.department_id = ? and smartchat_req.status = 'pending'
+    UNION ALL
+    SELECT transferreq_id, users.fullname, type_interview, CONCAT('/viewrequestdetails/transfer/' , transferreq_id) AS route FROM nugss.transfer_req 
+    INNER JOIN users ON 
+    transfer_req.user_id = users.users_id
+    where users.department_id = ? and transfer_req.status = 'pending'
+    UNION ALL
+    SELECT gradreq_id, users.fullname, type_interview, CONCAT('/viewrequestdetails/grad/' , gradreq_id) AS route FROM nugss.grad_req 
+    INNER JOIN users ON 
+    grad_req.user_id = users.users_id
+    where users.department_id = ? and grad_req.status = 'pending'`;
+
+    db.query(sqlSelect, [department_id, department_id, department_id, department_id, department_id, department_id], (err, result) => {
         res.send(result);
-    });
-});
+    })
+
+})
 
 
 //-------------------------------------------------------------------------------------//

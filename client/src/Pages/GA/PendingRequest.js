@@ -11,8 +11,34 @@ import { MdPendingActions } from 'react-icons/md'
 import { RiMentalHealthLine } from 'react-icons/ri'
 import { IoIosPeople } from 'react-icons/io'
 import { CgUserList } from 'react-icons/cg'
+import { useCookies } from 'react-cookie'
 
 function PendingRequest() {
+
+    const [state] = React.useContext(UserContext)
+
+    const department_id = state.user.department_id;
+
+
+    const [fullname, setFullname] = useState("");
+    const [type_interview, setTypeInterview] = useState("");
+    const [reqInfo, setReqInfo] = ([]);
+    const [cookies] = useCookies(['token']);
+
+
+    useEffect(() => {
+
+        console.log(cookies.token)
+        const config = {
+            headers: { Authorization: `Bearer ${cookies.token}` }
+        };
+
+        Axios.get('/pendingrequest', {department_id}, config).then((response) => { 
+            console.log(response.data);
+            setReqInfo(response.data);
+        })
+    }, [])
+
     let history = useHistory();
 
     const openReq = () => {

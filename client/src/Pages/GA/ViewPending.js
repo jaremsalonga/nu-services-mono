@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Axios from 'axios';
 import '../../css/GA/ViewPending.css'
 import { IoChevronBackOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
@@ -14,11 +15,18 @@ import ListGoodMoral from '../../components/GA/Pendings/GoodMoral/ListGoodMoral'
 
 function ViewPending() {
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [fullname, setFullname] = useState("");
+    const [type_interview, setTypeInterview] = useState("");
+    const [reqInfo, setReqInfo] = ([]);
 
-    const togglePopup = () => {
-        setIsOpen(!isOpen);
-    }
+
+    useEffect(() => {
+        Axios.get('/pendingrequest').then((response) => { 
+            console.log(response.data);
+            setReqInfo(response.data);
+           
+        })
+    }, [])
 
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');

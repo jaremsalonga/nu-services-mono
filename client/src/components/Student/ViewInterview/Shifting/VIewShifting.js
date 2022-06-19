@@ -9,7 +9,7 @@ import Header from '../../../Header';
 import Navbar from '../../../Navbar';
 
 
-function VIewShifting() {
+function ViewShifting() {
 
     const [state] = React.useContext(UserContext)
     const id = state.user.users_id
@@ -101,4 +101,4 @@ function VIewShifting() {
     )
 }
 
-export default VIewShifting
+export default ViewShifting

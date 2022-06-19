@@ -11,10 +11,11 @@ const verifyJWT = (req, res, next) => {
     } else {
 
         let jwtToken = verifyBearer(token)
+        console.log(jwtToken);
 
         jwt.verify(jwtToken, config.JWT_TOKEN_SECRET, (err, decoded) => {
             if (err) {
-                res.json({ auth: false, message: "you failed to auth" });
+                res.json({ auth: false, message: "you failed to auth", err : err });
             } else {
 
                 req.params = {
