@@ -22,19 +22,20 @@ function PendingRequest() {
 
     const [fullname, setFullname] = useState("");
     const [type_interview, setTypeInterview] = useState("");
-    const [reqInfo, setReqInfo] = ([]);
+
     const [cookies] = useCookies(['token']);
 
+    const [reqInfo, setReqInfo] = useState([]);
+
+    let config = {
+        headers: { Authorization: `Bearer ${cookies.token}` },
+        params: {
+            department_id
+        }
+    };
 
     useEffect(() => {
-
-        console.log(cookies.token)
-        const config = {
-            headers: { Authorization: `Bearer ${cookies.token}` }
-        };
-
-        Axios.get('/pendingrequest', {department_id}, config).then((response) => { 
-            console.log(response.data);
+        Axios.get('/pendingrequest', config).then((response) => {
             setReqInfo(response.data);
         })
     }, [])
@@ -55,70 +56,26 @@ function PendingRequest() {
                 </div>
                 <div className="pending-list">
                     <div className="pending-list-content">
-
-                        <div className='pending-cards'>
-                            <div className='pending-info'>
-                                <div className='pending-card-title-icon'>
-                                    <CgUserList color="#30408D" size="3.5rem" />
-                                </div>
-                                <div className='pending-card-title'>
+                    {reqInfo.map((val, index) => (
+                            <div className='pending-cards'>
+                                <div className='pending-info'>
+                                    <div className='pending-card-title-icon'>
+                                        <CgUserList color="#30408D" size="3.5rem" />
+                                    </div>
                                     <div className='pending-card-title'>
-                                        <h2>Smart Chat</h2>
-                                        <span>Khrysshia Domingo</span>
+                                        <div className='pending-card-title'>
+                                            <h2>{val.fullname}</h2>
+                                            <span>Khrysshia Domingo</span>
+                                        </div>
+
                                     </div>
 
-                                </div>
-
-                                <div className='pending-action-btn'>
-                                    <button onClick={openReq} className='pending-view'>VIEW</button>
-                                </div>
-                            </div>
-                        </div>
-                        {/* <div className='pending-cards'>
-                            <div className='pending-info'>
-                                <div className='pending-card-title-icon'><IoIosPeople color="#30408D" size="4rem" /></div>
-                                <h2 className='pending-card-title'>Good Moral</h2>
-                                <div className='pending-total'>
-                                    <h3>10</h3>
+                                    <div className='pending-action-btn'>
+                                        <button onClick={openReq} className='pending-view'>VIEW</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className='pending-cards'>
-                            <div className='pending-info'>
-                                <div className='pending-card-title-icon'><MdPendingActions color='green' size="4rem" /></div>
-                                <h2 className='pending-card-title'>Interviews for Shifting</h2>
-                                <div className='pending-total'>
-                                    <h3>10</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='pending-cards'>
-                            <div className='pending-info'>
-                                <div className='pending-card-title-icon'><MdPendingActions color='green' size="4rem" /></div>
-                                <h2 className='pending-card-title'>Interviews for Exit to Graduate</h2>
-                                <div className='pending-total'>
-                                    <h3>10</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='pending-cards'>
-                            <div className='pending-info'>
-                                <div className='pending-card-title-icon'><MdPendingActions color='green' size="4rem" /></div>
-                                <h2 className='pending-card-title'>Interviews for Exit to Transfer</h2>
-                                <div className='pending-total'>
-                                    <h3>10</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='pending-cards'>
-                            <div className='pending-info'>
-                                <div className='pending-card-title-icon'><MdPendingActions color='green' size="4rem" /></div>
-                                <h2 className='pending-card-title'>Interviews for Leave of Absence</h2>
-                                <div className='pending-total'>
-                                    <h3>10</h3>
-                                </div>
-                            </div>
-                        </div> */}
+                        ))}
                     </div>
                 </div>
                 <div className='pendingreq-spacer'></div>
