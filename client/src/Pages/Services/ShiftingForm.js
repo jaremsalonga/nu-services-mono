@@ -5,11 +5,18 @@ import { useHistory, Link } from 'react-router-dom';
 import '../../css/ShiftingForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import { UserContext } from '../../contexts/user/userContext'
+import { useCookies } from 'react-cookie'
+
+import NewDatePicker from '../../components/metamorphic/NewDatePicker';
 
 function ShiftingForm() {
+
     const [submitShiftForm, setSubmitShiftForm] = useState(false)
+    const [startDate, setStartDate] = useState(new Date());
+
     const [state] = React.useContext(UserContext)
     const id = state.user.users_id
+    const department_id = state.user.department_id;
 
     const ConfirmationBox = () => {
         if (!submitShiftForm) {
@@ -26,6 +33,7 @@ function ShiftingForm() {
     }
 
     const isShiftFormValid = () => {
+        console.log(date);
         if (!shift_course_count || shift_course_count.trim() === "") {
             setShiftCourseCountErrors("*This field cannot be empty!");
         } else if (!shift_course_count.match("^[0-9]*$")) {
@@ -83,7 +91,16 @@ function ShiftingForm() {
 
     const [shiftingList, setShiftingList] = useState([]);
 
+    const [unavailabilityDate, setUnavailabilityDate] = useState(null);
+
+    const [date, setDate] = useState(new Date());
+
+    const [cookies] = useCookies(['token']);
+
     const submitShiftingForm = () => {
+
+        console.log(date);
+
         Axios.post("/interview/requestinterview/createShiftForm", {
             shift_course_count: shift_course_count,
             shift_from: shift_from,
@@ -108,6 +125,24 @@ function ShiftingForm() {
 
         }]);
     };
+
+    useEffect(async () => {
+
+        let config = {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            params: {
+                department_id
+            }
+        };
+
+       let response = await Axios.get('/unavailability-dates',config).then(response => response.data);
+
+       setUnavailabilityDate(response.map(function(item) {
+        let dateStringToObject = new Date(item['unavailability_date']);
+        return new Date(dateStringToObject.getFullYear(), dateStringToObject.getMonth(), dateStringToObject.getDate())
+       }));
+       
+    }, [])
 
     return (
         <div className="shifting-form-page">
@@ -237,7 +272,7 @@ function ShiftingForm() {
                         <span className="shifting-error">{type_communication_errors}</span>
                         <div className="shifting-divs">
                             <label><h3 className="shift-label">*Select Date</h3></label>
-                            <input type="date" />
+                            {unavailabilityDate && <NewDatePicker value={date} setDate={setDate} unavailabilityDate={unavailabilityDate}/>}
                         </div>
 
                         {/* pop up */}
@@ -280,4 +315,7 @@ function ShiftingForm() {
     )
 
 }
+
+
+
 export default ShiftingForm

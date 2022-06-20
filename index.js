@@ -18,6 +18,7 @@ const { Router } = require("express");
 const { nextTick } = require("process");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
+var _ = require('lodash');
 
 
 const whitelist = ['http://localhost:3000/', 'http://localhost:8080/', 'https://nu-services-monolith.herokuapp.com'];
@@ -605,6 +606,26 @@ app.post('/accountmanagement/create', verifyJWT, (req, res) => {
     });
 });
 
+app.get("/unavailability-dates",verifyJWT, (req, res) => {
+
+    const { user: { department_id }, status } = req.params;
+
+    const sqlSelect = `SELECT DATE_FORMAT(unavailability_date, '%Y-%m-%d') as unavailability_date FROM guidance_unavailability
+    RIGHT JOIN users ON
+    users.users_id = guidance_unavailability.user_id
+    WHERE users.department_id = ? and role = 'guidance associate' and unavailability_date >= ${new Date().toISOString().slice(0, 10)}
+    GROUP BY
+         unavailability_date    
+    HAVING 
+        COUNT(unavailability_date) = (select count(users_id) from users where department_id = ? and role = 'guidance associate')       
+    `
+    
+    db.query(sqlSelect, [department_id, department_id], (err, result) => {
+        res.send(result);
+    });
+
+});
+
 //faculty get
 app.get("/accountmanagement/get", (req, res) => {
     const sqlSelect = "SELECT * from faculty_members"
@@ -638,6 +659,7 @@ app.post("/announcement/create", (req, res) => {
         )
     };
 });
+
 
 
 
