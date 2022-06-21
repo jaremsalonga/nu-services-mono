@@ -57,7 +57,7 @@ import EditMyProfile from './Pages/GA/EditMyProfile';
 import ViewAbsence from './components/Student/ViewInterview/Absence/ViewAbsence';
 import ViewGrad from './components/Student/ViewInterview/Grad/ViewGrad';
 import ViewTransfer from './components/Student/ViewInterview/Transfer/ViewTransfer';
-// import ViewShifting from './components/Student/ViewInterview/Shifting/ViewShifting';
+import ViewShifting from './components/Student/ViewInterview/Shifting/ViewShifting';
 
 
 
@@ -89,8 +89,8 @@ function App() {
 
         {/* INTERVIEW */}
         <PrivateRoute path="/services/interview" exact component={Interview} role={['student']} />
-{/* 
-        <PrivateRoute path="/services/interview/shift/view/:shift_id" exact component={ViewShifting} role={['student']} /> */}
+
+        <PrivateRoute path="/services/interview/shift/view/:shift_id" exact component={ViewShifting} role={['student']} />
         <PrivateRoute path="/services/interview/transfer/view/:transferreq_id" exact component={ViewTransfer} role={['student']} />
         <PrivateRoute path="/services/interview/grad/view/:gradreq_id" exact component={ViewGrad} role={['student']} />
         <PrivateRoute path="/services/interview/absence/view/:absencereq_id" exact component={ViewAbsence} role={['student']} />
