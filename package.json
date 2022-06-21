@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild": "cd client && git rm -r --cached . && npm install --legacy-peer-deps --no-shrinkwrap && npm run build",
+    "heroku-postbuild": "cd client && npm install --legacy-peer-deps --no-shrinkwrap && npm run build",
     "devStart": "nodemon index.js"
   },
   "engines": {
