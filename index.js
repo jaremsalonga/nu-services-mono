@@ -165,12 +165,16 @@ app.get("/services/goodmoral/get/:id", (req, res) => {
 
 
 //view good moral
-app.get("/services/goodmoral/view/:id/:goodmoral_id", (req, res) => {
-    const user_id = req.params.id;
-    const goodmoral_id = req.params.goodmoral_id;
-    const sqlSelect = "SELECT * FROM goodmoral_req WHERE goodmoral_id = ? AND user_id = ?";
-    db.query(sqlSelect, [goodmoral_id, user_id], (err, result) => {
-        res.send(result);
+app.get("/services/goodmoral/view/:id", (req, res) => {
+    const goodmoral_id = req.params.id;
+    const sqlSelect = `SELECT * FROM goodmoral_req
+    INNER JOIN users ON 
+    goodmoral_req.user_id = users.users_id
+    WHERE goodmoral_id = ?`;
+    db.query(sqlSelect, [goodmoral_id], (err, result) => {
+        let [first] = result;
+        console.log(first)
+        res.send(first);
     });
 });
 
@@ -294,6 +298,7 @@ app.get("/services/interview/shift/view/:id", (req, res) => {
     });
 });
 
+//view transfer
 app.get("/services/interview/transfer/view/:id", (req, res) => {
     const transferreq_id = req.params.id;
     const sqlSelect = `SELECT * FROM transfer_req
@@ -307,6 +312,7 @@ app.get("/services/interview/transfer/view/:id", (req, res) => {
     });
 });
 
+//view grad
 app.get("/services/interview/grad/view/:id", (req, res) => {
     const gradreq_id = req.params.id;
     const sqlSelect = `SELECT * FROM grad_req
@@ -320,6 +326,7 @@ app.get("/services/interview/grad/view/:id", (req, res) => {
     });
 });
 
+//view absence
 app.get("/services/interview/absence/view/:id", (req, res) => {
     const absencereq_id = req.params.id;
     const sqlSelect = `SELECT * FROM absence_req
@@ -470,14 +477,19 @@ app.get('/counseling/get/:id', (req, res) => {
 });
 
 //view smart chat
-app.get("/counseling/view/:id/:smartchat_id", (req, res) => {
-    const user_id = req.params.id;
-    const smartchat_id = req.params.smartchat_id;
-    const sqlSelect = "SELECT * FROM smartchat_req WHERE smartchat_id = ? AND user_id = ?";
-    db.query(sqlSelect, [smartchat_id, user_id], (err, result) => {
-        res.send(result);
+app.get("/counseling/view/:id/", (req, res) => {
+    const smartchat_id = req.params.id;
+    const sqlSelect = `SELECT * FROM smartchat_req
+    INNER JOIN users ON 
+    smartchat_req.user_id = users.users_id
+    WHERE smartchat_id = ?`;
+    db.query(sqlSelect, [smartchat_id], (err, result) => {
+        let [first] = result;
+        console.log(first)
+        res.send(first);
     });
 });
+
 
 //get profile
 app.get('/profile/get/:id', (req, res) => {
@@ -515,17 +527,6 @@ app.put('/profile/editprofile/update', (req, res) => {
 
 
 //-------------------------------------------------------------------------------------//
-//(Guidance assoc)Get good moral per department and status
-// app.get("/services/goodmoral", verifyJWT, (req, res) => {
-
-//     const { user: { department_id }, status } = req.params;
-
-//     const sqlSelect = "SELECT * FROM goodmoral_req WHERE user_id IN (select users_id from users INNER JOIN departments ON department_id = id where department_id = ?) and status = ?";
-//     db.query(sqlSelect, [department_id, status], (err, result) => {
-//         res.send(result);
-//     });
-// });
-
 
 app.get('/pendingrequest', verifyJWT, (req, res) => {
 
@@ -565,7 +566,7 @@ app.get('/pendingrequest', verifyJWT, (req, res) => {
         res.send(result);
     })
 
-})
+});
 
 
 //-------------------------------------------------------------------------------------//
@@ -638,6 +639,19 @@ app.get("/accountmanagement/get", (req, res) => {
 app.get("/announcement/get", (req, res) => {
     const sqlSelect = "SELECT * FROM announcement"
     db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
+//announcement update
+app.put("/announcement/edit", (req, res) => {
+    const announcement_title = req.body.announcement_title
+    const announcement_description = req.body.announcement_description
+    const users_id = req.body.users_id
+    const announcement_no = req.body.announcement_no
+
+    const sqlSelect = `UPDATE announcement SET announcement_title = ?, announcement_description = ? WHERE user_id = ? AND announcement_no = ?`;
+    db.query(sqlSelect, [announcement_title, announcement_description, users_id, announcement_no], (err, result) => {
         res.send(result);
     });
 });

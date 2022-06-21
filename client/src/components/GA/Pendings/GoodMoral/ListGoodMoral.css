@@ -73,7 +73,55 @@ h2#pendingviewgm-label {
     margin-left: 23vh;
 }
 
+.pendingviewgm-action-btn {
+    display: flex;
+    height: auto;
+    padding: 15px;
+    justify-content: end;
+    margin-top: 10px;
+}
+
+.pendingviewgm-approvedbtn {
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #30408D;
+    font-size: 16px;
+    color: #30408D;
+    font-weight: bold;
+    margin-right: 2vh;
+}
+
+.pendingviewgm-approvedbtn:hover {
+    cursor: pointer;
+    border: 2px solid #30408D;
+    background-color: #30408D;
+    color: white;
+    box-shadow: 0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.pendingviewgm-declinebtn {
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    font-size: 16px;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.pendingviewgm-declinebtn:hover {
+    cursor: pointer;
+    border: 2px solid red;
+    color: red;
+    box-shadow: 0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
 .pendingviewgm-spacer{
-    height: 180px;
+    height: 100px;
     /* background-color: rebeccapurple; */
 }

@@ -64,6 +64,10 @@
     margin-left: 5px;
 }
 
+span#pending-username{
+    text-transform: capitalize;
+}
+
 .pending-action-btn {
     width: 20%;
     margin-left: 40vh;

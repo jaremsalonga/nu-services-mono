@@ -27,21 +27,17 @@ function ViewSmartChat() {
   const [fullname, setFullname] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
-  const [profileInfo, setProfileInfo] = useState([]);
+
 
   useEffect(() => {
     let smartchat_id = window.location.pathname.split("/").pop();
 
-    Axios.get(`/counseling/view/${user_id}/${smartchat_id}`).then((response) => {
+    Axios.get(`/counseling/view/${smartchat_id}`).then((response) => {
       setSmartChatList(response.data);
-      console.log(response);
-    })
-    Axios.get(`/profile/get/${user_id}`).then((response) => {
-      setProfileInfo(response.data);
+      console.log(response,' helo');
     })
     console.log(window.location.pathname.split("/").pop())
   }, [])
-
   return (
     <div className='viewsmart-wrapper'>
       <Header />
@@ -51,52 +47,46 @@ function ViewSmartChat() {
           <h1>Request for Smart Chat</h1>
         </div>
         <div className='viewsmart-list-container'>
-          {profileInfo.map((val, index) => (
             <div className='viewsmart-list-header'>
               <div className='viewsmart-header-name'>
                 <h1 className='viewsmart-user-name'>
                   <Link to="/counseling"><RiArrowGoBackFill color='#aaa' /></Link>
-                  &nbsp;{val.fullname}</h1>
+                  &nbsp;{smartchatlist.fullname}</h1>
               </div>
               <div className='viewsmart-header-btn'>
                 <button className='viewsmart-download-btn'><HiDocumentDownload size="2rem" color="#30408D" /></button>
               </div>
             </div>
-          ))}
           <hr id='viewsmart-divider' />
           <div className='viewgm-list-details-holder'>
-            {smartchatlist.map((val, index) => (
-              <>
                 <div className='viewsmart-divs'>
                   <div className='viewsmart-divs'>
-                    <label><h2 id='viewsmart-label'>Status: &nbsp;{val.status}</h2></label>
+                    <label><h2 id='viewsmart-label'>Status: &nbsp;{smartchatlist.status}</h2></label>
                     {/* <h2 id='viewsmart-details'>Pending</h2> */}
                   </div>
-                  <label><h2 id='viewsmart-label'>What is your concern for today?: &nbsp;{val.concern_today}</h2></label>
+                  <label><h2 id='viewsmart-label'>What is your concern for today?: &nbsp;{smartchatlist.concern_today}</h2></label>
                   {/* <h2 id='viewsmart-details'>Change of Interest</h2> */}
                 </div>
                 <div className='viewsmart-divs'>
-                  <label><h2 id='viewsmart-label'>How do you feel about your concern?: &nbsp;{val.concern_feeling}</h2></label>
+                  <label><h2 id='viewsmart-label'>How do you feel about your concern?: &nbsp;{smartchatlist.concern_feeling}</h2></label>
                   {/* <h2 id='viewsmart-details'>1</h2> */}
                 </div>
                 <div className='viewsmart-divs'>
-                  <label><h2 id='viewsmart-label'>Where do you want to be contacted?: &nbsp;{val.type_contact}</h2></label>
+                  <label><h2 id='viewsmart-label'>Where do you want to be contacted?: &nbsp;{smartchatlist.type_contact}</h2></label>
                   {/* <h2 id='viewsmart-details'>N/A</h2> */}
                 </div>
                 <div className='viewsmart-divs'>
-                  <label><h2 id='viewsmart-label'>In what way do you want to communicate?: &nbsp;{val.type_comm}</h2></label>
+                  <label><h2 id='viewsmart-label'>In what way do you want to communicate?: &nbsp;{smartchatlist.type_comm}</h2></label>
                   {/* <h2 id='viewsmart-details'>N/A</h2> */}
                 </div>
                 <div className='viewsmart-divs'>
-                  <label><h2 id='viewsmart-label'>Approved By: &nbsp;{val.approved_by}</h2></label>
+                  <label><h2 id='viewsmart-label'>Approved By: &nbsp;{smartchatlist.approved_by}</h2></label>
                   {/* <h2 id='viewsmart-details'>Archie Salvador</h2> */}
                 </div>
                 <div className='viewtransfer-divs'>
                   <label><h2 id='viewtransfer-label'>Date and Time of Interview: &nbsp; TBA</h2></label>
                   {/* <h2 id='viewsmart-details'>Archie Salvador</h2> */}
                 </div>
-              </>
-            ))}
           </div>
         </div>
         <div className='viewsmart-spacer'></div>

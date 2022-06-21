@@ -65,9 +65,11 @@ function MainHome() {
                     <h1>{val.announcement_title} </h1>
                     <div className="announcement-option">
                       <div className="announcement-edit">
-                        <button className="announcement-editbtn">
-                          <HiOutlinePencilAlt size='1.5em' color="gray" />
-                        </button>
+                        <Link to='/announcement/edit'>
+                          <button className="announcement-editbtn">
+                            <HiOutlinePencilAlt size='1.5em' color="gray" />
+                          </button>
+                        </Link>
                       </div>&nbsp;&nbsp;&nbsp;
                       <div className="announcement-del">
                         <button className="announcement-deltbtn">

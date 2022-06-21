@@ -15,21 +15,22 @@ import ListGoodMoral from '../../components/GA/Pendings/GoodMoral/ListGoodMoral'
 
 function ViewPending() {
 
+    
+
     const [fullname, setFullname] = useState("");
     const [type_interview, setTypeInterview] = useState("");
     const [reqInfo, setReqInfo] = ([]);
 
+    
 
     useEffect(() => {
-        Axios.get('/pendingrequest').then((response) => { 
+        Axios.get('/pendingrequest/viewrequestdetails').then((response) => { 
             console.log(response.data);
             setReqInfo(response.data);
            
         })
     }, [])
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [value, onChange] = useState('10:00');
     return (
         <div className="viewpending-wrapper">
             <div className="viewpending-container">

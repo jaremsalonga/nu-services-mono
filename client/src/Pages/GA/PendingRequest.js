@@ -7,8 +7,6 @@ import { BiSearch } from 'react-icons/bi'
 import Header from '../../components/GA/Header_ga'
 import Navbar from '../../components/GA/Navbar_ga'
 import { UserContext } from '../../contexts/user/userContext'
-import { MdPendingActions } from 'react-icons/md'
-import { RiMentalHealthLine } from 'react-icons/ri'
 import { IoIosPeople } from 'react-icons/io'
 import { CgUserList } from 'react-icons/cg'
 import { useCookies } from 'react-cookie'
@@ -35,16 +33,12 @@ function PendingRequest() {
     };
 
     useEffect(() => {
-        Axios.get('/pendingrequest', config).then((response) => {
+        Axios.get(`/pendingrequest`, config).then((response) => {
             setReqInfo(response.data);
         })
     }, [])
 
     let history = useHistory();
-
-    const openReq = () => {
-        history.push("/pendingrequests/viewrequestdetails");
-    }
 
     return (
         <div className="pending-request-wrapper">
@@ -64,14 +58,14 @@ function PendingRequest() {
                                     </div>
                                     <div className='pending-card-title'>
                                         <div className='pending-card-title'>
-                                            <h2>{val.fullname}</h2>
-                                            <span>Khrysshia Domingo</span>
+                                            <h3>{val.type_interview}</h3>
+                                            <span id='pending-username'>{val.fullname}</span>
                                         </div>
 
                                     </div>
 
                                     <div className='pending-action-btn'>
-                                        <button onClick={openReq} className='pending-view'>VIEW</button>
+                                        <Link to={val.route}>VIEW</Link>
                                     </div>
                                 </div>
                             </div>

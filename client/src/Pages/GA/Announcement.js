@@ -51,7 +51,7 @@ function Announcement() {
 
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/announcement/get').then((response) => {
+        Axios.get('/announcement/get').then((response) => {
             setAnnouncementList(response.data)
         })
     }, [])

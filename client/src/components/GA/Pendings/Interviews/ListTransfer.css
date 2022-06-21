@@ -27,6 +27,7 @@
     box-shadow: 0px 0px 11px -1px #000000;
     margin-left: 15vh;
     height: auto;
+    margin-bottom: 50px;
 }
 
 .pendingviewtransfer-list-header {
@@ -40,6 +41,10 @@
 .pendingviewtransfer-header-name {
     width: 80%;
     display: flex;
+}
+
+.pendingviewtransfer-header-name h1 {
+    text-transform: capitalize;
 }
 
 h1.pendingviewtransfer-user-name {
@@ -73,7 +78,55 @@ h2#pendingviewtransfer-label {
     margin-left: 23vh;
 }
 
-.pendingviewtransfer-spacer{
+.pendingviewtransfer-spacer {
     height: 180px;
     /* background-color: rebeccapurple; */
+}
+
+.pendingviewtransfer-action-btn {
+    display: flex;
+    height: auto;
+    padding: 15px;
+    justify-content: end;
+    margin-top: 10px;
+}
+
+.pendingviewtransfer-approvedbtn {
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #30408D;
+    font-size: 16px;
+    color: #30408D;
+    font-weight: bold;
+    margin-right: 2vh;
+}
+
+.pendingviewtransfer-approvedbtn:hover {
+    cursor: pointer;
+    border: 2px solid #30408D;
+    background-color: #30408D;
+    color: white;
+    box-shadow: 0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.pendingviewtransfer-declinebtn {
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    font-size: 16px;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.pendingviewtransfer-declinebtn:hover {
+    cursor: pointer;
+    border: 2px solid red;
+    color: red;
+    box-shadow: 0 0 5px 1px #ccc;
+    transition: .5s;
 }

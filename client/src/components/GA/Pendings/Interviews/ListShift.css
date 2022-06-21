@@ -42,6 +42,10 @@
     display: flex;
 }
 
+.pendingviewshift-header-name h1{
+    text-transform: capitalize;
+}
+
 h1.pendingviewshift-user-name {
     text-transform: uppercase;
 }
@@ -73,7 +77,55 @@ h2#pendingviewshift-label {
     margin-left: 23vh;
 }
 
-.pendingviewshift-spacer{
+.pendingviewshift-spacer {
     height: 180px;
     /* background-color: rebeccapurple; */
+}
+
+.pendingviewshift-approvedbtn {
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #30408D;
+    font-size: 16px;
+    color: #30408D;
+    font-weight: bold;
+    margin-right: 2vh;
+}
+
+.pendingviewshift-approvedbtn:hover {
+    cursor: pointer;
+    border: 2px solid #30408D;
+    background-color: #30408D;
+    color: white;
+    box-shadow: 0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.pendingviewshift-declinebtn {
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    font-size: 16px;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.pendingviewshift-declinebtn:hover {
+    cursor: pointer;
+    border: 2px solid red;
+    color: red;
+    box-shadow: 0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.pendingviewshift-action-btn{
+    display: flex;
+    height: auto;
+    padding: 15px;
+    justify-content: end;
+    margin-top: 39px;
 }

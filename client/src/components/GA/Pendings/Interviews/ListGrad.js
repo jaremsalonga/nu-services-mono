@@ -1,7 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Axios from 'axios';
+import { Link } from 'react-router-dom'
+import { UserContext } from '../../../../contexts/user/userContext'
 import './ListGrad.css'
+import Header from '../../Header_ga'
+import Navbar from '../../Navbar_ga'
+import { RiArrowGoBackFill } from 'react-icons/ri'
+import { HiDocumentDownload } from 'react-icons/hi'
+import { useParams } from 'react-router-dom'
 
 function ListGrad() {
+
+    let { id } = useParams();
+
+    const [state] = React.useContext(UserContext);
+
+    const [fullname, setFullname] = useState("");
+    const [gender, setGender] = useState("");
+    const [email, setEmail] = useState("");
+
+    const [profileInfo, setProfileInfo] = useState({});
+
+    const [last_ay, setLastAY] = useState("");
+    const [last_term, setLastTerm] = useState("");
+    const [plan_after_grad, setPlanAfterGrad] = useState("");
+    const [comment_to_nu, setCommentToNu] = useState("");
+    const [permission_info, setPermissionInfo] = useState("");
+    const [type_of_comm, setTypeOfComm] = useState("");
+    const [status, setStatus] = useState("");
+
+    useEffect(() => {
+        let transferreq_id = window.location.pathname.split("/").pop();
+        Axios.get(`/services/interview/grad/view/${transferreq_id}`).then((response) => {
+            setProfileInfo(response.data);
+            console.log(response.data);
+        })
+    }, [])
+
     return (
         <div className='pendingviewgrad-wrapper'>
             <Header />
@@ -16,42 +51,46 @@ function ListGrad() {
                 <div className='pendingviewgrad-list-container'>
                     <div className='pendingviewgrad-list-header'>
                         <div className='pendingviewgrad-header-name'>
-                            <h1>Khrysshia Leighn Domingo</h1>
+                            <h1>{profileInfo.fullname}</h1>
                         </div>
-                    </div>
-                    <div className='pendingviewgrad-header-btn'>
-                        <button className='pendingviewgrad-download-btn'>
-                            <HiDocumentDownload size="2rem" color="#30408D" />
-                        </button>
+                        <div className='pendingviewgrad-header-btn'>
+                            <button className='pendingviewgrad-download-btn'>
+                                <HiDocumentDownload size="2rem" color="#30408D" />
+                            </button>
+                        </div>
                     </div>
                     <hr id="pendingviewgrad-divider" />
                     <div className='pendingviewgrad-list-details-holder'>
                         <div className='viewgm-divs'>
-                            <label><h2 id='pendingviewgrad-label'>Status: &nbsp;</h2></label>
+                            <label><h2 id='pendingviewgrad-label'>Status: &nbsp;{profileInfo.status}</h2></label>
                         </div>
                         <div>
-                            <label><h2 id='pendingviewgrad-label'>Purpose of Request: &nbsp;</h2></label>
+                            <label><h2 id='pendingviewgrad-label'>Last Academic Year Attended: &nbsp;{profileInfo.last_ay}</h2></label>
                         </div>
                         <div className='pendingviewgrad-divs'>
-                            <label><h2 id='pendingviewgrad-label'>Number of Copy: &nbsp;</h2></label>
+                            <label><h2 id='pendingviewgrad-label'>Last Term Attended: &nbsp;{profileInfo.last_term}</h2></label>
                         </div>
                         <div className='pendingviewgrad-divs'>
-                            <label><h2 id='pendingviewgrad-label'>Special Instruction: &nbsp;</h2></label>
+                            <label><h2 id='pendingviewgrad-label'>What are your plans after you graduate?: &nbsp;{profileInfo.plan_after_grad}</h2></label>
                         </div>
                         <div className='pendingviewgrad-divs'>
-                            <label><h2 id='pendingviewgrad-label'>Approved By: &nbsp;</h2></label>
+                            <label><h2 id='pendingviewgrad-label'>Other comments and suggestion for NU's further improvement: &nbsp;{profileInfo.comment_to_nu}</h2></label>
                         </div>
-                        <div className='pendingview-gm-divs'>
-                            <label><h2 id='pendingviewgrad-label'>Upload Good Moral:</h2></label>
-                            <input type="file" />
+                        <div className='pendingviewgrad-divs'>
+                            <label><h2 id='pendingviewgrad-label'>Will you allow us to include your information
+                                to the list we will give to the requesting companies/agencies for employment purposes?: &nbsp;{profileInfo.permission_info}</h2></label>
                         </div>
+                        <div className='pendingviewgrad-divs'>
+                            <label><h2 id='pendingviewgrad-label'>Type of Communication: &nbsp;{profileInfo.type_of_comm}</h2></label>
+                        </div>
+
 
                         <div className='pendingviewgrad-action-btn'>
                             <div className='pendingviewgrad-approved'>
-                                <button className='pendingviewgrad-approvedbtnF'>APPROVE</button>
+                                <button className='pendingviewgrad-approvedbtn'>APPROVE</button>
                             </div>
                             <div className='pendingviewgrad-decline'>
-                                <button className='pendingviewgrad-approvedbtnF'>DECLINE</button>
+                                <button className='pendingviewgrad-declinebtn'>DECLINE</button>
                             </div>
                         </div>
                     </div>

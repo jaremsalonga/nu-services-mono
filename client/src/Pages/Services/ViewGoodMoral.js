@@ -32,12 +32,9 @@ function ViewGoodMoral() {
   useEffect(() => {
     let goodmoral_id = window.location.pathname.split("/").pop();
 
-    Axios.get(`/services/goodmoral/view/${user_id}/${goodmoral_id}`).then((response) => {
+    Axios.get(`/services/goodmoral/view/${goodmoral_id}`).then((response) => {
       setGoodmoralList(response.data);
-      console.log(response);
-    })
-    Axios.get(`/profile/get/${user_id}`).then((response) => {
-      setProfileInfo(response.data);
+      console.log(response,' helo');
     })
     console.log(window.location.pathname.split("/").pop())
   }, [])
@@ -46,7 +43,7 @@ function ViewGoodMoral() {
   const [fullname, setFullname] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
-  const [profileInfo, setProfileInfo] = useState([]);
+
 
   return (
     <div className="viewgm-wrapper">
@@ -57,42 +54,36 @@ function ViewGoodMoral() {
           <h1>Request for Certificate of Good Moral</h1>
         </div>
         <div className='viewgm-list-container'>
-          {profileInfo.map((val, index) => (
             <div className='viewgm-list-header'>
               <div className='viewgm-header-name'>
                 <h1 className='viewgm-user-name'>
                   <Link to="/services/goodmoral"><RiArrowGoBackFill color='#aaa' /></Link>
-                  &nbsp;{val.fullname}</h1>
+                  &nbsp;{goodmoralList.fullname}</h1>
               </div>
               <div className='viewgm-header-btn'>
                 <button className='viewgm-download-btn'><HiDocumentDownload size="2rem" color="#30408D" /></button>
               </div>
             </div>
-          ))}
           <hr id='viewgm-divider' />
           <div className='viewgm-list-details-holder'>
-            {goodmoralList.map((val, index) => (
-              <>
                 <div className='viewgm-divs'>
-                    <label><h2 id='viewgm-label'>Status: &nbsp;{val.status}</h2></label>
+                    <label><h2 id='viewgm-label'>Status: &nbsp;{goodmoralList.status}</h2></label>
                     {/* <h2 id='viewgm-details'>Pending</h2> */}
-                  <label><h2 id='viewgm-label'>Purpose of Request: &nbsp;{val.purpose_req}</h2></label>
+                  <label><h2 id='viewgm-label'>Purpose of Request: &nbsp;{goodmoralList.purpose_req}</h2></label>
                   {/* <h2 id='viewgm-details'>Change of Interest</h2> */}
                 </div>
                 <div className='viewgm-divs'>
-                  <label><h2 id='viewgm-label'>Number of Copy: &nbsp;{val.number_copy}</h2></label>
+                  <label><h2 id='viewgm-label'>Number of Copy: &nbsp;{goodmoralList.number_copy}</h2></label>
                   {/* <h2 id='viewgm-details'>1</h2> */}
                 </div>
                 <div className='viewgm-divs'>
-                  <label><h2 id='viewgm-label'>Special Instruction: &nbsp;{val.special_instruction}</h2></label>
+                  <label><h2 id='viewgm-label'>Special Instruction: &nbsp;{goodmoralList.special_instruction}</h2></label>
                   {/* <h2 id='viewgm-details'>N/A</h2> */}
                 </div>
                 <div className='viewgm-divs'>
-                  <label><h2 id='viewgm-label'>Approved By: &nbsp;{val.approved_by}</h2></label>
+                  <label><h2 id='viewgm-label'>Approved By: &nbsp;{goodmoralList.approved_by}</h2></label>
                   {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                 </div>
-              </>
-            ))}
           </div>
         </div>
         <div className='viewgm-spacer'></div>

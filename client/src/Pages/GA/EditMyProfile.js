@@ -105,7 +105,7 @@ function EditMyProfile() {
             <div>
                 <div className='edit-myprofile-container'>
                     <div className="editmyprofile-page-name">
-                        <h1>EDIT editmyprofile</h1>
+                        <h1>EDIT MY PROFILE</h1>
                     </div>
                     <div className='edit-myprofile-holder'>
                         <form>
