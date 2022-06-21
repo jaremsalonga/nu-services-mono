@@ -19,6 +19,7 @@ const { nextTick } = require("process");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 var _ = require('lodash');
+const { result } = require("lodash");
 
 
 const whitelist = ['http://localhost:3000/', 'http://localhost:8080/', 'https://nu-services-monolith.herokuapp.com'];
@@ -607,7 +608,7 @@ app.post('/accountmanagement/create', verifyJWT, (req, res) => {
     });
 });
 
-app.get("/unavailability-dates",verifyJWT, (req, res) => {
+app.get("/unavailability-dates", verifyJWT, (req, res) => {
 
     const { user: { department_id }, status } = req.params;
 
@@ -620,12 +621,28 @@ app.get("/unavailability-dates",verifyJWT, (req, res) => {
     HAVING 
         COUNT(unavailability_date) = (select count(users_id) from users where department_id = ? and role = 'guidance associate')       
     `
-    
+
     db.query(sqlSelect, [department_id, department_id], (err, result) => {
         res.send(result);
     });
 
 });
+
+
+app.post("/unavailability-dates", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id }, status, unavailability_dates } = req.params;
+
+    for (let i = 0; i < unavailability_dates.length; i++) {
+        console.log(unavailability_dates[i], i)
+        let sqlSelect = `INSERT INTO guidance_unavailability (unavailability_date, user_id)
+        VALUES(?,?)`;
+        db.query(sqlSelect, [new Date(unavailability_dates[i]), users_id], (err, res) => {
+            console.log(err)
+        })
+    }
+    res.send(req.params.unavailability_dates);
+})
+
 
 //faculty get
 app.get("/accountmanagement/get", (req, res) => {
