@@ -15,7 +15,7 @@ function FeaturedTab() {
                     <span className='featuredIcon'><RiMentalHealthLine size={50} color='red' /></span>
                     <span className='featuredTotal'>108 Student</span>
                 </div>
-                <span className='featuredTime'> <BiTime className='timeIcon' />Last Update: 10:00 AM </span>
+              
             </div>
             <div className='featuredItem'>
                 <span className='featuredTitle'>Pending Requests</span>
@@ -23,7 +23,6 @@ function FeaturedTab() {
                     <span className='featuredIcon'><MdPendingActions size={50} /></span>
                     <span className='featuredTotal'>108 Student</span>
                 </div>
-                <span className='featuredTime'> <BiTime className='timeIcon' />Last Update: 10:00 AM </span>
             </div>
             <div className='featuredItem'>
                 <span className='featuredTitle'>First Timers</span>
@@ -31,7 +30,6 @@ function FeaturedTab() {
                     <span className='featuredIcon'><MdOutlinePersonPin size={50} color='green' /></span>
                     <span className='featuredTotal'>108 Student</span>
                 </div>
-                <span className='featuredTime'> <BiTime className='timeIcon' /> Last Update: 10:00 AM </span>
             </div>
         </div>
     )

@@ -27,6 +27,7 @@ function ViewGrad() {
     const [comment_to_nu, setCommentToNu] = useState("");
     const [permission_info, setPermissionInfo] = useState("");
     const [type_of_comm, setTypeOfComm] = useState("");
+    const [date, setDate] = useState("");
     const [status, setStatus] = useState("");
 
     useEffect(() => {
@@ -89,7 +90,7 @@ function ViewGrad() {
                             {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                         </div>
                         <div className='viewgrad-divs'>
-                            <label><h2 id='viewgrad-label'>Date and Time of Interview: &nbsp; TBA</h2></label>
+                            <label><h2 id='viewgrad-label'>Date and Time of Interview: &nbsp; {profileInfo.date}</h2></label>
                             {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                         </div>
                     </div>

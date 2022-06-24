@@ -23,9 +23,6 @@ function Topbar() {
             <header className="topbarheader">
                 <nav className="topbar_navigation">
                     <div></div>
-                    {/* <div className="header_logo">
-                    <a href="/main"><img src={header_logo} /></a></div> */}
-                    {/* <div className="webname"><h1>NU GUIDANCE SERVICES SYSTEM</h1></div> */}
                     <div className="space" />
                     <div className="topbar_item">
                         <ul>

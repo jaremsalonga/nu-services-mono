@@ -6,7 +6,6 @@ import '../../css/ShiftingForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import { UserContext } from '../../contexts/user/userContext'
 import { useCookies } from 'react-cookie'
-
 import NewDatePicker from '../../components/metamorphic/NewDatePicker';
 
 function ShiftingForm() {
@@ -81,6 +80,7 @@ function ShiftingForm() {
     const [shifting_commitment, setShiftingCommitment] = useState("");
     const [type_communication, setTypeOfCommunication] = useState("");
 
+
     const [shift_course_count_errors, setShiftCourseCountErrors] = useState("");
     const [shift_from_errors, setShiftFromErrors] = useState("");
     const [shift_to_errors, setShiftToErrors] = useState("");
@@ -109,7 +109,8 @@ function ShiftingForm() {
             reason_explain: reason_explain,
             shifting_commitment: shifting_commitment,
             user_id: id,
-            type_communication: type_communication
+            type_communication: type_communication,
+            date: date
 
         });
 
@@ -121,7 +122,8 @@ function ShiftingForm() {
             shifting_reason: shifting_reason,
             reason_explain: reason_explain,
             shifting_commitment: shifting_commitment,
-            type_communication: type_communication
+            type_communication: type_communication,
+            date: date
 
         }]);
     };
@@ -135,13 +137,13 @@ function ShiftingForm() {
             }
         };
 
-       let response = await Axios.get('/unavailability-dates',config).then(response => response.data);
+        let response = await Axios.get('/unavailability-dates', config).then(response => response.data);
 
-       setUnavailabilityDate(response.map(function(item) {
-        let dateStringToObject = new Date(item['unavailability_date']);
-        return new Date(dateStringToObject.getFullYear(), dateStringToObject.getMonth(), dateStringToObject.getDate())
-       }));
-       
+        setUnavailabilityDate(response.map(function (item) {
+            let dateStringToObject = new Date(item['unavailability_date']);
+            return new Date(dateStringToObject.getFullYear(), dateStringToObject.getMonth(), dateStringToObject.getDate())
+        }));
+
     }, [])
 
     return (
@@ -272,7 +274,7 @@ function ShiftingForm() {
                         <span className="shifting-error">{type_communication_errors}</span>
                         <div className="shifting-divs">
                             <label><h3 className="shift-label">*Select Date</h3></label>
-                            {unavailabilityDate && <NewDatePicker value={date} setDate={setDate} unavailabilityDate={unavailabilityDate}/>}
+                            {unavailabilityDate && <NewDatePicker value={date} setDate={setDate} unavailabilityDate={unavailabilityDate} />}
                         </div>
 
                         {/* pop up */}

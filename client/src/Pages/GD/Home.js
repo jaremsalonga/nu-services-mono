@@ -1,4 +1,9 @@
-import React from 'react'
+import Axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import '../../css/GA/MainHome.css'
+import { Link } from 'react-router-dom';
+import { HiOutlinePencilAlt } from 'react-icons/hi'
+import { FaTrash } from 'react-icons/fa'
 import '../../css/GD/Home.css'
 import Sidebar from '../../components/GD/Sidebar'
 import FeaturedTab from '../../components/GD/FeaturedTab/FeaturedTab'
@@ -7,16 +12,34 @@ import { monthData } from '../../components/GD/chart/DummyData'
 import Topbar from '../../components/GD/Topbar/Topbar'
 import SmallWidget from '../../components/GD/SmallWidget/SmallWidget'
 import LargeWidget from '../../components/GD/LargeWidget/LargeWidget'
+import { UserContext } from '../../contexts/user/userContext'
+
 
 export default function Home() {
+
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
+
+    const [fullname, setFullname] = useState("");
+    const [usernameinfo, setUsernameInfo] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`/profile/get/${id}`).then((response) => {
+            setUsernameInfo(response.data);
+        })
+    }, [])
+
     return (
         <div className='homeWrapper'>
             <Topbar />
             <Sidebar />
             <div className='home-content'>
-                {/* <div className='dashboard-name'>
-                <h1>Hello, User</h1>
-                </div> */}
+                {usernameinfo.map((val, index) => (
+                    <div className='dashboard-name'>
+                        <h1>Hello, {val.fullname}</h1>
+                    </div>
+                ))}
+
                 <div className='featured-tab'>
                     <FeaturedTab />
                 </div>
@@ -28,7 +51,7 @@ export default function Home() {
                     <LargeWidget />
                 </div>
                 <div className='third-dashboard-section'>
-                    
+
                 </div>
             </div>
 

@@ -84,7 +84,7 @@ function ViewSmartChat() {
                   {/* <h2 id='viewsmart-details'>Archie Salvador</h2> */}
                 </div>
                 <div className='viewtransfer-divs'>
-                  <label><h2 id='viewtransfer-label'>Date and Time of Interview: &nbsp; TBA</h2></label>
+                  <label><h2 id='viewtransfer-label'>Date and Time of Interview: &nbsp; {smartchatlist.date}</h2></label>
                   {/* <h2 id='viewsmart-details'>Archie Salvador</h2> */}
                 </div>
           </div>

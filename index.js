@@ -350,15 +350,18 @@ app.post("/interview/requestinterview/createShiftForm", (req, res) => {
     const shifting_reason = req.body.shifting_reason
     const reason_explain = req.body.reason_explain
     const shifting_commitment = req.body.shifting_commitment
-    const type_contact = req.body.type_contact
     const type_communication = req.body.type_communication
     const status = "pending"
     const user_id = req.body.user_id
     const type_interview = "Shifting"
+    const date = req.body.date;
+
     if (!shift_course_count == "" || !shift_from == "" || !shift_to == "" || !shifting_reason == "" || !reason_explain == "" || !reason_explain == ""
-        || !shifting_commitment == "" || !type_contact == "" || !type_communication == "") {
-        db.query("INSERT INTO shift_req (shift_course_count, shift_from, shift_to,shifting_reason,reason_explain ,shifting_commitment,type_contact,type_communication, status, user_id, type_interview) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
-            [shift_course_count, shift_from, shift_to, shifting_reason, reason_explain, shifting_commitment, type_contact, type_communication, status, user_id, type_interview],
+        || !shifting_commitment == "" || !type_communication == "") {
+        db.query(`INSERT INTO shift_req (shift_course_count, shift_from, shift_to,shifting_reason,
+            reason_explain ,shifting_commitment,type_communication, status, user_id, type_interview, date) 
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
+            [shift_course_count, shift_from, shift_to, shifting_reason, reason_explain, shifting_commitment, type_communication, status, user_id, type_interview, new Date(date)],
             (err, result) => {
                 console.log(err);
             }
@@ -378,10 +381,12 @@ app.post("/interview/requestinterview/createGradForm", (req, res) => {
     const status = "pending"
     const type_interview = "Exit to Graduate"
     const user_id = req.body.user_id
+    const date = req.body.date;
     if (!last_ay == "" || !last_term == "" || !plan_after_grad == "" || !comment_to_nu == ""
         || !permission_info == "" || !permission_info == "" || !type_of_comm == "") {
-        db.query("INSERT INTO grad_req (last_ay, last_term, plan_after_grad, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id) VALUES(?,?,?,?,?,?,?,?,?)",
-            [last_ay, last_term, plan_after_grad, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id],
+        db.query(`INSERT INTO grad_req (last_ay, last_term, plan_after_grad, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id, date) 
+        VALUES(?,?,?,?,?,?,?,?,?,?)`,
+            [last_ay, last_term, plan_after_grad, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id, new Date(date)],
             (err, result) => {
                 console.log(err);
             }
@@ -402,10 +407,12 @@ app.post("/interview/requestinterview/createTransferForm", (req, res) => {
     const status = "pending"
     const type_interview = "Exit to Transfer"
     const user_id = req.body.user_id
+    const date = req.body.date;
     if (!transfer_reason == "" || !transfer_to == "" || !loc_new_school == "" || !new_course == "" || !comment_to_nu == ""
         || !permission_info == "" || !permission_info == "" || !type_of_comm == "") {
-        db.query("INSERT INTO transfer_req (transfer_reason, transfer_to, loc_new_school, new_course, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id) VALUES(?,?,?,?,?,?,?,?,?,?)",
-            [transfer_reason, transfer_to, loc_new_school, new_course, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id],
+        db.query(`INSERT INTO transfer_req (transfer_reason, transfer_to, loc_new_school, new_course, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id, date) 
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
+            [transfer_reason, transfer_to, loc_new_school, new_course, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id, new Date(date)],
             (err, result) => {
                 console.log(err);
             }
@@ -423,9 +430,11 @@ app.post("/interview/requestinterview/createLeaveOfAbsenceForm", (req, res) => {
     const status = "pending"
     const type_interview = "Leave of Absence"
     const user_id = req.body.user_id
+    const date = req.body.date;
     if (!absence_reason == "" || !enroll_again == "" || !comment_to_nu == "" || !type_of_comm == "") {
-        db.query("INSERT INTO absence_req (absence_reason, enroll_again, comment_to_nu, type_of_comm, status, type_interview, user_id) VALUES(?,?,?,?,?,?,?)",
-            [absence_reason, enroll_again, comment_to_nu, type_of_comm, status, type_interview, user_id],
+        db.query(`INSERT INTO absence_req (absence_reason, enroll_again, comment_to_nu, type_of_comm, status, type_interview, user_id, date) 
+        VALUES(?,?,?,?,?,?,?,?)`,
+            [absence_reason, enroll_again, comment_to_nu, type_of_comm, status, type_interview, user_id, new Date(date)],
             (err, result) => {
                 console.log(err);
             }
@@ -458,9 +467,11 @@ app.post("/counseling/CounselingForm/create", (req, res) => {
     const type_comm = req.body.type_comm
     const user_id = req.body.user_id
     const status = "pending";
+    const date = req.body.date;
     if (!concern_today == "" || !concern_feeling == "" || !type_contact == "" || !type_comm == "") {
-        db.query("INSERT INTO smartchat_req (concern_today, concern_feeling, type_contact, type_comm, user_id, status) VALUES(?,?,?,?,?,?)",
-            [concern_today, concern_feeling, type_contact, type_comm, user_id, status],
+        db.query(`INSERT INTO smartchat_req (concern_today, concern_feeling, type_contact, type_comm, user_id, status, date) 
+        VALUES(?,?,?,?,?,?,?)`,
+            [concern_today, concern_feeling, type_contact, type_comm, user_id, status, new Date(date)],
             (err, result) => {
                 console.log(err);
             }
@@ -570,7 +581,6 @@ app.get('/pendingrequest', verifyJWT, (req, res) => {
 });
 
 
-//-------------------------------------------------------------------------------------//
 //registering faculty
 app.post('/accountmanagement/create', verifyJWT, (req, res) => {
     const ga_faculty_id = req.body.ga_faculty_id
@@ -628,21 +638,169 @@ app.get("/unavailability-dates", verifyJWT, (req, res) => {
 
 });
 
-
 app.post("/unavailability-dates", verifyJWT, (req, res) => {
-    const { user: { department_id, users_id }, status, unavailability_dates } = req.params;
+    const { user: { department_id, users_id }, status, unavailability_date } = req.params;
 
-    for (let i = 0; i < unavailability_dates.length; i++) {
-        console.log(unavailability_dates[i], i)
+    for (let i = 0; i < unavailability_date.length; i++) {
+        console.log(unavailability_date[i], i)
         let sqlSelect = `INSERT INTO guidance_unavailability (unavailability_date, user_id)
         VALUES(?,?)`;
-        db.query(sqlSelect, [new Date(unavailability_dates[i]), users_id], (err, res) => {
+        db.query(sqlSelect, [new Date(unavailability_date[i]), users_id], (err, res) => {
             console.log(err)
         })
     }
     res.send(req.params.unavailability_dates);
 })
 
+//display for calendar
+app.get("/scheduledrequest", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id }, status, unavailability_dates } = req.params;
+
+    const sqlSelect = `SELECT gradreq_id AS id, type_interview, fullname, date FROM grad_Req
+    INNER JOIN users ON
+    grad_req.user_id = users.users_id
+    WHERE users.department_id = ? AND grad_req.status = 'accepted'
+    UNION ALL
+    SELECT transferreq_id AS id, type_interview, fullname, date FROM transfer_req
+    INNER JOIN users ON
+    transfer_req.user_id = users.users_id
+    WHERE users.department_id = ? AND transfer_req.status = 'accepted'
+    UNION ALL
+    SELECT shift_id AS id, type_interview, fullname, date FROM shift_req
+    INNER JOIN users ON
+    shift_req.user_id = users.users_id
+    WHERE users.department_id = ? AND shift_req.status = 'accepted'
+    UNION ALL
+    SELECT absencereq_id AS id, type_interview, fullname, date FROM absence_req
+    INNER JOIN users ON
+    absence_req.user_id = users.users_id
+    WHERE users.department_id = ? AND absence_req.status = 'accepted'
+    UNION ALL
+    SELECT smartchat_id AS id, 'Smart Chat' AS type_interview, fullname, date FROM smartchat_req
+    INNER JOIN users ON
+    smartchat_req.user_id = users.users_id
+    WHERE users.department_id = ? AND smartchat_req.status = 'accepted'`
+
+    db.query(sqlSelect, [department_id, department_id, department_id, department_id, department_id], (err, result) => {
+        res.send(result);
+    });
+
+})
+
+//accept absence request
+app.post("/viewrequestdetails/absence/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Approved'
+    const sqlSelect = `UPDATE absence_req SET status = ? 
+    WHERE absencereq_id = ?`
+
+    db.query(sqlSelect, [status, req.params.absencereq_id], (err, result) => {
+        res.send(result)
+    })
+})
+//decline absence request
+app.post("/viewrequestdetails/absence/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Declined'
+    const sqlSelect = `UPDATE absence_req SET status = ? 
+    WHERE absencereq_id = ?`
+
+    db.query(sqlSelect, [status, req.params.absencereq_id], (err, result) => {
+        res.send(result)
+    })
+})
+
+//accept shift request
+app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Approved'
+    const sqlSelect = `UPDATE shift_req SET status = ? 
+    WHERE shift_id = ?`
+
+    db.query(sqlSelect, [status, req.params.shift_id], (err, result) => {
+        res.send(result)
+    })
+})
+//decline shift request
+app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Declined'
+    const sqlSelect = `UPDATE shift_req SET status = ? 
+    WHERE shift_id = ?`
+
+    db.query(sqlSelect, [status, req.params.shift_id], (err, result) => {
+        res.send(result)
+    })
+})
+
+//accept transfer request
+app.post("/viewrequestdetails/transfer/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Approved'
+    const sqlSelect = `UPDATE transfer_req SET status = ? 
+    WHERE transferreq_id = ?`
+
+    db.query(sqlSelect, [status, req.params.transferreq_id], (err, result) => {
+        res.send(result)
+    })
+})
+//decline transfer request
+app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Declined'
+    const sqlSelect = `UPDATE transfer_req SET status = ? 
+    WHERE transferreq_id = ?`
+
+    db.query(sqlSelect, [status, req.params.transferreq_id], (err, result) => {
+        res.send(result)
+    })
+})
+
+//accept grad request
+app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Approved'
+    const sqlSelect = `UPDATE grad_req SET status = ? 
+    WHERE gradreq_id = ?`
+
+    db.query(sqlSelect, [status, req.params.gradreq_id], (err, result) => {
+        res.send(result)
+    })
+})
+//decline grad request
+app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Declined'
+    const sqlSelect = `UPDATE grad_req SET status = ? 
+    WHERE gradreq_id = ?`
+
+    db.query(sqlSelect, [status, req.params.gradreq_id], (err, result) => {
+        res.send(result)
+    })
+})
+
+//accept smartchat request
+app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Approved'
+    const sqlSelect = `UPDATE smartchat_req SET status = ? 
+    WHERE smartchat_id = ?`
+
+    db.query(sqlSelect, [status, req.params.smartchat_id], (err, result) => {
+        res.send(result)
+    })
+})
+//decline smartchat request
+app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+    const status = 'Declined'
+    const sqlSelect = `UPDATE smartchat_req SET status = ? 
+    WHERE smartchat_id = ?`
+
+    db.query(sqlSelect, [status, req.params.smartchat_id], (err, result) => {
+        res.send(result)
+    })
+})
 
 //faculty get
 app.get("/accountmanagement/get", (req, res) => {

@@ -5,13 +5,16 @@ import { useHistory, Link } from 'react-router-dom';
 import '../../css/TransferringForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import { UserContext } from '../../contexts/user/userContext'
-
+import { useCookies } from 'react-cookie'
+import NewDatePicker from '../../components/metamorphic/NewDatePicker';
 
 function TransferringForm() {
     const [submitTransferringForm, setTransferringForm] = useState(false)
+    const [startDate, setStartDate] = useState(new Date());
 
     const [state] = React.useContext(UserContext)
     const id = state.user.users_id
+    const department_id = state.user.department_id;
 
     const ConfirmationBox = () => {
         if (!submitTransferringForm) {
@@ -81,14 +84,11 @@ function TransferringForm() {
 
     const [transferlist, setTransferList] = useState([]);
 
-    useEffect(() => {
-        Axios.get('/services/interview/get').then((response) => {
-            setTransferList(response.data);
-        },
-            {
-                headers: sessionStorage.getItem("token")
-            })
-    }, [])
+    const [unavailabilityDate, setUnavailabilityDate] = useState(null);
+
+    const [date, setDate] = useState(new Date());
+
+    const [cookies] = useCookies(['token']);
 
     const submitTransferForm = () => {
         Axios.post("/interview/requestinterview/createTransferForm", {
@@ -99,7 +99,8 @@ function TransferringForm() {
             comment_to_nu: comment_to_nu,
             permission_info: permission_info,
             type_of_comm: type_of_comm,
-            user_id: id
+            user_id: id,
+            date: date
 
         });
 
@@ -111,10 +112,29 @@ function TransferringForm() {
             new_course: new_course,
             comment_to_nu: comment_to_nu,
             permission_info: permission_info,
-            type_of_comm: type_of_comm
+            type_of_comm: type_of_comm,
+            date: date
 
         }]);
     };
+
+    useEffect(async () => {
+
+        let config = {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            params: {
+                department_id
+            }
+        };
+
+        let response = await Axios.get('/unavailability-dates', config).then(response => response.data);
+
+        setUnavailabilityDate(response.map(function (item) {
+            let dateStringToObject = new Date(item['unavailability_date']);
+            return new Date(dateStringToObject.getFullYear(), dateStringToObject.getMonth(), dateStringToObject.getDate())
+        }));
+
+    }, [])
 
 
     return (
@@ -242,8 +262,8 @@ function TransferringForm() {
                         <span className="transfer-error">{type_of_comm_errors}</span>
 
                         <div className="transferring-divs">
-                            <label><h3 className="transfer-label">*Select Date</h3></label>
-                            <input type="date" />
+                        <label><h3 className="transfer-label">*Select Date</h3></label>
+                            {unavailabilityDate && <NewDatePicker value={date} setDate={setDate} unavailabilityDate={unavailabilityDate} />}
                         </div>
 
                         {/* pop up */}

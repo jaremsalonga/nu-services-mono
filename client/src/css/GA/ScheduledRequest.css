@@ -1,7 +1,55 @@
-.scheduled-request-wrapper{
+.scheduled-request-wrapper {
+    background-color: white;
     display: flex;
-    height: 100vh;
-    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.schedule-container {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.schedule-page-name {
+    margin-top: 10vh;
+    display: flex;
+    justify-content: first baseline;
+    margin-left: 5vh;
+}
+
+.schedule-page-name h1 {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.unavailable-divs {
+    background-color: rgb(235, 235, 235);
+    font-size: 17px;
+    margin-left: 5vh;
+    margin-top: 3vh;
+    padding: 20px;
+    border-radius: 10px;
+    height: auto;
+    display: flex;
     justify-content: center;
-    background-color: #dddddd;    
+    align-items: center;
+}
+
+.unavailable-label {
+    /* background-color: red; */
+    width: 250px;
+    text-align: left;
+}
+
+button.add-unavailablebtn {
+    cursor: pointer;
+    background-color: #30408D;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    color: white;
 }

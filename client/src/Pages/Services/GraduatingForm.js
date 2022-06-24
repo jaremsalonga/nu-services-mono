@@ -6,11 +6,19 @@ import '../../css/GraduatingForm.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import GraduatingTables from './GraduatingTables';
 import { UserContext } from '../../contexts/user/userContext'
+import { useCookies } from 'react-cookie'
+import NewDatePicker from '../../components/metamorphic/NewDatePicker';
+
 
 function GraduatingForm() {
     const [submitGradForm, setSubmitGradForm] = useState(false)
+    const [startDate, setStartDate] = useState(new Date());
+
     const [state] = React.useContext(UserContext)
     const id = state.user.users_id
+    const department_id = state.user.department_id;
+
+
     const ConfirmationBox = () => {
         if (!submitGradForm) {
             document.querySelector(".confirm-bg").style.display = "flex"
@@ -74,16 +82,15 @@ function GraduatingForm() {
 
     const [gradList, setGradList] = useState([]);
 
-    useEffect(() => {
-        Axios.get('/services/interview/get').then((response) => {
-            setGradList(response.data);
-        },
-            {
-                headers: sessionStorage.getItem("token")
-            })
-    }, [])
+    const [unavailabilityDate, setUnavailabilityDate] = useState(null);
+
+    const [date, setDate] = useState(new Date());
+
+    const [cookies] = useCookies(['token']);
 
     const submitGraduateForm = () => {
+        console.log(date);
+
         Axios.post("/interview/requestinterview/createGradForm", {
             last_ay: last_ay,
             last_term: last_term,
@@ -91,7 +98,8 @@ function GraduatingForm() {
             comment_to_nu: comment_to_nu,
             permission_info: permission_info,
             type_of_comm: type_of_comm,
-            user_id: id
+            user_id: id,
+            date:date
         });
 
         <Link to="/main" />
@@ -101,10 +109,30 @@ function GraduatingForm() {
             plan_after_grad: plan_after_grad,
             comment_to_nu: comment_to_nu,
             permission_info: permission_info,
-            type_of_comm: type_of_comm
-
+            type_of_comm: type_of_comm,
+            date:date
         }]);
     };
+
+
+    useEffect(async () => {
+
+        let config = {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            params: {
+                department_id
+            }
+        };
+
+        let response = await Axios.get('/unavailability-dates', config).then(response => response.data);
+
+        setUnavailabilityDate(response.map(function (item) {
+            let dateStringToObject = new Date(item['unavailability_date']);
+            return new Date(dateStringToObject.getFullYear(), dateStringToObject.getMonth(), dateStringToObject.getDate())
+        }));
+
+    }, [])
+
 
     return (
         <div className="graduating-form-page">
@@ -204,7 +232,7 @@ function GraduatingForm() {
                         <span className="grad-error">{type_of_comm_errors}</span>
                         <div className="graduating-divs">
                             <label><h3 className="grad-label">*Select Date</h3></label>
-                            <input type="date" />
+                            {unavailabilityDate && <NewDatePicker value={date} setDate={setDate} unavailabilityDate={unavailabilityDate} />}
                         </div>
 
                         {/* pop up */}

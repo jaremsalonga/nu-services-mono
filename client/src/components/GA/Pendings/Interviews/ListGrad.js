@@ -29,9 +29,10 @@ function ListGrad() {
     const [type_of_comm, setTypeOfComm] = useState("");
     const [status, setStatus] = useState("");
 
+
     useEffect(() => {
-        let transferreq_id = window.location.pathname.split("/").pop();
-        Axios.get(`/services/interview/grad/view/${transferreq_id}`).then((response) => {
+        let gradreq_id = window.location.pathname.split("/").pop();
+        Axios.get(`/services/interview/grad/view/${gradreq_id}`).then((response) => {
             setProfileInfo(response.data);
             console.log(response.data);
         })
@@ -83,8 +84,9 @@ function ListGrad() {
                         <div className='pendingviewgrad-divs'>
                             <label><h2 id='pendingviewgrad-label'>Type of Communication: &nbsp;{profileInfo.type_of_comm}</h2></label>
                         </div>
-
-
+                        <div className='pendingviewgrad-divs'>
+                            <label><h2 id='pendingviewgrad-label'>Date and Time of Interview:&nbsp;{profileInfo.date}</h2></label>
+                        </div>
                         <div className='pendingviewgrad-action-btn'>
                             <div className='pendingviewgrad-approved'>
                                 <button className='pendingviewgrad-approvedbtn'>APPROVE</button>

@@ -29,6 +29,7 @@ function ListShift() {
     const [shifting_commitment, setShiftingCommitment] = useState("");
     const [type_communication, setTypeOfCommunication] = useState("");
     const [status, setStatus] = useState("");
+    const [date, setDate] = useState("");
 
     useEffect(() => {
         let transferreq_id = window.location.pathname.split("/").pop();
@@ -83,6 +84,9 @@ function ListShift() {
                         </div>
                         <div className='pendingviewshift-divs'>
                             <label><h2 id='pendingviewshift-label'>Type of Communication: &nbsp;{profileInfo.type_communication}</h2></label>
+                        </div>
+                        <div className='pendingviewshift-divs'>
+                            <label><h2 id='pendingviewshift-label'>Date and Time of Interview:&nbsp;{profileInfo.date}</h2></label>
                         </div>
 
                         <div className='pendingviewshift-action-btn'>

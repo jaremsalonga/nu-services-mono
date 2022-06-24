@@ -29,6 +29,7 @@ function ViewTransfer() {
     const [permission_info, setPermissionInfo] = useState("");
     const [type_of_comm, setTypeOfComm] = useState("");
     const [status, setStatus] = useState("");
+    const [date, setDate] = useState("");
 
     useEffect(() => {
         let transferreq_id = window.location.pathname.split("/").pop();
@@ -95,7 +96,7 @@ function ViewTransfer() {
                             {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                         </div>
                         <div className='viewtransfer-divs'>
-                            <label><h2 id='viewtransfer-label'>Date and Time of Interview: &nbsp; TBA</h2></label>
+                            <label><h2 id='viewtransfer-label'>Date and Time of Interview: &nbsp; {profileInfo.date}</h2></label>
                             {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                         </div>
                     </div>

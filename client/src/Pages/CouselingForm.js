@@ -7,13 +7,17 @@ import { RiErrorWarningLine } from 'react-icons/ri'
 import Header from '../components/Header'
 import Navbar from '../components/Navbar'
 import { UserContext } from '../contexts/user/userContext'
+import { useCookies } from 'react-cookie'
+import NewDatePicker from '../components/metamorphic/NewDatePicker';
 
 
 function CounselingForm() {
     const [submitchat, setSubmitChat] = useState(false)
-    const [state] = React.useContext(UserContext);
-    const user_id = state.user.users_id;
-    console.log(user_id)
+    const [startDate, setStartDate] = useState(new Date());
+
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
+    const department_id = state.user.department_id;
 
     const ConfirmationBox = () => {
         if (!submitchat) {
@@ -67,6 +71,9 @@ function CounselingForm() {
 
 
     const [smartchatlist, setSmartChatList] = useState([]);
+    const [unavailabilityDate, setUnavailabilityDate] = useState(null);
+    const [date, setDate] = useState(new Date());
+    const [cookies] = useCookies(['token']);
 
     const submitSmartChat = () => {
         Axios.post("/counseling/CounselingForm/create", {
@@ -74,7 +81,8 @@ function CounselingForm() {
             concern_feeling: concern_feeling,
             type_contact: type_contact,
             type_comm: type_comm,
-            user_id: user_id
+            user_id: id,
+            date: date
 
         });
 
@@ -83,10 +91,30 @@ function CounselingForm() {
             concern_today: concern_today,
             concern_feeling: concern_feeling,
             type_contact: type_contact,
-            type_comm: type_comm
+            type_comm: type_comm,
+            date: date
 
         }]);
     };
+
+    useEffect(async () => {
+
+        let config = {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            params: {
+                department_id
+            }
+        };
+
+        let response = await Axios.get('/unavailability-dates', config).then(response => response.data);
+
+        setUnavailabilityDate(response.map(function (item) {
+            let dateStringToObject = new Date(item['unavailability_date']);
+            return new Date(dateStringToObject.getFullYear(), dateStringToObject.getMonth(), dateStringToObject.getDate())
+        }));
+
+    }, [])
+
 
     return (
         <div className="counseling-form-wrapper">
@@ -201,6 +229,11 @@ function CounselingForm() {
                         </select>
                     </div>
                     <span className="smartchat-error">{type_comm_errors}</span>
+                    <div className="counseling-divs">
+                        <label><h3 className="counseling-label">*Select Date</h3></label>
+                        {unavailabilityDate && <NewDatePicker value={date} setDate={setDate} unavailabilityDate={unavailabilityDate} />}
+                    </div>
+
 
                     {/* pop up */}
                     <div className="container">

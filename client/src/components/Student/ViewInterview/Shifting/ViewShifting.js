@@ -29,6 +29,7 @@ function ViewShifting() {
     const [reason_explain, setReasonExplain] = useState("");
     const [shifting_commitment, setShiftingCommitment] = useState("");
     const [type_communication, setTypeOfCommunication] = useState("");
+    const [date, setDate] = useState("");
     const [status, setStatus] = useState("");
 
     useEffect(() => {
@@ -89,7 +90,7 @@ function ViewShifting() {
                             {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                         </div>
                         <div className='viewshift-divs'>
-                            <label><h2 id='viewshift-label'>Date and Time of Interview: &nbsp; TBA</h2></label>
+                            <label><h2 id='viewshift-label'>Date and Time of Interview: &nbsp;{profileInfo.date}</h2></label>
                             {/* <h2 id='viewgm-details'>Archie Salvador</h2> */}
                         </div>
                     </div>

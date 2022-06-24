@@ -87,15 +87,6 @@ function EditProfile() {
 
     }
 
-    // useEffect(() => {
-    //     Axios.get(`/profile/get/${users_id}`).then((response) => {
-    //         setProfileDetails(response.data);
-    //     },
-    //         {
-    //             headers: sessionStorage.getItem("token")
-    //         })
-    // })
-
     const updateProfile = () => {
         Axios.put(`/profile/editprofile/update`, {
             fullname: fullname,

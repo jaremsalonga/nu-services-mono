@@ -8,6 +8,7 @@ import Navbar from '../../Navbar_ga'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import { HiDocumentDownload } from 'react-icons/hi'
 import { useParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 function ListAbsense() {
 
@@ -20,6 +21,7 @@ function ListAbsense() {
     const [gender, setGender] = useState("");
     const [email, setEmail] = useState("");
 
+
     const [profileInfo, setProfileInfo] = useState({});
 
     const [absence_reason, setAbsenceReason] = useState("");
@@ -27,14 +29,36 @@ function ListAbsense() {
     const [comment_to_nu, setCommentToNu] = useState("");
     const [type_of_comm, setTypeOfComm] = useState("");
     const [status, setStatus] = useState("");
+    const [date, setDate] = useState("");
+
+    const [cookies] = useCookies(['token']);
+
 
     useEffect(() => {
-        let transferreq_id = window.location.pathname.split("/").pop();
-        Axios.get(`/services/interview/absence/view/${transferreq_id}`).then((response) => {
+        let absencereq_id = window.location.pathname.split("/").pop();
+        Axios.get(`/services/interview/absence/view/${absencereq_id}`).then((response) => {
             setProfileInfo(response.data);
             console.log(response.data);
         })
     }, [])
+
+
+    let config = {
+        headers: { Authorization: `Bearer ${cookies.token}` }
+    };
+
+
+    let acceptReq = (event) => {
+        event.preventDefault();
+        console.log(cookies)
+        let absencereq_id = window.location.pathname.split("/").pop();
+        Axios.post(`/viewrequestdetails/absence/`, {
+            status: status,
+            absencereq_id
+        },config).then((response) => {
+            console.log(response.data)
+        })
+    }
 
 
     return (
@@ -77,16 +101,19 @@ function ListAbsense() {
                         <div className='pendingviewtabsence-divs'>
                             <label><h2 id='pendingviewtabsence-label'>Type of Communication: &nbsp;{profileInfo.type_of_comm}</h2></label>
                         </div>
+                        <div className='pendingviewtabsence-divs'>
+                            <label><h2 id='pendingviewtabsence-label'>Date and Time of Interview:&nbsp;{profileInfo.date}</h2></label>
+                        </div>
                         <div className='pendingviewtabsence-action-btn'>
                             <div className='pendingviewtabsence-approved'>
-                                <button className='pendingviewtabsence-approvedbtn'>APPROVE</button>
+                                <button className='pendingviewtabsence-approvedbtn' onClick={acceptReq}>APPROVE</button>
                             </div>
                             <div className='pendingviewtabsence-decline'>
                                 <button className='pendingviewtabsence-declinebtn'>DECLINE</button>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div className='pendingviewtabsence-spacer'></div>
             </div>

@@ -1,0 +1,147 @@
+.editaccount-wrapper {
+    background-color: white;
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.edit-myprofile-container {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.editmyprofile-page-name {
+    margin-top: 10vh;
+    display: flex;
+    justify-content: first baseline;
+    margin-left: 5vh;
+}
+
+.editmyprofile-page-name h1 {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.edit-myprofile-holder{
+    background-color: #ebe7fb;
+    width: 150vh;
+    height: auto;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+
+.editmyprofile-img img{
+    width: 250px;
+    height: 250px;
+    -moz-box-shadow: 0px 6px 5px #ccc;
+    -webkit-box-shadow: 0px 6px 5px #ccc;
+    box-shadow: 0px 6px 5px #ccc;
+    -moz-border-radius: 190px;
+    -webkit-border-radius: 50%;
+    border-radius: 190px;
+}
+
+.editmyprofile-img {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.edit-myprofile-divs {
+    margin-top: 3vh;
+    width: 100%;
+}
+
+.edit-myprofile-divs input[type="text"] {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 10px;
+}
+
+.edit-myprofile-divs select {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 10px;
+}
+
+.edit-myprofile-divs input[type="password"] {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 10px;
+}
+
+.edit-myprofile-label{
+    color: #ccc;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.editmyprofile-btns{
+    display: flex;
+    height: 70px;
+    width: 100%;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+button#editmyprofile-cancelBtn{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    font-size: 16px;
+    color: #aaa;
+    font-weight: bold;
+}
+
+button#editmyprofile-cancelBtn:hover{
+    cursor: pointer;
+    border: 2px solid red;
+    color: red;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+button#editmyprofile-submitBtn{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid #30408D;
+    font-size: 16px;
+    color: #30408D;
+    font-weight: bold;
+    margin-left: 2vh;
+}
+
+button#editmyprofile-submitBtn:hover{
+    cursor: pointer;
+    border: 2px solid #30408D;
+    background-color: #30408D;
+    color: white;
+    box-shadow:  0 0 5px 1px #ccc;
+    transition: .5s;
+}
+
+.editmyprofile-error{
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    width: 100%;
+    font-weight: 600;
+}

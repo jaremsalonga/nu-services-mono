@@ -137,7 +137,6 @@ function GoodMoral() {
                             />
                         </div>
                         <span className="goodmoral-error">{number_copy_errors}</span>
-
                         <div className="goodmoral-divs">
                             <label><h3 id="goodmoral-label">*Special Instructions(write N/A if not applicable)</h3></label>
                             <input
@@ -150,6 +149,12 @@ function GoodMoral() {
                                     setSpecialInstruct(e.target.value)
                                 }}
                             />
+                        </div>
+                        <span className="goodmoral-error">{special_instruction_errors}</span>
+
+                        <div className="goodmoral-divs">
+                            <label><h3 id="goodmoral-label">*Upload Proof of Payment:</h3></label>
+                            <input type="file"/>
                         </div>
                         <span className="goodmoral-error">{special_instruction_errors}</span>
 

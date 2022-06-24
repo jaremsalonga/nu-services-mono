@@ -67,6 +67,8 @@ import Reports from './Pages/GD/Reports';
 import PendingReq from './Pages/GD/PendingRequest';
 import Announcements from './Pages/GD/Announcements';
 import EditAnnouncement from './Pages/GA/EditAnnouncement';
+import Account from './Pages/GD/Profile'
+import EditAccount from './Pages/GD/EditAccount';
 
 
 
@@ -157,6 +159,8 @@ function App() {
         <PrivateRoute exact path="/reports" component={Reports} role={['guidance director']} />
         <PrivateRoute exact path="/pendingrequests/view" component={PendingReq} role={['guidance director']} />
         <PrivateRoute exact path="/announcements/view" component={Announcements} role={['guidance director']} />
+        <PrivateRoute exact path="/account" component={Account} role={['guidance director']} />
+        <PrivateRoute exact path="/account/edit" component={EditAccount} role={['guidance director']} />
       </UserProvider>
 
 

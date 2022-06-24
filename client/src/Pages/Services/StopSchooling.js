@@ -5,12 +5,19 @@ import { useHistory, Link } from 'react-router-dom';
 import '../../css/StopSchooling.css'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import { UserContext } from '../../contexts/user/userContext'
+import { useCookies } from 'react-cookie'
+import NewDatePicker from '../../components/metamorphic/NewDatePicker';
 
 
 function StopSchooling() {
     const [submitTransferringForm, setTransferringForm] = useState(false)
+    const [startDate, setStartDate] = useState(new Date());
+
     const [state] = React.useContext(UserContext)
     const id = state.user.users_id
+    const department_id = state.user.department_id;
+
+
     const ConfirmationBox = () => {
         if (!submitTransferringForm) {
             document.querySelector(".confirm-bg").style.display = "flex"
@@ -62,20 +69,10 @@ function StopSchooling() {
     const [comment_to_nu_errors, setCommentToNuErrors] = useState("");;
     const [type_of_comm_errors, setTypeOfCommErrors] = useState("");
 
-
-
-
-
     const [transferlist, setTransferList] = useState([]);
-
-    useEffect(() => {
-        Axios.get('/services/interview/get').then((response) => {
-            setTransferList(response.data);
-        },
-            {
-                headers: sessionStorage.getItem("token")
-            })
-    }, [])
+    const [unavailabilityDate, setUnavailabilityDate] = useState(null);
+    const [date, setDate] = useState(new Date());
+    const [cookies] = useCookies(['token']);
 
     const submitTransferForm = () => {
         Axios.post("/interview/requestinterview/createLeaveOfAbsenceForm", {
@@ -84,6 +81,7 @@ function StopSchooling() {
             comment_to_nu: comment_to_nu,
             type_of_comm: type_of_comm,
             user_id: id,
+            date:date
 
         });
 
@@ -92,10 +90,29 @@ function StopSchooling() {
             absence_reason: absence_reason,
             enroll_again: enroll_again,
             comment_to_nu: comment_to_nu,
-            type_of_comm: type_of_comm
+            type_of_comm: type_of_comm,
+            date:date
 
         }]);
     };
+
+    useEffect(async () => {
+
+        let config = {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            params: {
+                department_id
+            }
+        };
+
+        let response = await Axios.get('/unavailability-dates', config).then(response => response.data);
+
+        setUnavailabilityDate(response.map(function (item) {
+            let dateStringToObject = new Date(item['unavailability_date']);
+            return new Date(dateStringToObject.getFullYear(), dateStringToObject.getMonth(), dateStringToObject.getDate())
+        }));
+
+    }, [])
 
     return (
         <div className="stop-schooling-form-page">
@@ -174,8 +191,8 @@ function StopSchooling() {
                         <span className="stop-schooling-error">{type_of_comm_errors}</span>
 
                         <div className="stop-schooling-divs">
-                            <label><h3 className="stop-school-label">*Select Date</h3></label>
-                            <input type="date" />
+                        <label><h3 className="stop-school-label">*Select Date</h3></label>
+                            {unavailabilityDate && <NewDatePicker value={date} setDate={setDate} unavailabilityDate={unavailabilityDate} />}
                         </div>
 
                         {/* pop up */}
