@@ -8,6 +8,8 @@ import Navbar from '../../Navbar_ga'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import { HiDocumentDownload } from 'react-icons/hi'
 import { useParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
+import { saveAs } from 'file-saver';
 
 function ListGrad() {
 
@@ -20,6 +22,7 @@ function ListGrad() {
     const [email, setEmail] = useState("");
 
     const [profileInfo, setProfileInfo] = useState({});
+    const [cookies] = useCookies(['token']);
 
     const [last_ay, setLastAY] = useState("");
     const [last_term, setLastTerm] = useState("");
@@ -37,6 +40,49 @@ function ListGrad() {
             console.log(response.data);
         })
     }, [])
+
+    let acceptReq = (event) => {
+        event.preventDefault();
+        console.log(cookies)
+        let gradreq_id = window.location.pathname.split("/").pop();
+        Axios.post(`/viewrequestdetails/grad/approved/`, {
+            status: status,
+            gradreq_id
+        }, config).then((response) => {
+            console.log(response.data)
+        })
+    }
+
+    let declineReq = (event) => {
+        event.preventDefault();
+        console.log(cookies)
+        let gradreq_id = window.location.pathname.split("/").pop();
+        Axios.post(`/viewrequestdetails/grad/decline/`, {
+            status: status,
+            gradreq_id
+        }, config).then((response) => {
+            console.log(response.data)
+        })
+    }
+
+
+    let config = {
+        headers: { Authorization: `Bearer ${cookies.token}` }
+    };
+
+    let download_grad = () => {
+
+        console.log(profileInfo);
+
+        Axios.post('/create-pdf/grad', profileInfo, config)
+            .then(() => Axios.get('/fetch-pdf/grad', { responseType: 'blob' }))
+            .then((response) => {
+                const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+
+                saveAs(pdfBlob, 'Exit - to - Graduate - Request' - { fullname }.pdf)
+                console.log(response.data)
+            });
+    }
 
     return (
         <div className='pendingviewgrad-wrapper'>
@@ -56,7 +102,7 @@ function ListGrad() {
                         </div>
                         <div className='pendingviewgrad-header-btn'>
                             <button className='pendingviewgrad-download-btn'>
-                                <HiDocumentDownload size="2rem" color="#30408D" />
+                                <HiDocumentDownload size="2rem" color="#30408D" onClick={download_grad} />
                             </button>
                         </div>
                     </div>
@@ -89,10 +135,10 @@ function ListGrad() {
                         </div>
                         <div className='pendingviewgrad-action-btn'>
                             <div className='pendingviewgrad-approved'>
-                                <button className='pendingviewgrad-approvedbtn'>APPROVE</button>
+                                <button className='pendingviewgrad-approvedbtn' onClick={acceptReq} >APPROVE</button>
                             </div>
                             <div className='pendingviewgrad-decline'>
-                                <button className='pendingviewgrad-declinebtn'>DECLINE</button>
+                                <button className='pendingviewgrad-declinebtn' onClick={declineReq}>DECLINE</button>
                             </div>
                         </div>
                     </div>

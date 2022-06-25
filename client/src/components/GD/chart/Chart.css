@@ -1,10 +1,46 @@
-.chart-wrapper{
+.common-reason-smartchat {
     margin: 20px;
     padding: 20px;
-    -webkit-box-shadow: 0px 0px 11px -1px #000000; 
+    -webkit-box-shadow: 0px 0px 11px -1px #000000;
     box-shadow: 0px 0px 11px -1px #000000;
 }
 
-.chartTitle{
+.counselled-dl-btn {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.dl-counseledbtn{
+    cursor: pointer;
+    height: 40px;
+    background-color: #30408D;
+    width: 7vw;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.chartTitle {
     margin-bottom: 20px;
+}
+
+.counselled-tbl {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.counselled-tbl,
+td,
+th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+}
+
+tr.counselled-tr {
+    background-color: #D4AF37;
 }

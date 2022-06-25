@@ -43,8 +43,10 @@ export default function Home() {
                 <div className='featured-tab'>
                     <FeaturedTab />
                 </div>
-                <div className='chart-section'>
-                    <Chart data={monthData} title="Total Counselled 2021" grid dataKey="counselled_user" />
+                <div className='overall-section'>
+                    <div className='common-reason-smartchat'>
+                        <h3>Most Common Reason of Counselling</h3>
+                    </div>
                 </div>
                 <div className='second-dashboard-section'>
                     <SmallWidget />

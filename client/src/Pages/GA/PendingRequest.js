@@ -34,6 +34,7 @@ function PendingRequest() {
 
     useEffect(() => {
         Axios.get(`/pendingrequest`, config).then((response) => {
+            console.log(response);
             setReqInfo(response.data);
         })
     }, [])

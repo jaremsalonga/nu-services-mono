@@ -8,6 +8,12 @@ import { RiArrowGoBackFill } from 'react-icons/ri'
 import { HiDocumentDownload } from 'react-icons/hi'
 import './ListTransfer.css'
 import { useParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
+import { saveAs } from 'file-saver';
+
+
+import TimePicker from 'react-time-picker';
+import moment from 'moment';
 
 function ListTransfer() {
 
@@ -20,6 +26,7 @@ function ListTransfer() {
     const [email, setEmail] = useState("");
 
     const [profileInfo, setProfileInfo] = useState({});
+    const [cookies] = useCookies(['token']);
 
     const [transfer_reason, setTransferReason] = useState("");
     const [transfer_to, setTransferTo] = useState("");
@@ -30,14 +37,35 @@ function ListTransfer() {
     const [type_of_comm, setTypeOfComm] = useState("");
     const [status, setStatus] = useState("");
     const [date, setDate] = useState("");
+    const [value, setInterviewTime] = useState('10:00');
 
     useEffect(() => {
         let transferreq_id = window.location.pathname.split("/").pop();
         Axios.get(`/services/interview/transfer/view/${transferreq_id}`).then((response) => {
             setProfileInfo(response.data);
+            setInterviewTime(moment(response.data.interview_time ?? '8:00 AM', ["h:mm A"]).format("HH:mm"))
             console.log(response.data);
         })
     }, [])
+
+    
+    let config = {
+        headers: { Authorization: `Bearer ${cookies.token}` }
+    };
+
+    let download_transfer = () => {
+
+        console.log(profileInfo);
+
+        Axios.post('/create-pdf/transfer', profileInfo, config)
+            .then(() => Axios.get('/fetch-pdf/transfer', { responseType: 'blob' }))
+            .then((response) => {
+                const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+
+                saveAs(pdfBlob, 'Transfer - Request' - { fullname }.pdf)
+                console.log(response.data)
+            });
+    }
 
     return (
         <div className='pendingviewtransfer-wrapper'>
@@ -58,7 +86,7 @@ function ListTransfer() {
 
                         <div className='pendingviewtransfer-header-btn'>
                             <button className='pendingviewtransfer-download-btn'>
-                                <HiDocumentDownload size="2rem" color="#30408D" />
+                                <HiDocumentDownload size="2rem" color="#30408D" onClick={download_transfer} />
                             </button>
                         </div>
                     </div>
@@ -93,6 +121,12 @@ function ListTransfer() {
                             <label><h2 id='pendingviewtransfer-label'>Date and Time of Interview:&nbsp;{profileInfo.date}</h2></label>
                         </div>
 
+                        <div className='pendingviewshift-divs'>
+                            <label>
+                                <h2 id='pendingviewshift-label'>Time of Interview</h2>
+                                <TimePicker onChange={setInterviewTime} value={value} />
+                            </label>
+                        </div>
 
                         <div className='pendingviewtransfer-action-btn'>
                             <div className='pendingviewtransfer-approved'>

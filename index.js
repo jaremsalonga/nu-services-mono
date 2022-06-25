@@ -6,6 +6,16 @@ const mysql = require("mysql");
 const cors = require("cors");
 const app = express();
 
+const pdf = require('html-pdf');
+
+const pdfTemplateSmartChat = require('./documents/PDFSmartChat')
+const pdfTemplateShift = require('./documents/PDFShift')
+const pdfTemplateAbsence = require('./documents/PDFAbsence')
+const pdfTemplateTransfer = require('./documents/PDFTransfer')
+const pdfTemplateGrad = require('./documents/PDFGrad')
+
+
+
 const path = require('path');
 
 const fileUpload = require("express-fileupload");
@@ -48,6 +58,84 @@ const db = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD || "password",
     database: process.env.DATABASE_NAME || "nugss"
 });
+
+//----------------------START OF PDF------------------------------------------------------//
+
+//SMART CHAT POST - PDF generation fetching of the data
+app.post('/create-pdf/smartchat', (req, res) => {
+    pdf.create(pdfTemplateSmartChat(req.body), {}).toFile('result.pdf', (err) => {
+        if (err) {
+            res.send(Promise.reject());
+        }
+        res.send(Promise.resolve());
+    })
+})
+
+//SMART CHAT GET - Send the generated PDF to the client
+app.get('/fetch-pdf/smartchat', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
+
+//SHIFT POST - PDF generation fetching of the data
+app.post('/create-pdf/shift', (req, res) => {
+    pdf.create(pdfTemplateShift(req.body), {}).toFile('result.pdf', (err) => {
+        if (err) {
+            res.send(Promise.reject());
+        }
+        res.send(Promise.resolve());
+    })
+})
+
+//SHIFT GET - Send the generated PDF to the client
+app.get('/fetch-pdf/shift', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
+
+//absence POST - PDF generation fetching of the data
+app.post('/create-pdf/absence', (req, res) => {
+    pdf.create(pdfTemplateAbsence(req.body), {}).toFile('result.pdf', (err) => {
+        if (err) {
+            res.send(Promise.reject());
+        }
+        res.send(Promise.resolve());
+    })
+})
+
+//absence CHAT GET - Send the generated PDF to the client
+app.get('/fetch-pdf/absence', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
+
+//transfer POST - PDF generation fetching of the data
+app.post('/create-pdf/transfer', (req, res) => {
+    pdf.create(pdfTemplateTransfer(req.body), {}).toFile('result.pdf', (err) => {
+        if (err) {
+            res.send(Promise.reject());
+        }
+        res.send(Promise.resolve());
+    })
+})
+
+//transfer GET - Send the generated PDF to the client
+app.get('/fetch-pdf/transfer', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
+
+//Grad POST - PDF generation fetching of the data
+app.post('/create-pdf/grad', (req, res) => {
+    pdf.create(pdfTemplateGrad(req.body), {}).toFile('result.pdf', (err) => {
+        if (err) {
+            res.send(Promise.reject());
+        }
+        res.send(Promise.resolve());
+    })
+})
+
+//Grad GET - Send the generated PDF to the client
+app.get('/fetch-pdf/grad', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
+//--------------END OF PDF---------------------------------------------//
 
 
 //register
@@ -92,7 +180,7 @@ app.get('/isUserAuth', verifyAndDecodeJWT, (req, res) => {
     res.status(200).json(res);
 })
 
-
+//login
 app.post('/login', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -114,7 +202,7 @@ app.post('/login', async (req, res) => {
                         const [first] = result;
 
                         let tokenConfig = {
-                            expiresIn: 5000
+                            expiresIn: 86400
                         };
 
                         var email = first.email;
@@ -638,6 +726,30 @@ app.get("/unavailability-dates", verifyJWT, (req, res) => {
 
 });
 
+app.get("/associate/unavailability-dates", verifyJWT, (req, res) => {
+
+    const { user: { department_id, users_id }, status } = req.params;
+
+    const sqlSelect = `SELECT DATE_FORMAT(unavailability_date, '%Y-%m-%d') as unavailability_date FROM nugss.guidance_unavailability where user_id = ?`;
+
+    db.query(sqlSelect, users_id, (err, result) => {
+        res.send(result);
+    });
+
+});
+
+app.get("/associate/interviews", verifyJWT, (req, res) => {
+
+    const { user: { department_id, users_id }, status } = req.params;
+
+    const sqlSelect = `SELECT DATE_FORMAT(unavailability_date, '%Y-%m-%d') as unavailability_date FROM nugss.guidance_unavailability where user_id = ?`;
+
+    db.query(sqlSelect, users_id, (err, result) => {
+        res.send(result);
+    });
+
+});
+
 app.post("/unavailability-dates", verifyJWT, (req, res) => {
     const { user: { department_id, users_id }, status, unavailability_date } = req.params;
 
@@ -656,75 +768,75 @@ app.post("/unavailability-dates", verifyJWT, (req, res) => {
 app.get("/scheduledrequest", verifyJWT, (req, res) => {
     const { user: { department_id, users_id }, status, unavailability_dates } = req.params;
 
-    const sqlSelect = `SELECT gradreq_id AS id, type_interview, fullname, date FROM grad_Req
-    INNER JOIN users ON
-    grad_req.user_id = users.users_id
-    WHERE users.department_id = ? AND grad_req.status = 'accepted'
+    const sqlSelect = `SELECT count(*) as count, DATE_FORMAT(date, '%Y-%m-%d') as date, 'Grad Req' as interview FROM grad_req
+    WHERE grad_req.approved_by = ? AND grad_req.status = 'approved'
+    GROUP BY date
     UNION ALL
-    SELECT transferreq_id AS id, type_interview, fullname, date FROM transfer_req
-    INNER JOIN users ON
-    transfer_req.user_id = users.users_id
-    WHERE users.department_id = ? AND transfer_req.status = 'accepted'
+    SELECT count(*) as count, DATE_FORMAT(date, '%Y-%m-%d') as date, 'Transfer Req' as interview FROM transfer_req
+    WHERE transfer_req.approved_by = ? AND transfer_req.status = 'approved'
+    GROUP BY date
     UNION ALL
-    SELECT shift_id AS id, type_interview, fullname, date FROM shift_req
-    INNER JOIN users ON
-    shift_req.user_id = users.users_id
-    WHERE users.department_id = ? AND shift_req.status = 'accepted'
+    SELECT count(*) as count, DATE_FORMAT(date, '%Y-%m-%d') as date, 'Shift Req' as interview FROM shift_req
+    WHERE shift_req.approved_by = ? AND shift_req.status = 'approved'
+    GROUP BY date
     UNION ALL
-    SELECT absencereq_id AS id, type_interview, fullname, date FROM absence_req
-    INNER JOIN users ON
-    absence_req.user_id = users.users_id
-    WHERE users.department_id = ? AND absence_req.status = 'accepted'
+    SELECT count(*) as count, DATE_FORMAT(date, '%Y-%m-%d') as date, 'Absence Req' as interview FROM absence_req
+    WHERE absence_req.approved_by = ? AND absence_req.status = 'approved'
+    GROUP BY date
     UNION ALL
-    SELECT smartchat_id AS id, 'Smart Chat' AS type_interview, fullname, date FROM smartchat_req
-    INNER JOIN users ON
-    smartchat_req.user_id = users.users_id
-    WHERE users.department_id = ? AND smartchat_req.status = 'accepted'`
+    SELECT count(*) as count, DATE_FORMAT(date, '%Y-%m-%d') as date, 'Smart Chat' as interview FROM smartchat_req
+    WHERE smartchat_req.approved_by = ? AND smartchat_req.status = 'approved'
+    GROUP BY date`
 
-    db.query(sqlSelect, [department_id, department_id, department_id, department_id, department_id], (err, result) => {
+    db.query(sqlSelect, [users_id, users_id, users_id, users_id, users_id], (err, result) => {
         res.send(result);
     });
 
 })
 
 //accept absence request
-app.post("/viewrequestdetails/absence/", verifyJWT, (req, res) => {
-    const { user: { department_id, users_id } } = req.params;
-    const status = 'Approved'
-    const sqlSelect = `UPDATE absence_req SET status = ? 
+app.post("/viewrequestdetails/absence/approved", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id }, interview_time , absencereq_id} = req.params;
+    const status = 'approved'
+    const sqlSelect = `
+    UPDATE absence_req SET status = ?, 
+    approved_by = ?,
+    interview_time = ? 
     WHERE absencereq_id = ?`
 
-    db.query(sqlSelect, [status, req.params.absencereq_id], (err, result) => {
+    db.query(sqlSelect, [status, users_id, interview_time, absencereq_id], (err, result) => {
         res.send(result)
     })
 })
 //decline absence request
-app.post("/viewrequestdetails/absence/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/absence/decline/", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
-    const status = 'Declined'
-    const sqlSelect = `UPDATE absence_req SET status = ? 
+    const status = 'declined'
+    const sqlSelect = `UPDATE absence_req SET status = ?, approved_by = ? 
     WHERE absencereq_id = ?`
 
-    db.query(sqlSelect, [status, req.params.absencereq_id], (err, result) => {
+    db.query(sqlSelect, [status, users_id, req.params.absencereq_id], (err, result) => {
         res.send(result)
     })
 })
 
 //accept shift request
-app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
-    const { user: { department_id, users_id } } = req.params;
-    const status = 'Approved'
-    const sqlSelect = `UPDATE shift_req SET status = ? 
+app.post("/viewrequestdetails/shift/approved", verifyJWT, (req, res) => {
+    const { user: {users_id }, interview_time ,shift_id } = req.params;
+    const status = 'approved'
+    const sqlSelect = `UPDATE shift_req SET status = ?, 
+    approved_by = ?,
+    interview_time = ? 
     WHERE shift_id = ?`
 
-    db.query(sqlSelect, [status, req.params.shift_id], (err, result) => {
+    db.query(sqlSelect, [status, users_id, interview_time, shift_id], (err, result) => {
         res.send(result)
     })
 })
 //decline shift request
-app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/shift/decline/", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
-    const status = 'Declined'
+    const status = 'declined'
     const sqlSelect = `UPDATE shift_req SET status = ? 
     WHERE shift_id = ?`
 
@@ -734,20 +846,23 @@ app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
 })
 
 //accept transfer request
-app.post("/viewrequestdetails/transfer/", verifyJWT, (req, res) => {
-    const { user: { department_id, users_id } } = req.params;
-    const status = 'Approved'
-    const sqlSelect = `UPDATE transfer_req SET status = ? 
+app.post("/viewrequestdetails/transfer/approved", verifyJWT, (req, res) => {
+    const { user: {users_id }, interview_time ,transferreq_id } = req.params;
+    const status = 'approved'
+    const sqlSelect = `
+    UPDATE transfer_req SET status = ?, 
+    approved_by = ?,
+    interview_time = ? 
     WHERE transferreq_id = ?`
 
-    db.query(sqlSelect, [status, req.params.transferreq_id], (err, result) => {
+    db.query(sqlSelect, [status, users_id, interview_time, transferreq_id], (err, result) => {
         res.send(result)
     })
 })
 //decline transfer request
-app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/shift/decline/", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
-    const status = 'Declined'
+    const status = 'declined'
     const sqlSelect = `UPDATE transfer_req SET status = ? 
     WHERE transferreq_id = ?`
 
@@ -757,20 +872,23 @@ app.post("/viewrequestdetails/shift/", verifyJWT, (req, res) => {
 })
 
 //accept grad request
-app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
-    const { user: { department_id, users_id } } = req.params;
-    const status = 'Approved'
-    const sqlSelect = `UPDATE grad_req SET status = ? 
+app.post("/viewrequestdetails/grad/approved", verifyJWT, (req, res) => {
+    const { user: {users_id }, interview_time ,gradreq_id } = req.params;
+    const status = 'approved'
+    const sqlSelect = `
+    UPDATE grad_req SET status = ?, 
+    approved_by = ?,
+    interview_time = ? 
     WHERE gradreq_id = ?`
 
-    db.query(sqlSelect, [status, req.params.gradreq_id], (err, result) => {
+    db.query(sqlSelect, [status, users_id, interview_time, gradreq_id], (err, result) => {
         res.send(result)
     })
 })
 //decline grad request
-app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/grad/decline/", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
-    const status = 'Declined'
+    const status = 'declined'
     const sqlSelect = `UPDATE grad_req SET status = ? 
     WHERE gradreq_id = ?`
 
@@ -780,20 +898,23 @@ app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
 })
 
 //accept smartchat request
-app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
-    const { user: { department_id, users_id } } = req.params;
-    const status = 'Approved'
-    const sqlSelect = `UPDATE smartchat_req SET status = ? 
+app.post("/viewrequestdetails/smartchat/approved", verifyJWT, (req, res) => {
+    const { user: {users_id }, interview_time ,smartchat_id } = req.params;
+    const status = 'approved'
+    const sqlSelect = `UPDATE smartchat_req SET 
+    status = ?,
+    approved_by = ?,
+    interview_time = ?  
     WHERE smartchat_id = ?`
 
-    db.query(sqlSelect, [status, req.params.smartchat_id], (err, result) => {
+    db.query(sqlSelect, [status, users_id, interview_time, smartchat_id], (err, result) => {
         res.send(result)
     })
 })
 //decline smartchat request
-app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/smartchat/decline/", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
-    const status = 'Declined'
+    const status = 'declined'
     const sqlSelect = `UPDATE smartchat_req SET status = ? 
     WHERE smartchat_id = ?`
 
@@ -801,10 +922,11 @@ app.post("/viewrequestdetails/grad/", verifyJWT, (req, res) => {
         res.send(result)
     })
 })
+//-----------------------------------------------------------------------------------//
 
 //faculty get
-app.get("/accountmanagement/get", (req, res) => {
-    const sqlSelect = "SELECT * from faculty_members"
+app.get("/guidance/get", (req, res) => {
+    const sqlSelect = `SELECT * FROM faculty_members WHERE role='guidance associate`
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
@@ -831,9 +953,7 @@ app.put("/announcement/edit", (req, res) => {
     });
 });
 
-app.get("/health-check", (req, res) => {
-    res.json({ msg: "Hello" });
-});
+
 
 //insert announcement
 app.post("/announcement/create", (req, res) => {
@@ -849,10 +969,47 @@ app.post("/announcement/create", (req, res) => {
     };
 });
 
+//all smartchat get
+app.get("/dashboard/smartchat/", verifyJWT, (req, res) => {
+
+    const { user: { department_id, users_id }, status } = req.params;
+
+    const sqlSelect = `SELECT * FROM smartchat_req
+    INNER JOIN users ON 
+    smartchat_req.user_id = users.users_id AND status= 'approved'`;
+
+    db.query(sqlSelect, [users_id, status], (err, result) => {
+        res.send(result);
+    });
+
+});
+
+//most common reason for smartchat
+app.get("/dashboard/smartchat/reason", verifyJWT, (req, res) => {
+
+    const { user: { department_id, users_id }, status } = req.params;
+
+    const sqlSelect = `SELECT absence_reason,
+            COUNT(absence_reason) AS 'common_reason', YEAR(date)
+          FROM absence_req GROUP BY absence_reason
+          ORDER BY 
+            'common_reason' DESC
+          LIMIT 1`;
+
+    db.query(sqlSelect, [users_id, status], (err, result) => {
+        res.send(result);
+    });
+
+});
+
 
 
 
 //-------------------------------------------------------------------------------------//
+
+app.get("/health-check", (req, res) => {
+    res.json({ msg: "Hello" });
+});
 const port = process.env.PORT || 8080;
 
 

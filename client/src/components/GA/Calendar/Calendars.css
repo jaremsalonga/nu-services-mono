@@ -7,6 +7,16 @@
     font-size: 25px;
 }
 
+.interview {
+  background-color: #006edc !important;
+  color: white !important;
+}
+
+.unavailable {
+  background-color: red !important;
+  color: white !important;
+}
+
 .react-calendar {
     width: 75vw;
     max-width: 100%;
