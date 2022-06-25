@@ -39,8 +39,8 @@ function ListShift() {
     const [date, setDate] = useState("");
 
     useEffect(() => {
-        let transferreq_id = window.location.pathname.split("/").pop();
-        Axios.get(`/services/interview/shift/view/${transferreq_id}`).then((response) => {
+        let shift_id = window.location.pathname.split("/").pop();
+        Axios.get(`/services/interview/shift/view/${shift_id}`).then((response) => {
             setProfileInfo(response.data);
             setInterviewTime(moment(response.data.interview_time ?? '8:00 AM', ["h:mm A"]).format("HH:mm"))
             console.log(response.data);
@@ -67,16 +67,27 @@ function ListShift() {
 
     let acceptReq = (event) => {
         event.preventDefault();
+        console.log(cookies)
         let shift_id = window.location.pathname.split("/").pop();
-
         Axios.post(`/viewrequestdetails/shift/approved`, {
-            interview_time : moment(value, ["HH:mm"]).format("h:mm A"),
-            shift_id : shift_id
+            interview_time: moment(value, ["HH:mm"]).format("h:mm A"),
+            shift_id
         }, config).then((response) => {
             console.log(response)
         })
     }
 
+    let declineReq = (event) => {
+        event.preventDefault();
+        console.log(cookies)
+        let shift_id = window.location.pathname.split("/").pop();
+        Axios.post(`/viewrequestdetails/shift/decline`, {
+            status: status,
+            shift_id
+        }, config).then((response) => {
+            console.log(response.data)
+        })
+    }
 
     return (
         <div className='pendingviewshift-wrapper'>
@@ -96,7 +107,7 @@ function ListShift() {
                         </div>
                         <div className='pendingviewshift-header-btn'>
                             <button className='pendingviewshift-download-btn'>
-                                <HiDocumentDownload size="2rem" color="#30408D" onClick={download_shift}/>
+                                <HiDocumentDownload size="2rem" color="#30408D" onClick={download_shift} />
                             </button>
                         </div>
                     </div>
@@ -139,7 +150,7 @@ function ListShift() {
                                 <button className='pendingviewshift-approvedbtn' onClick={acceptReq}>APPROVE</button>
                             </div>
                             <div className='pendingviewshift-decline'>
-                                <button className='pendingviewshift-declinebtn'>DECLINE</button>
+                                <button className='pendingviewshift-declinebtn' onClick={declineReq}>DECLINE</button>
                             </div>
                         </div>
                     </div>

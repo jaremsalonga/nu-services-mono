@@ -11,7 +11,6 @@ import { useParams } from 'react-router-dom'
 import { saveAs } from 'file-saver';
 import { useCookies } from 'react-cookie'
 
-
 import TimePicker from 'react-time-picker';
 import moment from 'moment';
 
@@ -47,12 +46,36 @@ function ListSmartChat() {
     headers: { Authorization: `Bearer ${cookies.token}` }
   };
 
+  let acceptReq = (event) => {
+    event.preventDefault();
+    console.log(cookies)
+    let smartchat_id = window.location.pathname.split("/").pop();
+    Axios.post(`/viewrequestdetails/smartchat/approved`, {
+      interview_time: moment(value, ["HH:mm"]).format("h:mm A"),
+      smartchat_id
+    }, config).then((response) => {
+      console.log(response.data)
+    })
+  }
+
+  let declineReq = (event) => {
+    event.preventDefault();
+    console.log(cookies)
+    let smartchat_id = window.location.pathname.split("/").pop();
+    Axios.post(`/viewrequestdetails/smartchat/decline`, {
+      status: status,
+      smartchat_id
+    }, config).then((response) => {
+      console.log(response.data)
+    })
+  }
+
 
   let download_smartchat = () => {
 
     console.log(profileInfo);
 
-    Axios.post('/create-pdf/smartchat',profileInfo, config)
+    Axios.post('/create-pdf/smartchat', profileInfo, config)
       .then(() => Axios.get('/fetch-pdf/smartchat', { responseType: 'blob' }))
       .then((response) => {
         const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
@@ -104,17 +127,17 @@ function ListSmartChat() {
               <label><h2 id='pendingviewsmart-label' onChange={(e) => setTypeComm(e.target.value)}>In what way do you want to communicate?: &nbsp;{profileInfo.type_comm}</h2></label>
             </div>
             <div className='pendingviewshift-divs'>
-                            <label>
-                                <h2 id='pendingviewshift-label'>Time of Interview</h2>
-                                <TimePicker onChange={setInterviewTime} value={value} />
-                            </label>
-                        </div>
+              <label>
+                <h2 id='pendingviewshift-label'>Time of Interview</h2>
+                <TimePicker onChange={setInterviewTime} value={value} />
+              </label>
+            </div>
             <div className='pendingviewsmart-action-btn'>
               <div className='pendingviewsmart-approved'>
-                <button className='pendingviewsmart-approvedbtn'>APPROVE</button>
+                <button className='pendingviewsmart-approvedbtn' onClick={acceptReq}>APPROVE</button>
               </div>
               <div className='pendingviewsmart-decline'>
-                <button className='pendingviewsmart-declinebtn'>DECLINE</button>
+                <button className='pendingviewsmart-declinebtn' onClick={declineReq}>DECLINE</button>
               </div>
             </div>
           </div>

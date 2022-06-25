@@ -11,6 +11,10 @@ import { useParams } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { saveAs } from 'file-saver';
 
+
+import TimePicker from 'react-time-picker';
+import moment from 'moment';
+
 function ListGrad() {
 
     let { id } = useParams();
@@ -32,12 +36,16 @@ function ListGrad() {
     const [type_of_comm, setTypeOfComm] = useState("");
     const [status, setStatus] = useState("");
 
+    const [interview_time, setInterviewTimes] = useState("");
+    const [value, setInterviewTime] = useState('10:00');
+
 
     useEffect(() => {
         let gradreq_id = window.location.pathname.split("/").pop();
         Axios.get(`/services/interview/grad/view/${gradreq_id}`).then((response) => {
             setProfileInfo(response.data);
             console.log(response.data);
+            setInterviewTime(moment(response.data.interview_time ?? '8:00 AM', ["h:mm A"]).format("HH:mm"))
         })
     }, [])
 
@@ -45,8 +53,8 @@ function ListGrad() {
         event.preventDefault();
         console.log(cookies)
         let gradreq_id = window.location.pathname.split("/").pop();
-        Axios.post(`/viewrequestdetails/grad/approved/`, {
-            status: status,
+        Axios.post(`/viewrequestdetails/grad/approved`, {
+            interview_time: moment(value, ["HH:mm"]).format("h:mm A"),
             gradreq_id
         }, config).then((response) => {
             console.log(response.data)
@@ -57,14 +65,13 @@ function ListGrad() {
         event.preventDefault();
         console.log(cookies)
         let gradreq_id = window.location.pathname.split("/").pop();
-        Axios.post(`/viewrequestdetails/grad/decline/`, {
+        Axios.post(`/viewrequestdetails/grad/decline`, {
             status: status,
             gradreq_id
         }, config).then((response) => {
             console.log(response.data)
         })
     }
-
 
     let config = {
         headers: { Authorization: `Bearer ${cookies.token}` }
@@ -131,7 +138,13 @@ function ListGrad() {
                             <label><h2 id='pendingviewgrad-label'>Type of Communication: &nbsp;{profileInfo.type_of_comm}</h2></label>
                         </div>
                         <div className='pendingviewgrad-divs'>
-                            <label><h2 id='pendingviewgrad-label'>Date and Time of Interview:&nbsp;{profileInfo.date}</h2></label>
+                            <label><h2 id='pendingviewgrad-label'>Date and Time of Interview:&nbsp;{profileInfo.date}{profileInfo.setInterviewTimes}</h2></label>
+                        </div>
+                        <div className='pendingviewgrad-divs'>
+                            <label>
+                                <h2 id='pendingviewgrad-label'>Time of Interview</h2>
+                                <TimePicker onChange={setInterviewTime} value={value} />
+                            </label>
                         </div>
                         <div className='pendingviewgrad-action-btn'>
                             <div className='pendingviewgrad-approved'>

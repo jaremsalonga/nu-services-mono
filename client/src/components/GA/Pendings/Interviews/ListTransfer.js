@@ -48,7 +48,7 @@ function ListTransfer() {
         })
     }, [])
 
-    
+
     let config = {
         headers: { Authorization: `Bearer ${cookies.token}` }
     };
@@ -65,6 +65,30 @@ function ListTransfer() {
                 saveAs(pdfBlob, 'Transfer - Request' - { fullname }.pdf)
                 console.log(response.data)
             });
+    }
+
+    let acceptReq = (event) => {
+        event.preventDefault();
+        let transferreq_id = window.location.pathname.split("/").pop();
+
+        Axios.post(`/viewrequestdetails/transfer/approved`, {
+            interview_time: moment(value, ["HH:mm"]).format("h:mm A"),
+            transferreq_id: transferreq_id
+        }, config).then((response) => {
+            console.log(response)
+        })
+    }
+
+    let declineReq = (event) => {
+        event.preventDefault();
+        console.log(cookies)
+        let transferreq_id = window.location.pathname.split("/").pop();
+        Axios.post(`/viewrequestdetails/shift/decline`, {
+            status: status,
+            transferreq_id
+        }, config).then((response) => {
+            console.log(response.data)
+        })
     }
 
     return (
@@ -130,10 +154,10 @@ function ListTransfer() {
 
                         <div className='pendingviewtransfer-action-btn'>
                             <div className='pendingviewtransfer-approved'>
-                                <button className='pendingviewtransfer-approvedbtn'>APPROVE</button>
+                                <button className='pendingviewtransfer-approvedbtn' onClick={acceptReq}>APPROVE</button>
                             </div>
                             <div className='pendingviewtransfer-decline'>
-                                <button className='pendingviewtransfer-declinebtn'>DECLINE</button>
+                                <button className='pendingviewtransfer-declinebtn' onClick={declineReq}>DECLINE</button>
                             </div>
                         </div>
                     </div>

@@ -46,6 +46,11 @@ export default function Home() {
                 <div className='overall-section'>
                     <div className='common-reason-smartchat'>
                         <h3>Most Common Reason of Counselling</h3>
+                        <div className='reason-filter-date'>
+                        <select>
+                            <option>2022</option>
+                        </select>
+                        </div>
                     </div>
                 </div>
                 <div className='second-dashboard-section'>

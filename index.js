@@ -834,7 +834,7 @@ app.post("/viewrequestdetails/shift/approved", verifyJWT, (req, res) => {
     })
 })
 //decline shift request
-app.post("/viewrequestdetails/shift/decline/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/shift/decline", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
     const status = 'declined'
     const sqlSelect = `UPDATE shift_req SET status = ? 
@@ -860,7 +860,7 @@ app.post("/viewrequestdetails/transfer/approved", verifyJWT, (req, res) => {
     })
 })
 //decline transfer request
-app.post("/viewrequestdetails/shift/decline/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/shift/decline", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
     const status = 'declined'
     const sqlSelect = `UPDATE transfer_req SET status = ? 
@@ -886,7 +886,7 @@ app.post("/viewrequestdetails/grad/approved", verifyJWT, (req, res) => {
     })
 })
 //decline grad request
-app.post("/viewrequestdetails/grad/decline/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/grad/decline", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
     const status = 'declined'
     const sqlSelect = `UPDATE grad_req SET status = ? 
@@ -912,7 +912,7 @@ app.post("/viewrequestdetails/smartchat/approved", verifyJWT, (req, res) => {
     })
 })
 //decline smartchat request
-app.post("/viewrequestdetails/smartchat/decline/", verifyJWT, (req, res) => {
+app.post("/viewrequestdetails/smartchat/decline", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
     const status = 'declined'
     const sqlSelect = `UPDATE smartchat_req SET status = ? 
