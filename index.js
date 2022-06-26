@@ -49,14 +49,6 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use(helmet());
-app.use(function (req, res, next) {
-    res.setHeader("Permission-Policy", "self");
-    res.set("-Content-Type-XOptxions", "nosniff");
-    res.set("X-Frame-Options", "SAMEORIGIN");
-
-    return next();
-});
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -942,8 +934,8 @@ app.post("/viewrequestdetails/smartchat/decline", verifyJWT, (req, res) => {
 
 
 //get all guidance assoc
-app.get('/accountmanagement', verifyJWT, (req, res) => {
-    const { user: { department_id, users_id }, role } = req.params;
+app.get('/accountmanagement', verifyJWT, (req, res) =>{
+    const {user: {department_id, users_id}, role} = req.params;
     const sqlSelect = `SELECT * FROM users 
     WHERE role = "guidance associate"`
 
