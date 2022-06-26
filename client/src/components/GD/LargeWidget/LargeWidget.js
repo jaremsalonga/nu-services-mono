@@ -4,20 +4,26 @@ import { HiOutlinePencilAlt } from 'react-icons/hi'
 import { FaTrash } from 'react-icons/fa'
 import Axios from 'axios';
 import './LargeWidget.css'
-
+import { useCookies } from 'react-cookie'
+import { UserContext } from '../../../contexts/user/userContext'
 function LargeWidget() {
 
   const [announcement_title, setAnnouncementTitle] = useState("");
   const [announcement_description, setAnnouncementDescription] = useState("");
   const [announcementList, setAnnouncementList] = useState([]);
+  const [cookies] = useCookies(['token']);
 
   useEffect(() => {
-    console.log(sessionStorage.getItem('token'));
     Axios.get('/announcement/get').then((response) => {
       setAnnouncementList(response.data);
-
-    })
+      console.log(response.data)
+    }, config)
   }, [])
+
+  let config = {
+    headers: { Authorization: `Bearer ${cookies.token}` }
+};
+
 
   return (
     <div className='widgetLg'>

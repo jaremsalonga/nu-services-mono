@@ -796,7 +796,7 @@ app.get("/scheduledrequest", verifyJWT, (req, res) => {
 
 //accept absence request
 app.post("/viewrequestdetails/absence/approved", verifyJWT, (req, res) => {
-    const { user: { department_id, users_id }, interview_time , absencereq_id} = req.params;
+    const { user: { department_id, users_id }, interview_time, absencereq_id } = req.params;
     const status = 'approved'
     const sqlSelect = `
     UPDATE absence_req SET status = ?, 
@@ -822,7 +822,7 @@ app.post("/viewrequestdetails/absence/decline/", verifyJWT, (req, res) => {
 
 //accept shift request
 app.post("/viewrequestdetails/shift/approved", verifyJWT, (req, res) => {
-    const { user: {users_id }, interview_time ,shift_id } = req.params;
+    const { user: { users_id }, interview_time, shift_id } = req.params;
     const status = 'approved'
     const sqlSelect = `UPDATE shift_req SET status = ?, 
     approved_by = ?,
@@ -847,7 +847,7 @@ app.post("/viewrequestdetails/shift/decline", verifyJWT, (req, res) => {
 
 //accept transfer request
 app.post("/viewrequestdetails/transfer/approved", verifyJWT, (req, res) => {
-    const { user: {users_id }, interview_time ,transferreq_id } = req.params;
+    const { user: { users_id }, interview_time, transferreq_id } = req.params;
     const status = 'approved'
     const sqlSelect = `
     UPDATE transfer_req SET status = ?, 
@@ -873,7 +873,7 @@ app.post("/viewrequestdetails/shift/decline", verifyJWT, (req, res) => {
 
 //accept grad request
 app.post("/viewrequestdetails/grad/approved", verifyJWT, (req, res) => {
-    const { user: {users_id }, interview_time ,gradreq_id } = req.params;
+    const { user: { users_id }, interview_time, gradreq_id } = req.params;
     const status = 'approved'
     const sqlSelect = `
     UPDATE grad_req SET status = ?, 
@@ -899,7 +899,7 @@ app.post("/viewrequestdetails/grad/decline", verifyJWT, (req, res) => {
 
 //accept smartchat request
 app.post("/viewrequestdetails/smartchat/approved", verifyJWT, (req, res) => {
-    const { user: {users_id }, interview_time ,smartchat_id } = req.params;
+    const { user: { users_id }, interview_time, smartchat_id } = req.params;
     const status = 'approved'
     const sqlSelect = `UPDATE smartchat_req SET 
     status = ?,
@@ -925,12 +925,24 @@ app.post("/viewrequestdetails/smartchat/decline", verifyJWT, (req, res) => {
 //-----------------------------------------------------------------------------------//
 
 //faculty get
-app.get("/guidance/get", (req, res) => {
-    const sqlSelect = `SELECT * FROM faculty_members WHERE role='guidance associate`
-    db.query(sqlSelect, (err, result) => {
-        res.send(result);
-    });
-});
+// app.get("/guidance/get", (req, res) => {
+//     const sqlSelect = `SELECT * FROM faculty_members WHERE role='guidance associate`
+//     db.query(sqlSelect, (err, result) => {
+//         res.send(result);
+//     });
+// });
+
+
+//get all guidance assoc
+app.get('/accountmanagement', verifyJWT, (req, res) =>{
+    const {user: {department_id, users_id}, role} = req.params;
+    const sqlSelect = `SELECT * FROM users 
+    WHERE role = "guidance associate"`
+
+    db.query(sqlSelect, role, (err, result) => {
+        res.send(result)
+    })
+})
 
 //announcement get
 app.get("/announcement/get", (req, res) => {
@@ -969,6 +981,7 @@ app.post("/announcement/create", (req, res) => {
     };
 });
 
+
 //all smartchat get
 app.get("/dashboard/smartchat/", verifyJWT, (req, res) => {
 
@@ -984,19 +997,33 @@ app.get("/dashboard/smartchat/", verifyJWT, (req, res) => {
 
 });
 
-//most common reason for smartchat
-app.get("/dashboard/smartchat/reason", verifyJWT, (req, res) => {
+//most common reason for shifting
+app.get("/dashboard/shift/reason", verifyJWT, (req, res) => {
 
     const { user: { department_id, users_id }, status } = req.params;
 
-    const sqlSelect = `SELECT absence_reason,
-            COUNT(absence_reason) AS 'common_reason', YEAR(date)
-          FROM absence_req GROUP BY absence_reason
-          ORDER BY 
-            'common_reason' DESC
-          LIMIT 1`;
+    const sqlSelect = `SELECT shifting_reason, 
+    COUNT(shifting_reason) AS 'common_reason'
+    FROM shift_req GROUP BY shifting_reason
+    ORDER BY 'common_reason' DESC
+    LIMIT 10`;
 
     db.query(sqlSelect, [users_id, status], (err, result) => {
+        res.send(result);
+    });
+
+});
+
+//most common reason for smartchat
+app.get("/dashboard/smartchat/reason", verifyJWT, (req, res) => {
+
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(concern_feeling) as total, concern_feeling
+    FROM smartchat_req 
+    GROUP BY concern_feeling`;
+
+    db.query(sqlSelect, [users_id, concern_feeling, total],  (err, result) => {
         res.send(result);
     });
 

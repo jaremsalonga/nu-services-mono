@@ -17,9 +17,6 @@ function Announcements() {
                 <div className='announcement-section'>
                     <CreateAnnouncement />
                 </div>
-                {/* <div className='announcement-section2'>
-                <ViewAnnouncement/>
-                </div> */}
             </div>
         </div>
     )

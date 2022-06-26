@@ -73,8 +73,6 @@ function ListSmartChat() {
 
   let download_smartchat = () => {
 
-    console.log(profileInfo);
-
     Axios.post('/create-pdf/smartchat', profileInfo, config)
       .then(() => Axios.get('/fetch-pdf/smartchat', { responseType: 'blob' }))
       .then((response) => {

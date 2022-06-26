@@ -29,8 +29,6 @@ function Landingpage() {
       password: password,
     }).then((response) => {
 
-      console.log(response, 'err', response.data.auth);
-
       if (!response.data.auth) {
         setLoginStatus(false);
         setLoginMsg(response.data.message);
@@ -61,7 +59,6 @@ function Landingpage() {
         "x-access-token": localStorage.getItem("token"),
       },
     }).then((response) => {
-      console.log(response);
       login();
     });
   }
