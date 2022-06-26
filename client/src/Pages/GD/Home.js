@@ -38,10 +38,15 @@ function Home() {
 
 
     useEffect(() => {
-        Axios.get(`/profile/get/${id}`).then((response) => {
+        Axios.get(`/profile/get/${id}`, config).then((response) => {
             setUsernameInfo(response.data);
             console.log(response.data)
-        }, config)
+        })
+
+        Axios.get(`/dashboard/smartchat/reason`, config).then((response) => {
+            setCommonReason(response.data);
+        })
+
     }, [])
 
    

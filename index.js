@@ -1023,7 +1023,7 @@ app.get("/dashboard/smartchat/reason", verifyJWT, (req, res) => {
     FROM smartchat_req 
     GROUP BY concern_feeling`;
 
-    db.query(sqlSelect, [users_id, concern_feeling, total],  (err, result) => {
+    db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
 
