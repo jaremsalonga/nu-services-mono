@@ -16,53 +16,31 @@ function SmallWidget() {
 
     const [fullname, setFullname] = useState("");
     const [role, setRole] = useState("");
-    const [usernameinfo, setUsernameInfo] = useState([]);
+    const [guidanceinfo, setGuidanceInfo] = useState([]);
+
+    let config = {
+        headers: { Authorization: `Bearer ${cookies.token}` }
+    };
+
+    useEffect(() => {
+        Axios.get(`/accountmanagement`, config).then((response) => {
+            setGuidanceInfo(response.data);
+            console.log(response.data)
+        })
+    }, [])
+
     return (
         <div className='widgetSm'>
             <span className='widgetSmTitle'>NU Guidance Faculty</span>
             <ul className='widgetSmList'>
-                <li className='widgetSmListItem'>
-                    <img src={ash} className="widgetSmImg" />
-                    <div className='widgetSmUser'>
-                        <span className='widgetSmUsername'>Khrysshia Leigh D. Domingo</span>
-                        <span className='widgetSmUserTitle'>Guidance Associate</span>
-                    </div>
-                </li>
-                <li className='widgetSmListItem'>
-                    <img src={ash} className="widgetSmImg" />
-                    <div className='widgetSmUser'>
-                        <span className='widgetSmUsername'>Khrysshia Leigh D. Domingo</span>
-                        <span className='widgetSmUserTitle'>Guidance Associate</span>
-                    </div>
-                </li>
-                <li className='widgetSmListItem'>
-                    <img src={ash} className="widgetSmImg" />
-                    <div className='widgetSmUser'>
-                        <span className='widgetSmUsername'>Khrysshia Leigh D. Domingo</span>
-                        <span className='widgetSmUserTitle'>Guidance Associate</span>
-                    </div>
-                </li>
-                <li className='widgetSmListItem'>
-                    <img src={ash} className="widgetSmImg" />
-                    <div className='widgetSmUser'>
-                        <span className='widgetSmUsername'>Khrysshia Leigh D. Domingo</span>
-                        <span className='widgetSmUserTitle'>Guidance Associate</span>
-                    </div>
-                </li>
-                <li className='widgetSmListItem'>
-                    <img src={ash} className="widgetSmImg" />
-                    <div className='widgetSmUser'>
-                        <span className='widgetSmUsername'>Khrysshia Leigh D. Domingo</span>
-                        <span className='widgetSmUserTitle'>Guidance Associate</span>
-                    </div>
-                </li>
-                <li className='widgetSmListItem'>
-                    <img src={ash} className="widgetSmImg" />
-                    <div className='widgetSmUser'>
-                        <span className='widgetSmUsername'>Khrysshia Leigh D. Domingo</span>
-                        <span className='widgetSmUserTitle'>Guidance Associate</span>
-                    </div>
-                </li>
+                {guidanceinfo.map((val) => (
+                    <li className='widgetSmListItem'>
+                        <div className='widgetSmUser'>
+                            <span className='widgetSmUsername'>{val.fullname}</span>
+                            <span className='widgetSmUserTitle'>{val.role}</span>
+                        </div>
+                    </li>
+                ))}
             </ul>
         </div>
     )

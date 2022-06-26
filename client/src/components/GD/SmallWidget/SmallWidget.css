@@ -1,9 +1,10 @@
 .widgetSm{
-    flex: 1;
+
     -webkit-box-shadow: 0px 0px 11px -1px #000000; 
     box-shadow: 0px 0px 11px -1px #000000;
     padding: 15px;
     margin-right: 20px;
+    height: auto;
 }
 
 .widgetSmTitle{
@@ -38,8 +39,10 @@
 
 .widgetSmUsername{
     font-weight: 600;
+    text-transform: capitalize;
 }
 
-.widgetSmUserTitle{
+.widgetSmUserTitle {
     font-weight: 300;
+    text-transform: capitalize;
 }

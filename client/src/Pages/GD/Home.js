@@ -55,27 +55,27 @@ function Home() {
     useEffect(() => {
         Axios.get(`/profile/get/${id}`, config).then((response) => {
             setUsernameInfo(response.data);
-            console.log(response.data)
+            // console.log(response.data)
         })
 
         Axios.get(`/dashboard/smartchat/reason`, config).then((response) => {
             setReason(response.data);
-            console.log(response.data)
+            // console.log(response.data)
         })
 
         Axios.get(`/dashboard/transfer/reason`, config).then((response) => {
             setTransReason(response.data);
-            console.log(response.data)
+            // console.log(response.data)
         })
 
         Axios.get(`/dashboard/absence/reason`, config).then((response) => {
             setAbsReason(response.data);
-            console.log(response.data)
+            // console.log(response.data)
         })
 
         Axios.get(`/dashboard/shift/reason`, config).then((response) => {
             setShiftReason(response.data);
-            console.log(response.data)
+            // console.log(response.data)
         })
 
     }, [])
@@ -100,18 +100,17 @@ function Home() {
                     <div className='common-reason-smartchat'>
                         <h3>Most Reasons of Smart Chat</h3>
                         <div className='smartchat-xlsbtn'>
-                            <button id='smartbtn'>Download as XLS</button>
-                        </div>
-                        <div className='reason-body'>
                             <ReactHTMLTableToExcel
                                 id="test-tbl-xls-button"
                                 className='downloadn-table-xls'
-                                table="emp-table"
-                                filename="tablexls"
-                                sheet="tablexls"
+                                table="smartchat-tbl"
+                                filename="smart-chat-reason"
+                                sheet="SmartChat - Most Reason"
                                 buttonText="Download as Excel"
                             />
-                            <table className='smartchat-tbl' id='emp-table'>
+                        </div>
+                        <div className='reason-body'>
+                            <table className='smartchat-tbl' id='smartchat-tbl'>
                                 <thead id='smartchat-thead'>
                                     <tr>
                                         <th>Reason</th>
@@ -132,7 +131,14 @@ function Home() {
                     <div className='common-reason-smartchat'>
                         <h3>Most Reasons of Shifting</h3>
                         <div className='smartchat-xlsbtn'>
-                            <button id='shiftbtn'>Download as XLS</button>
+                            <ReactHTMLTableToExcel
+                                id="test-tbl-xls-button"
+                                className='downloadn-table-xls'
+                                table="shifting-tbl"
+                                filename="shifting-reasons"
+                                sheet="Shifting - Most Reason"
+                                buttonText="Download as Excel"
+                            />
                         </div>
                         <div className='reason-body'>
                             <table id='shifting-tbl'>
@@ -156,7 +162,14 @@ function Home() {
                     <div className='common-reason-smartchat'>
                         <h3>Most Reasons of Transferring</h3>
                         <div className='smartchat-xlsbtn'>
-                            <button id='transferbtn'>Download as XLS</button>
+                            <ReactHTMLTableToExcel
+                                id="test-tbl-xls-button"
+                                className='downloadn-table-xls'
+                                table="transfer-tbl"
+                                filename="transfer-reasons"
+                                sheet="Transferring - Most Reason"
+                                buttonText="Download as Excel"
+                            />
                         </div>
                         <div className='reason-body'>
                             <table id='transfer-tbl'>
@@ -180,7 +193,14 @@ function Home() {
                     <div className='common-reason-smartchat'>
                         <h3>Most Reasons of Leave of Absence</h3>
                         <div className='smartchat-xlsbtn'>
-                            <button id='absencebtn'>Download as XLS</button>
+                            <ReactHTMLTableToExcel
+                                id="test-tbl-xls-button"
+                                className='downloadn-table-xls'
+                                table="absence-tbl"
+                                filename="absence-reasons"
+                                sheet="Absence - Most Reason"
+                                buttonText="Download as Excel"
+                            />
                         </div>
                         <div className='reason-body'>
                             <table id='absence-tbl'>

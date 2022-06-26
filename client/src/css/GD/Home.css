@@ -20,7 +20,7 @@
     width: 100%;
 }
 
-#smartchat-tbl {
+.smartchat-tbl {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -95,7 +95,7 @@ thead#absence-thead {
     padding: 5px;
 }
 
-button#smartbtn,
+button#test-tbl-xls-button,
 button#shiftbtn,
 button#transferbtn,
 button#absencebtn {

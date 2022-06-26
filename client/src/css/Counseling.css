@@ -1,7 +1,7 @@
 .counseling-wrapper{
     background-color: white;
     display: flex;
-    height: 100vh;
+    height: auto;
 }
 
 .counseling-container{

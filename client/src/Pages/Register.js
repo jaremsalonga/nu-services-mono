@@ -143,11 +143,6 @@ function Register() {
                                     onChange={(e) => { setStudent_numberReg(e.target.value) }} />
                             </div>
                             <span className="register-error">{student_numberRegError}</span>
-                            <div className="register-label"><h3>Display Picture<span>*</span></h3></div>
-                            <div className="registration-field">
-                                <input type="file" placeholder="Upload File" />
-                            </div>
-
                             <div className="register-label"><h3>Full Name<span>*</span></h3></div>
                             <div className="registration-field">
                                 <input type="text"

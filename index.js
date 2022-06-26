@@ -238,6 +238,7 @@ app.post("/services/goodmoral/create", (req, res) => {
             [purpose_req, number_copy, special_instruction, status, user_id],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -249,6 +250,7 @@ app.get("/services/goodmoral/get/:id", (req, res) => {
     const sqlSelect = "SELECT * FROM goodmoral_req WHERE user_id = ?";
     db.query(sqlSelect, user_id, (err, result) => {
         res.send(result);
+        
     });
 });
 
@@ -333,6 +335,7 @@ app.post('/enrollment/enrollmentstudentform/create', (req, res) => {
                 guardian_contact, guardian_address, status, user_id],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -452,6 +455,7 @@ app.post("/interview/requestinterview/createShiftForm", (req, res) => {
             [shift_course_count, shift_from, shift_to, shifting_reason, reason_explain, shifting_commitment, type_communication, status, user_id, type_interview, new Date(date)],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -477,6 +481,7 @@ app.post("/interview/requestinterview/createGradForm", (req, res) => {
             [last_ay, last_term, plan_after_grad, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id, new Date(date)],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -503,6 +508,7 @@ app.post("/interview/requestinterview/createTransferForm", (req, res) => {
             [transfer_reason, transfer_to, loc_new_school, new_course, comment_to_nu, permission_info, type_of_comm, status, type_interview, user_id, new Date(date)],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -525,6 +531,7 @@ app.post("/interview/requestinterview/createLeaveOfAbsenceForm", (req, res) => {
             [absence_reason, enroll_again, comment_to_nu, type_of_comm, status, type_interview, user_id, new Date(date)],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -542,6 +549,7 @@ app.post("/counseling/consent/createConsent", (req, res) => {
             [consult_family, contact_fam, other_allied, user_id],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -562,6 +570,7 @@ app.post("/counseling/CounselingForm/create", (req, res) => {
             [concern_today, concern_feeling, type_contact, type_comm, user_id, status, new Date(date)],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -619,6 +628,7 @@ app.put('/profile/editprofile/update', (req, res) => {
         } else {
             db.query(sqlSelect, [fullname, gender, address, contact_no, hash, users_id], (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             });
         }
 
@@ -690,18 +700,14 @@ app.post('/accountmanagement/create', verifyJWT, (req, res) => {
             db.query(reg_faculty, [ga_faculty_id, fullname, gender, address, contact_no, email, college, hash, role], (err, result) => {
                 [fullname, gender, address, contact_no, email, college, hash, role],
                     console.log(err);
+                    res.status(200).send(result);
             });
 
         db.query("INSERT INTO users (fullname, gender, address, contact_no, email, college, password, role) VALUES (?,?,?,?,?,?,?,?)",
             [fullname, gender, address, contact_no, email, college, hash, role],
             (err, result) => {
                 console.log(err);
-            });
-
-        db.query("INSERT INTO faculty_members (ga_faculty_id, fullname, gender, address, contact_no, email, course_handle, password, role) VALUES (?,?,?,?,?,?,?,?,?)",
-            [ga_faculty_id, fullname, gender, address, contact_no, email, college, hash, role],
-            (err, result) => {
-                console.log(err);
+                res.status(200).send(result);
             });
     });
 });
@@ -759,6 +765,7 @@ app.post("/unavailability-dates", verifyJWT, (req, res) => {
         VALUES(?,?)`;
         db.query(sqlSelect, [new Date(unavailability_date[i]), users_id], (err, res) => {
             console.log(err)
+            res.status(200).send(result);
         })
     }
     res.send(req.params.unavailability_dates);
@@ -806,6 +813,7 @@ app.post("/viewrequestdetails/absence/approved", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, users_id, interview_time, absencereq_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 //decline absence request
@@ -817,6 +825,7 @@ app.post("/viewrequestdetails/absence/decline/", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, users_id, req.params.absencereq_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 
@@ -831,6 +840,7 @@ app.post("/viewrequestdetails/shift/approved", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, users_id, interview_time, shift_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 //decline shift request
@@ -842,6 +852,7 @@ app.post("/viewrequestdetails/shift/decline", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, req.params.shift_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 
@@ -857,6 +868,7 @@ app.post("/viewrequestdetails/transfer/approved", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, users_id, interview_time, transferreq_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 //decline transfer request
@@ -868,6 +880,7 @@ app.post("/viewrequestdetails/shift/decline", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, req.params.transferreq_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 
@@ -883,6 +896,7 @@ app.post("/viewrequestdetails/grad/approved", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, users_id, interview_time, gradreq_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 //decline grad request
@@ -894,6 +908,7 @@ app.post("/viewrequestdetails/grad/decline", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, req.params.gradreq_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 
@@ -909,6 +924,7 @@ app.post("/viewrequestdetails/smartchat/approved", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, users_id, interview_time, smartchat_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 //decline smartchat request
@@ -920,18 +936,10 @@ app.post("/viewrequestdetails/smartchat/decline", verifyJWT, (req, res) => {
 
     db.query(sqlSelect, [status, req.params.smartchat_id], (err, result) => {
         res.send(result)
+        res.status(200).send(result);
     })
 })
 //-----------------------------------------------------------------------------------//
-
-//faculty get
-// app.get("/guidance/get", (req, res) => {
-//     const sqlSelect = `SELECT * FROM faculty_members WHERE role='guidance associate`
-//     db.query(sqlSelect, (err, result) => {
-//         res.send(result);
-//     });
-// });
-
 
 //get all guidance assoc
 app.get('/accountmanagement', verifyJWT, (req, res) => {
@@ -962,6 +970,7 @@ app.put("/announcement/edit", (req, res) => {
     const sqlSelect = `UPDATE announcement SET announcement_title = ?, announcement_description = ? WHERE user_id = ? AND announcement_no = ?`;
     db.query(sqlSelect, [announcement_title, announcement_description, users_id, announcement_no], (err, result) => {
         res.send(result);
+        res.status(200).send(result);
     });
 });
 
@@ -976,6 +985,7 @@ app.post("/announcement/create", (req, res) => {
             [announcement_title, announcement_description],
             (err, result) => {
                 console.log(err);
+                res.status(200).send(result);
             }
         )
     };
@@ -1025,7 +1035,7 @@ app.get("/dashboard/absence/reason", verifyJWT, (req, res) => {
         res.send(result);
     });
 
-}); 
+});
 
 //most common reason for transferring
 app.get("/dashboard/transfer/reason", verifyJWT, (req, res) => {
@@ -1057,8 +1067,77 @@ app.get("/dashboard/smartchat/reason", verifyJWT, (req, res) => {
 
 });
 
+//get all count smartchat
+app.get("/dashboard/counselled/total", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT COUNT(*) AS count 
+    FROM smartchat_req WHERE status='approved'`;
+
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    })
+})
+
+//get all count pending request
+app.get("/dashboard/pendings/total", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT SUM(totals) AS Totals FROM (
+        SELECT  COUNT(*) AS totals FROM grad_req WHERE status= 'pending'
+        UNION ALL
+        SELECT COUNT(*) as totals FROM  shift_req WHERE status= 'pending'
+        UNION ALL
+        SELECT COUNT(*) as totals FROM absence_req WHERE status= 'pending'
+        UNION ALL
+        SELECT COUNT(*) as totals FROM transfer_req WHERE status= 'pending'
+        UNION ALL
+        SELECT COUNT(*) as totals FROM smartchat_req WHERE status= 'pending'
+        ) totals`;
+
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    })
+})
+
+//get all count sii
+app.get("/dashboard/sii/total", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT COUNT(*) AS total 
+    FROM sii_request WHERE status='approved'`;
+
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    })
+})
 
 
+//get all student who done counselled
+app.get("/dashboard/total-counselled", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT * FROM smartchat_req
+    INNER JOIN users ON 
+    smartchat_req.user_id = users.users_id WHERE status ='pending'`;
+
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    })
+})
+
+//get all pending request
+app.get("/dashboard/total-pending", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT * FROM smartchat_req
+    INNER JOIN users ON 
+    smartchat_req.user_id = users.users_id WHERE status ='pending'`;
+
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    })
+})
 
 //-------------------------------------------------------------------------------------//
 
