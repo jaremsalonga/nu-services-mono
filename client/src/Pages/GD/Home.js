@@ -16,193 +16,203 @@ import { UserContext } from '../../contexts/user/userContext'
 import { saveAs } from 'file-saver';
 import { useCookies } from 'react-cookie'
 
-import { ReactHTMLTableTo } from 'react-html-table-to-excel'
+import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
 
-    function Home() {
+function Home() {
 
-        const [state] = React.useContext(UserContext)
-        const id = state.user.users_id
+    const [state] = React.useContext(UserContext)
+    const id = state.user.users_id
 
-        const [cookies] = useCookies(['token']);
+    const [cookies] = useCookies(['token']);
 
-        const [fullname, setFullname] = useState("");
-        const [usernameinfo, setUsernameInfo] = useState([]);
-
-
-
-        //smartchat
-        const [concern_today, setConcernToday] = useState("");
-        const [total, setTotal] = useState("");
-        const [reason, setReason] = useState([])
-        //shifting
-        const [shifting_reason, setShiftingReason] = useState("");
-        const [shiftreason, setShiftReason] = useState([])
-        //transfer
-        const [transfer_reason, setTransferReason] = useState("");
-        const [transreason, setTransReason] = useState([])
-        //absence
-        const [absence_reason, setAbsenceReason] = useState("");
-        const [absencereason, setAbsReason] = useState([])
-
-        let config = {
-            headers: { Authorization: `Bearer ${cookies.token}` }
-        };
-
-
-        useEffect(() => {
-            Axios.get(`/profile/get/${id}`, config).then((response) => {
-                setUsernameInfo(response.data);
-                console.log(response.data)
-            })
-
-            Axios.get(`/dashboard/smartchat/reason`, config).then((response) => {
-                setReason(response.data);
-                console.log(response.data)
-            })
-
-            Axios.get(`/dashboard/transfer/reason`, config).then((response) => {
-                setTransReason(response.data);
-                console.log(response.data)
-            })
-
-            Axios.get(`/dashboard/absence/reason`, config).then((response) => {
-                setAbsReason(response.data);
-                console.log(response.data)
-            })
-
-            Axios.get(`/dashboard/shift/reason`, config).then((response) => {
-                setShiftReason(response.data);
-                console.log(response.data)
-            })
-
-        }, [])
+    const [fullname, setFullname] = useState("");
+    const [usernameinfo, setUsernameInfo] = useState([]);
 
 
 
-        return (
-            <div className='homeWrapper'>
-                <Topbar />
-                <Sidebar />
-                <div className='home-content'>
-                    {usernameinfo.map((val, index) => (
-                        <div className='dashboard-name'>
-                            <h1>Hello, {val.fullname}</h1>
-                        </div>
-                    ))}
+    //smartchat
+    const [concern_today, setConcernToday] = useState("");
+    const [total, setTotal] = useState("");
+    const [reason, setReason] = useState([])
+    //shifting
+    const [shifting_reason, setShiftingReason] = useState("");
+    const [shiftreason, setShiftReason] = useState([])
+    //transfer
+    const [transfer_reason, setTransferReason] = useState("");
+    const [transreason, setTransReason] = useState([])
+    //absence
+    const [absence_reason, setAbsenceReason] = useState("");
+    const [absencereason, setAbsReason] = useState([])
 
-                    <div className='featured-tab'>
-                        <FeaturedTab />
+    const [result, setResult] = useState([]);
+
+    let config = {
+        headers: { Authorization: `Bearer ${cookies.token}` }
+    };
+
+
+    useEffect(() => {
+        Axios.get(`/profile/get/${id}`, config).then((response) => {
+            setUsernameInfo(response.data);
+            console.log(response.data)
+        })
+
+        Axios.get(`/dashboard/smartchat/reason`, config).then((response) => {
+            setReason(response.data);
+            console.log(response.data)
+        })
+
+        Axios.get(`/dashboard/transfer/reason`, config).then((response) => {
+            setTransReason(response.data);
+            console.log(response.data)
+        })
+
+        Axios.get(`/dashboard/absence/reason`, config).then((response) => {
+            setAbsReason(response.data);
+            console.log(response.data)
+        })
+
+        Axios.get(`/dashboard/shift/reason`, config).then((response) => {
+            setShiftReason(response.data);
+            console.log(response.data)
+        })
+
+    }, [])
+
+
+
+    return (
+        <div className='homeWrapper'>
+            <Topbar />
+            <Sidebar />
+            <div className='home-content'>
+                {usernameinfo.map((val, index) => (
+                    <div className='dashboard-name'>
+                        <h1>Hello, {val.fullname}</h1>
                     </div>
-                    <div className='overall-section'>
-                        <div className='common-reason-smartchat'>
-                            <h3>Most Reasons of Smart Chat</h3>
-                            <div className='smartchat-xlsbtn'>
-                                <button id='smartbtn'>Download as XLS</button>
-                            </div>
-                            <div className='reason-body'>
-                                <table id='smartchat-tbl'>
-                                    <thead id='smartchat-thead'>
-                                        <tr>
-                                            <th>Reason</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    {reason.map((val) => (
-                                        <tbody>
-                                            <tr>
-                                                <td>{val.concern_today}</td>
-                                                <td>{val.total}</td>
-                                            </tr>
-                                        </tbody>
-                                    ))}
-                                </table>
-                            </div>
+                ))}
+
+                <div className='featured-tab'>
+                    <FeaturedTab />
+                </div>
+                <div className='overall-section'>
+                    <div className='common-reason-smartchat'>
+                        <h3>Most Reasons of Smart Chat</h3>
+                        <div className='smartchat-xlsbtn'>
+                            <button id='smartbtn'>Download as XLS</button>
                         </div>
-                        <div className='common-reason-smartchat'>
-                            <h3>Most Reasons of Shifting</h3>
-                            <div className='smartchat-xlsbtn'>
-                                <button id='shiftbtn'>Download as XLS</button>
-                            </div>
-                            <div className='reason-body'>
-                                <table id='shifting-tbl'>
-                                    <thead id='shifting-thead'>
+                        <div className='reason-body'>
+                            <ReactHtmlTableToExcel
+                                id="test-tbl-xls-button"
+                                className='downloadn-table-xls'
+                                table="table-to-xls"
+                                filename="tablexls"
+                                sheet="tablexls"
+                                buttonText="Export to Excel"
+                            />
+                            <table id='smartchat-tbl'>
+                                <thead id='smartchat-thead'>
+                                    <tr>
+                                        <th>Reason</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                {reason.map((val) => (
+                                    <tbody>
                                         <tr>
-                                            <th>Reason</th>
-                                            <th>Total</th>
+                                            <td>{val.concern_today}</td>
+                                            <td>{val.total}</td>
                                         </tr>
-                                    </thead>
-                                    {shiftreason.map((val) => (
-                                        <tbody>
-                                            <tr>
-                                                <td>{val.shifting_reason}</td>
-                                                <td>{val.total}</td>
-                                            </tr>
-                                        </tbody>
-                                    ))}
-                                </table>
-                            </div>
-                        </div>
-                        <div className='common-reason-smartchat'>
-                            <h3>Most Reasons of Transferring</h3>
-                            <div className='smartchat-xlsbtn'>
-                                <button id='transferbtn'>Download as XLS</button>
-                            </div>
-                            <div className='reason-body'>
-                                <table id='transfer-tbl'>
-                                    <thead id='transfer-thead'>
-                                        <tr>
-                                            <th>Reason</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    {transreason.map((val) => (
-                                        <tbody>
-                                            <tr>
-                                                <td>{val.transfer_reason}</td>
-                                                <td>{val.total}</td>
-                                            </tr>
-                                        </tbody>
-                                    ))}
-                                </table>
-                            </div>
-                        </div>
-                        <div className='common-reason-smartchat'>
-                            <h3>Most Reasons of Leave of Absence</h3>
-                            <div className='smartchat-xlsbtn'>
-                                <button id='absencebtn'>Download as XLS</button>
-                            </div>
-                            <div className='reason-body'>
-                                <table id='absence-tbl'>
-                                    <thead id='absence-thead'>
-                                        <tr>
-                                            <th>Reason</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    {absencereason.map((val) => (
-                                        <tbody>
-                                            <tr>
-                                                <td>{val.absence_reason}</td>
-                                                <td>{val.total}</td>
-                                            </tr>
-                                        </tbody>
-                                    ))}
-                                </table>
-                            </div>
+                                    </tbody>
+                                ))}
+                            </table>
                         </div>
                     </div>
-                    <div className='second-dashboard-section'>
-                        <SmallWidget />
-                        <LargeWidget />
+                    <div className='common-reason-smartchat'>
+                        <h3>Most Reasons of Shifting</h3>
+                        <div className='smartchat-xlsbtn'>
+                            <button id='shiftbtn'>Download as XLS</button>
+                        </div>
+                        <div className='reason-body'>
+                            <table id='shifting-tbl'>
+                                <thead id='shifting-thead'>
+                                    <tr>
+                                        <th>Reason</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                {shiftreason.map((val) => (
+                                    <tbody>
+                                        <tr>
+                                            <td>{val.shifting_reason}</td>
+                                            <td>{val.total}</td>
+                                        </tr>
+                                    </tbody>
+                                ))}
+                            </table>
+                        </div>
                     </div>
-                    <div className='third-dashboard-section'>
-
+                    <div className='common-reason-smartchat'>
+                        <h3>Most Reasons of Transferring</h3>
+                        <div className='smartchat-xlsbtn'>
+                            <button id='transferbtn'>Download as XLS</button>
+                        </div>
+                        <div className='reason-body'>
+                            <table id='transfer-tbl'>
+                                <thead id='transfer-thead'>
+                                    <tr>
+                                        <th>Reason</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                {transreason.map((val) => (
+                                    <tbody>
+                                        <tr>
+                                            <td>{val.transfer_reason}</td>
+                                            <td>{val.total}</td>
+                                        </tr>
+                                    </tbody>
+                                ))}
+                            </table>
+                        </div>
+                    </div>
+                    <div className='common-reason-smartchat'>
+                        <h3>Most Reasons of Leave of Absence</h3>
+                        <div className='smartchat-xlsbtn'>
+                            <button id='absencebtn'>Download as XLS</button>
+                        </div>
+                        <div className='reason-body'>
+                            <table id='absence-tbl'>
+                                <thead id='absence-thead'>
+                                    <tr>
+                                        <th>Reason</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                {absencereason.map((val) => (
+                                    <tbody>
+                                        <tr>
+                                            <td>{val.absence_reason}</td>
+                                            <td>{val.total}</td>
+                                        </tr>
+                                    </tbody>
+                                ))}
+                            </table>
+                        </div>
                     </div>
                 </div>
+                <div className='second-dashboard-section'>
+                    <SmallWidget />
+                    <LargeWidget />
+                </div>
+                <div className='third-dashboard-section'>
 
+                </div>
             </div>
-        )
-    }
+
+        </div>
+    )
+}
 
 export default Home
