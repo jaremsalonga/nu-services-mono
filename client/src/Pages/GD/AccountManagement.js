@@ -32,18 +32,18 @@ function AccountManagement() {
 
   const [cookies] = useCookies(['token']);
 
-  const [accountuserList, setAccountUserList] = ([]);
+  const [accountuserList, setAccountUserList] = useState([]);
 
   let config = {
     headers: { Authorization: `Bearer ${cookies.token}` }
   };
 
-  // useEffect(() => {
-  //   Axios.get(`/accountmanagement`,config).then((response) => {
-  //     setAccountUserList(response.data)
-  //     console.log(response)
-  //   })
-  // }, []);
+  useEffect(() => {
+    Axios.get('/accountmanagement', config).then((response) => {
+      setAccountUserList(response.data)
+      console.log(response.data)
+    })
+  }, []);
 
 
   return (
@@ -54,9 +54,9 @@ function AccountManagement() {
         <div className='account-page-name'>
           <h1>Account AccountManagement</h1>
         </div>
-        {/* {accountuserList.map((val, index) => (
+        {accountuserList.map((val, index) => (
           <h1>{val.fullname}</h1>
-        ))} */}
+        ))}
       </div>
     </div>
   )

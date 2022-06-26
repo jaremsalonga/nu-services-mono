@@ -16,7 +16,7 @@ import { UserContext } from '../../contexts/user/userContext'
 import { saveAs } from 'file-saver';
 import { useCookies } from 'react-cookie'
 
-import ReactHtmlTableToExcel from 'react-html-table-to-excel';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 
 function Home() {
@@ -103,15 +103,15 @@ function Home() {
                             <button id='smartbtn'>Download as XLS</button>
                         </div>
                         <div className='reason-body'>
-                            <ReactHtmlTableToExcel
+                            <ReactHTMLTableToExcel
                                 id="test-tbl-xls-button"
                                 className='downloadn-table-xls'
-                                table="table-to-xls"
+                                table="emp-table"
                                 filename="tablexls"
                                 sheet="tablexls"
-                                buttonText="Export to Excel"
+                                buttonText="Download as Excel"
                             />
-                            <table id='smartchat-tbl'>
+                            <table className='smartchat-tbl' id='emp-table'>
                                 <thead id='smartchat-thead'>
                                     <tr>
                                         <th>Reason</th>
