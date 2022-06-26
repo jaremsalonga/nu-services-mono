@@ -934,8 +934,8 @@ app.post("/viewrequestdetails/smartchat/decline", verifyJWT, (req, res) => {
 
 
 //get all guidance assoc
-app.get('/accountmanagement', verifyJWT, (req, res) =>{
-    const {user: {department_id, users_id}, role} = req.params;
+app.get('/accountmanagement', verifyJWT, (req, res) => {
+    const { user: { department_id, users_id }, role } = req.params;
     const sqlSelect = `SELECT * FROM users 
     WHERE role = "guidance associate"`
 
@@ -1000,15 +1000,43 @@ app.get("/dashboard/smartchat/", verifyJWT, (req, res) => {
 //most common reason for shifting
 app.get("/dashboard/shift/reason", verifyJWT, (req, res) => {
 
-    const { user: { department_id, users_id }, status } = req.params;
+    const { user: { department_id, users_id } } = req.params;
 
-    const sqlSelect = `SELECT shifting_reason, 
-    COUNT(shifting_reason) AS 'common_reason'
-    FROM shift_req GROUP BY shifting_reason
-    ORDER BY 'common_reason' DESC
-    LIMIT 10`;
+    const sqlSelect = `SELECT count(shifting_reason) as total, shifting_reason
+    FROM shift_req 
+    GROUP BY shifting_reason`;
 
-    db.query(sqlSelect, [users_id, status], (err, result) => {
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+
+});
+
+//most common reason for absence
+app.get("/dashboard/absence/reason", verifyJWT, (req, res) => {
+
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(absence_reason) as total, absence_reason
+    FROM absence_req 
+    GROUP BY absence_reason`;
+
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+
+}); 
+
+//most common reason for transferring
+app.get("/dashboard/transfer/reason", verifyJWT, (req, res) => {
+
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(transfer_reason) as total, transfer_reason
+    FROM transfer_req 
+    GROUP BY transfer_reason`;
+
+    db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
 
