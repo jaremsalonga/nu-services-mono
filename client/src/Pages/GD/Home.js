@@ -29,8 +29,9 @@ function Home() {
 
     const [reason, setReason] = useState([])
 
-    const [concern, setConcern] = useState("");
+    const [concern_today, setConcernToday] = useState("");
     const [common_reason, setCommonReason] = useState("");
+    const [total, setTotal] = useState("");
 
     let config = {
         headers: { Authorization: `Bearer ${cookies.token}` }
@@ -44,12 +45,13 @@ function Home() {
         })
 
         Axios.get(`/dashboard/smartchat/reason`, config).then((response) => {
-            setCommonReason(response.data);
+            setReason(response.data);
+            console.log(response.data)
         })
 
     }, [])
 
-   
+
 
     return (
         <div className='homeWrapper'>
@@ -68,18 +70,29 @@ function Home() {
                 <div className='overall-section'>
                     <div className='common-reason-smartchat'>
                         <h3>Most Reasons of Smart Chat</h3>
-                        {/* {reason.map((val) => (
-                            <div className='reason-body'>
-                                <table>
+                        <di className='smartchat-xlsbtn'>
+                        <button>Download as XLS</button>
+                        </di>
+
+                        <div className='reason-body'>
+                            <table>
+                                <thead>
                                     <tr>
-                                        <th>reason</th>
+                                        <th>Reason</th>
+                                        <th>Total</th>
                                     </tr>
-                                    <tr>
-                                        <td>{val.concern}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        ))} */}
+                                </thead>
+                                {reason.map((val) => (
+                                    <tbody>
+                                        <tr>
+                                            <td>{val.concern_today}</td>
+                                            <td>{val.total}</td>
+                                        </tr>
+                                    </tbody>
+                                ))}
+                            </table>
+                        </div>
+
 
                     </div>
                     <div className='common-reason-smartchat'>

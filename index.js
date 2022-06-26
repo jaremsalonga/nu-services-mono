@@ -49,6 +49,14 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(helmet());
+app.use(function (req, res, next) {
+    res.setHeader("Permission-Policy", "self");
+    res.set("-Content-Type-XOptxions", "nosniff");
+    res.set("X-Frame-Options", "SAMEORIGIN");
+
+    return next();
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -934,8 +942,8 @@ app.post("/viewrequestdetails/smartchat/decline", verifyJWT, (req, res) => {
 
 
 //get all guidance assoc
-app.get('/accountmanagement', verifyJWT, (req, res) =>{
-    const {user: {department_id, users_id}, role} = req.params;
+app.get('/accountmanagement', verifyJWT, (req, res) => {
+    const { user: { department_id, users_id }, role } = req.params;
     const sqlSelect = `SELECT * FROM users 
     WHERE role = "guidance associate"`
 
@@ -1019,9 +1027,9 @@ app.get("/dashboard/smartchat/reason", verifyJWT, (req, res) => {
 
     const { user: { department_id, users_id } } = req.params;
 
-    const sqlSelect = `SELECT count(concern_feeling) as total, concern_feeling
+    const sqlSelect = `SELECT count(concern_today) as total, concern_today
     FROM smartchat_req 
-    GROUP BY concern_feeling`;
+    GROUP BY concern_today`;
 
     db.query(sqlSelect, (err, result) => {
         res.send(result);
