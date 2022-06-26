@@ -63,23 +63,27 @@ function FeaturedTab() {
                 </div>
             </Link>
             <div className='featuredItem'>
-                <span className='featuredTitle'>Pending Requests</span>
-                <div className='featuredContainer'>
-                    <span className='featuredIcon'><MdPendingActions size={50} /></span>
-                    {pendingTotal.map((val) => (
-                        <span className='featuredTotal'>{val.Totals} Request</span>
-                    ))}
-                </div>
+                <Link to='/pendingrequests/view'>
+                    <span className='featuredTitle'>Pending Requests</span>
+                    <div className='featuredContainer'>
+                        <span className='featuredIcon'><MdPendingActions size={50} /></span>
+                        {pendingTotal.map((val) => (
+                            <span className='featuredTotal'>{val.Totals} Request</span>
+                        ))}
+                    </div>
+                </Link>
             </div>
-            <div className='featuredItem'>
-                <span className='featuredTitle'>Student Individual Inventory</span>
-                <div className='featuredContainer'>
-                    <span className='featuredIcon'><MdOutlinePersonPin size={50} color='green' /></span>
-                    {siiTotal.map((val) => (
-                        <span className='featuredTotal'>{val.total} SII</span>
-                    ))}
 
-                </div>
+            <div className='featuredItem'>
+                <Link to='/featured/total-sii'>
+                    <span className='featuredTitle'>Student Individual Inventory</span>
+                    <div className='featuredContainer'>
+                        <span className='featuredIcon'><MdOutlinePersonPin size={50} color='green' /></span>
+                        {siiTotal.map((val) => (
+                            <span className='featuredTotal'>{val.total} SII</span>
+                        ))}
+                    </div>
+                </Link>
             </div>
         </div>
     )

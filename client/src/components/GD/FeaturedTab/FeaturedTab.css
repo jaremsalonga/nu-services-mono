@@ -19,6 +19,7 @@
 .featuredTitle{
     font-size: 20px;
     font-weight: 600;
+    color: black;
 }
 
 .featuredContainer{
@@ -29,6 +30,7 @@
 
 .featuredTotal{
     font-size: 25px;
+    color: black;
 }
 
 .featuredIcon{

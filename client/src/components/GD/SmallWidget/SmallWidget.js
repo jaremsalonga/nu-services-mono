@@ -18,6 +18,8 @@ function SmallWidget() {
     const [role, setRole] = useState("");
     const [guidanceinfo, setGuidanceInfo] = useState([]);
 
+    const [userinfo, setUserInfo] = useState([]);
+
     let config = {
         headers: { Authorization: `Bearer ${cookies.token}` }
     };
@@ -27,12 +29,25 @@ function SmallWidget() {
             setGuidanceInfo(response.data);
             console.log(response.data)
         })
+
+        Axios.get(`/profile/get/${id}`, config).then((response) => {
+            setUserInfo(response.data);
+            console.log(response.data)
+        })
     }, [])
 
     return (
         <div className='widgetSm'>
             <span className='widgetSmTitle'>NU Guidance Faculty</span>
             <ul className='widgetSmList'>
+                {userinfo.map((val) => (
+                    <li className='widgetSmListItem'>
+                        <div className='widgetSmUser'>
+                            <span className='widgetSmUsername'>{val.fullname}</span>
+                            <span className='widgetSmUserTitle'>{val.role}</span>
+                        </div>
+                    </li>
+                ))}
                 {guidanceinfo.map((val) => (
                     <li className='widgetSmListItem'>
                         <div className='widgetSmUser'>

@@ -71,6 +71,7 @@ import Account from './Pages/GD/Profile'
 import EditAccount from './Pages/GD/EditAccount';
 import AccountManagement from './Pages/GD/AccountManagement';
 import TotalCounselled from './components/GD/FeaturedTab/TotalCounselled';
+import TotalSII from './components/GD/FeaturedTab/TotalSII';
 
 
 function App() {
@@ -155,6 +156,7 @@ function App() {
 
         <PrivateRoute exact path="/dashboard" component={Home} role={['guidance director']} />
         <PrivateRoute exact path="/featured/total-counselled" component={TotalCounselled} role={['guidance director']} />
+        <PrivateRoute exact path="/featured/total-sii" component={TotalSII} role={['guidance director']} />
         <PrivateRoute exact path="/reports" component={Reports} role={['guidance director']} />
         <PrivateRoute exact path="/pendingrequests/view" component={PendingReq} role={['guidance director']} />
         <PrivateRoute exact path="/announcements/view" component={Announcements} role={['guidance director']} />

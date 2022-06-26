@@ -1,52 +1,51 @@
-.totalcounselled-wrapper {
+.total-sii-wrapper {
     background-color: white;
     display: flex;
     height: auto;
 }
 
-.totalcounselled-body{
+.total-sii-body {
     height: auto;
     width: 100%;
     padding: 30px;
 }
 
-.totalcounselled-name{
+.total-sii-name {
     width: 100%;
 }
 
-.totalcounselled-name h1{
+.total-sii-name h1 {
     font-size: 35px;
     text-transform: uppercase;
     color: black;
     margin-top: 5vh;
 }
 
-.totalcounselled-container{
+.total-sii-tbl-body {
+    height: 90vh;
+    width: 78vw;
+    overflow-y: scroll;
+}
+
+.total-sii-container {
     margin-top: 20px;
     padding: 10px;
     height: auto;
 }
 
-.totalcounselled-download-btn{
+.total-sii-download-btn {
     height: 40px;
     display: flex;
     justify-content: center;
 }
 
-.totalcounselled-tbl-body{
+.totalsii-tbl-body {
     margin-top: 20px;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-.totalcounselled-tbl-body td,
-.totalcounselled-tbl-body thead,
-.totalcounselled-tbl-body tbody {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.totalcounselled-thead{
+.total-sii-thead {
     background-color: #D4AF37;
 }

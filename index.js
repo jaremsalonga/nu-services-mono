@@ -250,7 +250,7 @@ app.get("/services/goodmoral/get/:id", (req, res) => {
     const sqlSelect = "SELECT * FROM goodmoral_req WHERE user_id = ?";
     db.query(sqlSelect, user_id, (err, result) => {
         res.send(result);
-        
+
     });
 });
 
@@ -700,7 +700,7 @@ app.post('/accountmanagement/create', verifyJWT, (req, res) => {
             db.query(reg_faculty, [ga_faculty_id, fullname, gender, address, contact_no, email, college, hash, role], (err, result) => {
                 [fullname, gender, address, contact_no, email, college, hash, role],
                     console.log(err);
-                    res.status(200).send(result);
+                res.status(200).send(result);
             });
 
         db.query("INSERT INTO users (fullname, gender, address, contact_no, email, college, password, role) VALUES (?,?,?,?,?,?,?,?)",
@@ -1105,7 +1105,7 @@ app.get("/dashboard/sii/total", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
 
     const sqlSelect = `SELECT COUNT(*) AS total 
-    FROM sii_request WHERE status='approved'`;
+    FROM sii_request`;
 
     db.query(sqlSelect, (err, result) => {
         res.send(result);
@@ -1119,7 +1119,20 @@ app.get("/dashboard/total-counselled", verifyJWT, (req, res) => {
 
     const sqlSelect = `SELECT * FROM smartchat_req
     INNER JOIN users ON 
-    smartchat_req.user_id = users.users_id WHERE status ='pending'`;
+    smartchat_req.user_id = users.users_id WHERE status ='approved'`;
+
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    })
+})
+
+//get all student who send SII
+app.get("/dashboard/total-sii", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT * FROM sii_request
+    INNER JOIN users ON 
+    sii_request.user_id = users.users_id`;
 
     db.query(sqlSelect, (err, result) => {
         res.send(result);
@@ -1130,9 +1143,35 @@ app.get("/dashboard/total-counselled", verifyJWT, (req, res) => {
 app.get("/dashboard/total-pending", verifyJWT, (req, res) => {
     const { user: { department_id, users_id } } = req.params;
 
-    const sqlSelect = `SELECT * FROM smartchat_req
+    const sqlSelect = `SELECT absencereq_id as id, fullname, type_interview, CONCAT('/viewrequestdetails/absence/' ,absencereq_id) AS route  FROM nugss.absence_req 
     INNER JOIN users ON 
-    smartchat_req.user_id = users.users_id WHERE status ='pending'`;
+    absence_req.user_id = users.users_id
+    where absence_req.status = 'pending'
+    UNION ALL
+    SELECT goodmoral_id, users.fullname, 'Good Moral' as type_interview, CONCAT('/viewrequestdetails/goodmoral/' , goodmoral_id) AS route FROM nugss.goodmoral_req 
+    INNER JOIN users ON 
+    goodmoral_req.user_id = users.users_id
+    where goodmoral_req.status = 'pending'
+    UNION ALL
+    SELECT shift_id, users.fullname, type_interview, CONCAT('/viewrequestdetails/shift/' , shift_id) AS route FROM nugss.shift_req 
+    INNER JOIN users ON 
+    shift_req.user_id = users.users_id
+    where shift_req.status = 'pending'
+    UNION ALL
+    SELECT smartchat_id, users.fullname, 'Smart Chat' AS type_interview, CONCAT('/viewrequestdetails/smartchat/' , smartchat_id) AS route FROM nugss.smartchat_req 
+    INNER JOIN users ON 
+    smartchat_req.user_id = users.users_id
+    where  smartchat_req.status = 'pending'
+    UNION ALL
+    SELECT transferreq_id, users.fullname, type_interview, CONCAT('/viewrequestdetails/transfer/' , transferreq_id) AS route FROM nugss.transfer_req 
+    INNER JOIN users ON 
+    transfer_req.user_id = users.users_id
+    where transfer_req.status = 'pending'
+    UNION ALL
+    SELECT gradreq_id, users.fullname, type_interview, CONCAT('/viewrequestdetails/grad/' , gradreq_id) AS route FROM nugss.grad_req 
+    INNER JOIN users ON 
+    grad_req.user_id = users.users_id
+    where  grad_req.status = 'pending'`;
 
     db.query(sqlSelect, (err, result) => {
         res.send(result);
