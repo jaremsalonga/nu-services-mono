@@ -1,4 +1,3 @@
-
 import './SmallWidget.css'
 import ash from '../../../images/ash.jpg'
 import Axios from 'axios';

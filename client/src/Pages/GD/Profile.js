@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../../css/GA/MyProfile.css';
 import archi from '../../images/archieval_s_salvador.jpg'
-import Header from '../../components/GA/Header_ga'
-import Navbar from '../../components/GA/Navbar_ga'
+import Header from '../../components/GD/Topbar/Topbar'
+import Navbar from '../../components/GD/Sidebar'
 import { UserContext } from '../../contexts/user/userContext'
 
 function Profile() {

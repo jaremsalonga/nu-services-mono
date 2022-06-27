@@ -1,0 +1,73 @@
+.coah-wrapper {
+    background-color: white;
+    display: flex;
+    height: auto;
+}
+
+.coah-body {
+    width: 100%;
+    margin-top: 10px;
+    padding: 15 px;
+    margin-left: 10vh;
+}
+
+.coah-name {
+    margin-top: 10vh;
+}
+
+.coah-tables {
+    margin-top: 10px;
+    width: 70vw;
+    padding: 10px;
+    -webkit-box-shadow: 0px 0px 11px -1px #000000;
+    box-shadow: 0px 0px 11px -1px #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+
+#coah-student-tbl td,
+#coah-student-tbl thead,
+#coah-student-tbl tbody,
+#coah-transfer-tbl td,
+#coah-transfer-tbl thead,
+#coah-transfer-tbl tbody,
+#coah-absence-tbl td,
+#coah-absence-tbl thead,
+#coah-absence-tbl tbody,
+#coah-shift-tbl td,
+#coah-shift-tbl thead,
+#coah-shift-tbl tbody,
+#coah-smart-tbl td,
+#coah-smart-tbl thead,
+#coah-smart-tbl tbody {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+thead#coah-student-tbl,
+thead#coah-transfer-thead,
+thead#coah-absence-thead,
+thead#coah-shift-thead,
+thead#coah-smart-thead {
+    background-color: #D4AF37;
+}
+
+.coah-students-xlsbtn {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+button#test-tbl-xls-button,
+button#shiftbtn,
+button#transferbtn,
+button#absencebtn {
+    height: auto;
+    padding: 5px;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}

@@ -23,14 +23,14 @@
 
 .total-sii-tbl-body {
     height: 90vh;
-    width: 78vw;
+    width: 70vw;
     overflow-y: scroll;
 }
 
-.total-sii-container {
-    margin-top: 20px;
-    padding: 10px;
-    height: auto;
+.total-sii-tbl-body {
+    height: 90vh;
+    width: 72vw;
+    overflow-y: scroll;
 }
 
 .total-sii-download-btn {

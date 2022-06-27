@@ -72,6 +72,9 @@ import EditAccount from './Pages/GD/EditAccount';
 import AccountManagement from './Pages/GD/AccountManagement';
 import TotalCounselled from './components/GD/FeaturedTab/TotalCounselled';
 import TotalSII from './components/GD/FeaturedTab/TotalSII';
+import ScheduleRequest from './Pages/GD/ScheduleRequest';
+import COAH from './components/GD/CollegeTab/COAH/COAH';
+import COA from './components/GD/CollegeTab/COA/COA';
 
 
 function App() {
@@ -90,9 +93,9 @@ function App() {
         <PrivateRoute path="/services" exact component={Services} role={['student']} />
 
         {/* GoodMoral */}
-        <PrivateRoute path="/services/goodmoral" exact component={GoodMoralReq} role={['student']} />
+        {/* <PrivateRoute path="/services/goodmoral" exact component={GoodMoralReq} role={['student']} />
         <PrivateRoute path="/services/goodmoral/view/:goodmoral_id" exact component={ViewGoodMoral} role={['student']} />
-        <PrivateRoute path="/services/goodmoral/request" exact component={GoodMoral} role={['student']} />
+        <PrivateRoute path="/services/goodmoral/request" exact component={GoodMoral} role={['student']} /> */}
 
 
         {/* SII */}
@@ -158,6 +161,9 @@ function App() {
         <PrivateRoute exact path="/featured/total-counselled" component={TotalCounselled} role={['guidance director']} />
         <PrivateRoute exact path="/featured/total-sii" component={TotalSII} role={['guidance director']} />
         <PrivateRoute exact path="/reports" component={Reports} role={['guidance director']} />
+        <PrivateRoute exact path="/reports/coah" component={COAH} role={['guidance director']} />
+        <PrivateRoute exact path="/reports/coa" component={COA} role={['guidance director']} />
+        <PrivateRoute exact path="/scheduledrequest/view" component={ScheduleRequest} role={['guidance director']} />
         <PrivateRoute exact path="/pendingrequests/view" component={PendingReq} role={['guidance director']} />
         <PrivateRoute exact path="/announcements/view" component={Announcements} role={['guidance director']} />
         <PrivateRoute exact path="/account" component={Account} role={['guidance director']} />

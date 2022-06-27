@@ -5,6 +5,8 @@ import Header from '../../components/GD/Topbar/Topbar'
 import Navbar from '../../components/GD/Sidebar'
 import { UserContext } from '../../contexts/user/userContext'
 import { useCookies } from 'react-cookie'
+import ListGA from '../../components/GD/AccountManagement/ListGA'
+import AddUser from '../../components/GD/AccountManagement/AddUser'
 
 
 function AccountManagement() {
@@ -54,9 +56,9 @@ function AccountManagement() {
         <div className='account-page-name'>
           <h1>Account AccountManagement</h1>
         </div>
-        {accountuserList.map((val, index) => (
-          <h1>{val.fullname}</h1>
-        ))}
+        <div className='list-guidance'>
+          <ListGA />
+        </div>
       </div>
     </div>
   )

@@ -3,3 +3,23 @@
     display: flex;
     height: auto;
 }
+
+.account-container{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.account-page-name {
+    margin-top: 10vh;
+    display: flex;
+    justify-content: first baseline;
+    margin-left: 5vh;
+}
+
+.account-page-name h1 {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    font-size: 40px;
+}

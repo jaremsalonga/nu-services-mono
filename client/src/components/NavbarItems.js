@@ -23,11 +23,11 @@ export const NavbarItems = [
         path: "#",
         icon: <VscServerProcess />,
         subNav: [
-            {
-                title: "Certificate of Good Moral",
-                icon: <BsAward />,
-                path: "/services/goodmoral"
-            },
+            // {
+            //     title: "Certificate of Good Moral",
+            //     icon: <BsAward />,
+            //     path: "/services/goodmoral"
+            // },
             {
                 title: "Student Individual Inventory",
                 icon: <FaNewspaper />,

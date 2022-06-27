@@ -54,9 +54,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
     user: process.env.DATABASE_USERNAME || "root",
-    host: process.env.DATABASE_HOST || "localhost",
-    password: process.env.DATABASE_PASSWORD || "password",
-    database: process.env.DATABASE_NAME || "nugss"
+    host: process.env.DATABASE_HOST || "34.123.166.183",
+    password: process.env.DATABASE_PASSWORD || "P@ssw0rd",
+    database: process.env.DATABASE_NAME || "nugss",
+    port: process.env.DATABASE_PORT || "3306"
 });
 
 //----------------------START OF PDF------------------------------------------------------//
@@ -314,7 +315,7 @@ app.post('/enrollment/enrollmentstudentform/create', (req, res) => {
     const guardian_contact = req.body.guardian_contact
     const guardian_address = req.body.guardian_address
     const user_id = req.body.user_id
-    const status = "pending"
+    const status = "approved"
 
     if (!enrollment_year_entered == "" || !gender_preference == "" || !enrollment_year_entered == "" ||
         !nationality == "" || !religion == "" || !place_of_birth == "" || !city_address == "" ||
@@ -681,34 +682,28 @@ app.get('/pendingrequest', verifyJWT, (req, res) => {
 
 //registering faculty
 app.post('/accountmanagement/create', verifyJWT, (req, res) => {
-    const ga_faculty_id = req.body.ga_faculty_id
+
     const fullname = req.body.fullname
     const gender = req.body.gender
     const address = req.body.address
     const contact_no = req.body.contact_no
     const email = req.body.email
-    const course_handle = req.body.course_handle
+    const department_id = req.body.department_id
     const password = req.body.password
-    const role = "guidance_associate";
-    const reg_faculty = "INSERT INTO guidance_associate (ga_faculty_id, fullname, gender, address, contact_no, email, course_handle, password, role) VALUES (?,?,?,?,?,?,?,?,?)";
+    const role = req.body.role;
+
+    const sqlSelect = `INSERT INTO users (fullname, gender, address, contact_no, email, department_id,  password, role) 
+    VALUES (?,?,?,?,?,?,?,?)`;
 
     bcrypt.hash(password, saltRounds, (err, hash) => {
         if (err) {
             console.log(err);
         }
-        if (email)
-            db.query(reg_faculty, [ga_faculty_id, fullname, gender, address, contact_no, email, college, hash, role], (err, result) => {
-                [fullname, gender, address, contact_no, email, college, hash, role],
-                    console.log(err);
-                res.status(200).send(result);
-            });
-
-        db.query("INSERT INTO users (fullname, gender, address, contact_no, email, college, password, role) VALUES (?,?,?,?,?,?,?,?)",
-            [fullname, gender, address, contact_no, email, college, hash, role],
-            (err, result) => {
+        if (email) {
+            db.query(sqlSelect, [fullname, gender, address, contact_no, email, department_id, hash, role], (err, result) => {
                 console.log(err);
-                res.status(200).send(result);
             });
+        }
     });
 });
 
@@ -1177,6 +1172,173 @@ app.get("/dashboard/total-pending", verifyJWT, (req, res) => {
         res.send(result);
     })
 })
+
+//select all student in coah
+app.get("/reports/coah", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT * FROM users WHERE department_id = 3`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for transferring of COAH
+app.get("/reports/coah/transfer/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(transfer_reason) as total, transfer_reason
+    FROM transfer_req  INNER join users on transfer_req.user_id = users.users_id where
+    department_id = 3
+    GROUP BY transfer_reason `;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for absence of COAH
+app.get("/reports/coah/absence/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(absence_reason) as total, absence_reason
+    FROM absence_req  INNER join users on absence_req.user_id = users.users_id where
+    department_id   = 3
+    GROUP BY absence_reason`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for shifting of COAH
+app.get("/reports/coah/shifting/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(shifting_reason) as total, shifting_reason
+    FROM shift_req  INNER join users on shift_req.user_id = users.users_id where
+    department_id   = 3
+    GROUP BY shifting_reason`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for smartchat of COAH
+app.get("/reports/coah/smartchat/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(concern_today) as total, concern_today
+    FROM smartchat_req  INNER join users on smartchat_req.user_id = users.users_id where
+    department_id   = 3
+    GROUP BY concern_today`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//count most gedner preference in coah
+app.get("/reports/coah/genderpref", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SSELECT count(gender_preference) as total, gender_preference
+    FROM sii_request  INNER join users on sii_request.user_id = users.users_id where
+    department_id   = 3
+    GROUP BY gender_preference`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+
+//------
+
+//select all student in coa
+app.get("/reports/coa", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT * FROM users WHERE department_id = 3`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for transferring of COAH
+app.get("/reports/coah/transfer/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(transfer_reason) as total, transfer_reason
+    FROM transfer_req  INNER join users on transfer_req.user_id = users.users_id where
+    department_id = 2
+    GROUP BY transfer_reason `;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for absence of COAH
+app.get("/reports/coah/absence/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(absence_reason) as total, absence_reason
+    FROM absence_req  INNER join users on absence_req.user_id = users.users_id where
+    department_id   = 2
+    GROUP BY absence_reason`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for shifting of COAH
+app.get("/reports/coah/shifting/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(shifting_reason) as total, shifting_reason
+    FROM shift_req  INNER join users on shift_req.user_id = users.users_id where
+    department_id   = 2
+    GROUP BY shifting_reason`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//select all most reason for smartchat of COAH
+app.get("/reports/coah/smartchat/reason", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SELECT count(concern_today) as total, concern_today
+    FROM smartchat_req  INNER join users on smartchat_req.user_id = users.users_id where
+    department_id   = 2
+    GROUP BY concern_today`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+//count most gedner preference in coah
+app.get("/reports/coah/genderpref", verifyJWT, (req, res) => {
+    const { user: { department_id, users_id } } = req.params;
+
+    const sqlSelect = `SSELECT count(gender_preference) as total, gender_preference
+    FROM sii_request  INNER join users on sii_request.user_id = users.users_id where
+    department_id   = 2
+    GROUP BY gender_preference`;
+
+    db.query(sqlSelect, department_id, (err, result) => {
+        res.send(result);
+    })
+})
+
+
 
 //-------------------------------------------------------------------------------------//
 

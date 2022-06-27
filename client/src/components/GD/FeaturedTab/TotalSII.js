@@ -84,7 +84,7 @@ function TotalSII() {
                 <div className='total-sii-name'>
                     <h1>
                         <Link to="/dashboard"><RiArrowGoBackFill color='#aaa' /></Link>
-                        Total Counselled</h1>
+                        Student Individual Inventory</h1>
                 </div>
                 <div className='total-sii-container'>
                     <div className='total-sii-download-btn'>
