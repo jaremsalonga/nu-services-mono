@@ -95,11 +95,6 @@ function Landingpage() {
             </div>
           </div>
 
-          <div className="forgot-password">
-            <Link to="/forgotpassword">
-              <div id="forgotpassword">Forgot Password? Click Here</div>
-            </Link>
-          </div>
           <div className="status">
             <h1>{loginmsg}</h1>
           </div>

@@ -12,6 +12,7 @@ import { ImCheckmark } from 'react-icons/im'
 import { RiCloseCircleFill } from 'react-icons/ri';
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { FaCheck } from 'react-icons/fa'
+import TermPopUp from '../components/TermPopUp/TermPopUp';
 
 function Register() {
 
@@ -132,6 +133,7 @@ function Register() {
                     <div className="register-container-title">
                         <h1>Register</h1>
                     </div>
+                    <TermPopUp />
                     <div className="registration-form">
                         <div className="registration-form-contents">
 

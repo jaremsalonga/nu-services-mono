@@ -1,0 +1,25 @@
+.terms-btns{
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+button#terms-cancel{
+    border: none;
+    height: 40px;
+    width: 5vw;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+button#terms-accept{
+    cursor: pointer;
+    border: none;
+    height: 40px;
+    width: 5vw;
+    margin-left: 5px;
+    border-radius: 5px;
+    color: white;
+}
